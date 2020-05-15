@@ -1,91 +1,17 @@
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
-
- /* HEADER  */
-.main-header {
-  width: 100%;
-  height: 100px;
+.closeFormSearch{
+    display: none;
 }
-.logo{
-  font-family:Impact;
-  font-size: 40px;
+.form-search, input, input:focus{
+    background-color: black;
+    color: white;
+    border: none;
+    outline: none;
+    line-height: 60px;
 }
-.main-header .navbar {
-  width: 100%;
-  height: 100%;
-  padding: 0 15%;
-}
-
-.navbar-collapse {
-  justify-content: space-evenly;
-}
-
-.nav-item {
-  margin: 0 20px;
-}
-
-.navbar-nav .nav-item:hover span {
-  color: red;
-}
-.fa-search {
-  line-height: 54px;
-  cursor: pointer;
-}
-
-.navbar .navbar-nav {
-  position: relative;
-}
-
-.nav-link:hover {
-  box-shadow: 0 0 5px #ce1313;
-  border-radius: 8px;
-}
-
-.type-product {
-  width: 1002px;
-  background-color: rgb(248,249,250);
-  position: absolute;
-  left: -170px;
-  top: 60px;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.5s;
-  cursor: default;
-  border: 1px solid rgba(207, 206, 206, 0.952);
-}
-nav ul ul {
-  width: 250px;
-  list-style: none;
-  display: inline-block;
-  padding: 0 40px 0 20px ;
-}
-nav ul ul:nth-child(4){
-  border-right: none;
-}
-
-nav ul ul li{
-  position: relative;
-  padding: 10px 0px 10px 10px;
-}
-
-nav ul li:hover .type-product {
-  opacity: 1;
-  visibility: visible;
-}
-
-nav ul ul li a{
-  color: gray;
-}
-nav ul ul li a:hover{
-  text-decoration: none;
-  color: rgba(231, 27, 27, 0.637);
-}
-
-
-/* SLIDES */
-
-.slides-shop {
-  width: 100%;
+i {
+    color: white;
 }
