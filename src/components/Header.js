@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SlideCart from './SlideCart';
 import { Container, Row, Col} from 'react-bootstrap';
 import { Nav, Navbar, NavDropdown, Dropdown} from 'react-bootstrap';
 import { Form, Button } from 'react-bootstrap';
@@ -7,8 +8,7 @@ class Header extends Component {
     constructor(props){
         super(props);
         this.state = {
-            formSearch: true,
-            slideCart: true
+            formSearch: false
         }
     }
 
@@ -20,19 +20,20 @@ class Header extends Component {
 
     render(){
         return (
-        <div>
+        <div className="header">
             <Container fluid>
                 <Row>
-                    <Navbar style={{ width: '100rem', padding: '10px 60px'}} collapseOnSelect expand="md" bg="dark" variant="dark">
-                        <Navbar.Brand href="#">ShopStyle</Navbar.Brand>
+                    {/* <Col> */}
+                    <Navbar style={{ width: '100rem', padding: '10px 60px'}} collapseOnSelect expand="lg" bg="light" variant="light">
+                        <Navbar.Brand href="" style={{fontFamily: 'Audrey', fontSize: '2rem'}}>ShopStyle</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
-                            <Nav className="m-auto">
+                            <Nav className="m-auto p-2">
                                 <Nav.Item>
-                                    <Nav.Link href="#features">Home</Nav.Link>
+                                    <Nav.Link href="">Home</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link href="#pricing">About</Nav.Link>
+                                    <Nav.Link href="">About Us</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
                                     <NavDropdown title="Product" id="collasible-nav-dropdown">
@@ -75,18 +76,24 @@ class Header extends Component {
                                     </NavDropdown>
                                 </Nav.Item>
                                 <Nav.Item>
+                                    <Nav.Link href="">SHOP</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link href="">Contact Us</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
                                     <Button variant="" onClick={this.closeFormSearch}>
-                                        <i class="fas fa-search"></i>
+                                        <i className="fas fa-search"></i>
                                     </Button>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Button variant="">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </Button>
+
+                                    <SlideCart />
+                                
                                 </Nav.Item>
                             </Nav>
                         </Navbar.Collapse>
-                    </Navbar>
+                    </Navbar>                    
                 </Row>
             </Container>
 
