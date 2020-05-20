@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SlideCart from './SlideCart';
+import Cart from './Cart';
 import { Container, Row, Col} from 'react-bootstrap';
 import { Nav, Navbar, NavDropdown, Dropdown} from 'react-bootstrap';
 import { Form, Button } from 'react-bootstrap';
@@ -20,11 +20,11 @@ class Header extends Component {
 
     render(){
         return (
-        <div className="header">
+        <div style={{position: 'fixed', zIndex: '99999', width: '100%'}}>
             <Container fluid>
                 <Row>
-                    {/* <Col> */}
-                    <Navbar style={{ width: '100rem', padding: '10px 60px'}} collapseOnSelect expand="lg" bg="light" variant="light">
+
+                    <Navbar className="header" style={{width:"100%", height: "auto"}} expand="lg" bg="dark" variant="dark">
                         <Navbar.Brand href="" style={{fontFamily: 'Audrey', fontSize: '2rem'}}>ShopStyle</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
@@ -88,16 +88,17 @@ class Header extends Component {
                                 </Nav.Item>
                                 <Nav.Item>
 
-                                    <SlideCart />
+                                    <Cart />
                                 
                                 </Nav.Item>
                             </Nav>
                         </Navbar.Collapse>
-                    </Navbar>                    
+                    </Navbar>
+            
                 </Row>
             </Container>
 
-            <Form style={{ padding: '0 60px'}} 
+            <Form style={{ padding: '0 60px'}}
                 className={(this.state.formSearch === false) ? 'closeFormSearch form-search' : 'form-search'}>
                 <Row>
                     <Col  md="1" lg="1" >

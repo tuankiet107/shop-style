@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from './components/Header';
 import Slides from './components/Slides';
+import Products from './components/Products';
 
 class App extends Component {
 
@@ -12,7 +13,11 @@ class App extends Component {
             <Header />
           </header>
 
-          <Slides />
+          <div className="main-slides">
+            <Slides />
+          </div>
+
+          <Products />
 
       </div>
     )

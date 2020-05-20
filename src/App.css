@@ -2,41 +2,51 @@
     margin: 0;
     padding: 0;
 }
+body {
+    background-color: #2F3238 !important;
+    font-size: 10px;
+}
 
 /* HEADER */
+.header .navbar-brand{
+    margin-left: 100px;
+}
 
 .closeFormSearch{
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.6s;
 }
 
 .navbar-nav {
     justify-content: space-around;
 }
+.navbar-nav .nav-item {
+    margin: 0 10px;
+}
 
 .navbar-nav .nav-item .nav-link{
-    color: black !important;
+    color: white !important;
 }
 .navbar-nav .nav-item .nav-link:hover, .navbar-nav i:hover{
-    color: rgba(207, 26, 26, 0.842) !important;
+    color: #d45b5d !important;
 }
 
-.navbar-nav .nav-item {
-    margin: 0 5px;
-}
-@media screen and (max-width: 768px){
+@media screen and (max-width: 992px){
     .navbar-nav .nav-item {
         margin: 0;
     }
 }
 
 .form-search, input, input:focus{
-    background-color: black;
+    background-color: rgb(19, 18, 18);
     color: white;
     border: none;
     outline: none;
     line-height: 60px;
 }
-.form-search i {
+
+i {
     color: white;
 }
 
@@ -48,12 +58,10 @@
 }
 .col-10 .toast-header {
     display: block;
+    z-index: 999;
 }
 
 @media screen and (max-width: 1265px){
-    /* .col-2{
-        z-index: 3;
-    } */
     .col-10{
         position: absolute;
         top: 60px;
@@ -91,20 +99,62 @@
 }
 
 /* SLIDES */
+
 .carousel {
     position: absolute;
     z-index: 1;
 }
-img {
-    max-width:100rem;
-    max-height:400px;
-    width: auto;
-    height: auto;
+
+.main-slides img {
+    width: 100%;
+    height: 500px;
+    background-color: rgba(0,0,0,0.5);
 }
 
-.carousel-control-prev{
-    color: green;
+/* PRODUCTS */
+.slider-slick {
+    width: 100%;
+    height: 80vh;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
 }
-.carousel-control-prev:hover {
-    color: red !important;
+
+.box {
+    width: 300px;
+    height: 500px;
+    background-color:#26292E;
+    border-radius: 10px;
+    box-shadow: 5px 10px 18px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slick-slide img{
+    display: inline !important;
+}
+
+.box > img {
+    width: 75%;
+    height: 75%;
+    margin-top: 10px;
+}
+
+.box .details {
+    text-align: center;
+    color: rgb(184, 180, 180);
+    font-family: calibri; 
+}
+
+.box .logo {
+    margin-top: 10px;
+    height: 40px;
+}
+
+.box:hover {
+    background-color: #303031;
+    transition: all ease 0.3s;
+    transform: scale(1.02);
+    cursor: pointer;
 }

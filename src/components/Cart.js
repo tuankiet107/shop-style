@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Row, Col, Toast, Button, ListGroup } from 'react-bootstrap';
+import CartItem from './CartItem';
+import { Row, Col, Toast, Button } from 'react-bootstrap';
 
-function SlideCart() {
+function Cart() {
     const [showA, setShowA] = useState(false);
     const toggleShowA = () => setShowA(!showA);
     
@@ -20,7 +21,7 @@ function SlideCart() {
                     </Button>
                 </Col>
                 <Col xs={10}>
-                <Toast show={showA} onClose={toggleShowA} style={{height: '300px', width: '270px',position: 'absolute',top: 0, zIndex: '2'}}>
+                <Toast show={showA} onClose={toggleShowA} style={{height: 'auto', width: '270px',position: 'absolute',top: 0, zIndex: '2'}}>
                     <Toast.Header>
                     <img
                         src="holder.js/20x20?text=%20"
@@ -29,10 +30,9 @@ function SlideCart() {
                     />
                     </Toast.Header>
                     <Toast.Body>
-                        <ListGroup horizontal>
-                                <button className="btn">VIEW CART</button>
-                                <div className="total-price">Total: $1500</div>
-                        </ListGroup>
+
+                        <CartItem />
+
                     </Toast.Body>
                 </Toast>
                 </Col>
@@ -41,4 +41,4 @@ function SlideCart() {
     );
 }
 
-  export default SlideCart
+  export default Cart;

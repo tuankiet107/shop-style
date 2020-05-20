@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
-import './App.css';
+import SlideSlick from './SlideSlick';
+import Product from './Product';
+import { Container } from 'react-bootstrap';
+
 
 class Products extends Component {
   render() {
+
+
     return(
-      <div>
-          This is products
-      </div>
+      <Container>
+
+        <SlideSlick />
+
+        <Product />
+
+      </Container>
     )
   }
 }
