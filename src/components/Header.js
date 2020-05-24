@@ -24,7 +24,7 @@ class Header extends Component {
             <Container fluid>
                 <Row>
 
-                    <Navbar className="header" style={{width:"100%", height: "auto"}} expand="lg" bg="dark" variant="dark">
+                    <Navbar className="header" style={{width:"100%", height: "auto"}} expand="lg" bg="light" variant="light">
                         <Navbar.Brand href="" style={{fontFamily: 'Audrey', fontSize: '2rem'}}>ShopStyle</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
@@ -38,30 +38,20 @@ class Header extends Component {
                                 <Nav.Item>
                                     <NavDropdown title="Product" id="collasible-nav-dropdown">
                                         <Dropdown>
-                                        <Dropdown.Toggle variant="" id="dropdown-basic"> TOP </Dropdown.Toggle>
+                                        <Dropdown.Toggle variant="" id="dropdown-basic"> Clothes </Dropdown.Toggle>
                                             <Dropdown.Menu>
                                                 <Dropdown.Item href="#/action-1">Jackets</Dropdown.Item>
                                                 <Dropdown.Item href="#/action-2">Shirts</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-3">Sweaters & Cardigans</Dropdown.Item>
                                                 <Dropdown.Item href="#/action-2">T-Shirts</Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
                                         <Dropdown>
-                                        <Dropdown.Toggle variant="" id="dropdown-basic"> BOTTOM </Dropdown.Toggle>
+                                        <Dropdown.Toggle variant="" id="dropdown-basic"> MEN/WOMEN </Dropdown.Toggle>
                                             <Dropdown.Menu>
-                                                <Dropdown.Item href="#/action-1">Swimwear</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">Skirts</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-3">Jeans</Dropdown.Item>
+                                                <Dropdown.Item href="#/action-1">Dress</Dropdown.Item>
+                                                <Dropdown.Item href="#/action-2">T-Shirts</Dropdown.Item>
+                                                <Dropdown.Item href="#/action-1">Jackets</Dropdown.Item>
                                                 <Dropdown.Item href="#/action-2">Trousers</Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                        <Dropdown>
-                                        <Dropdown.Toggle variant="" id="dropdown-basic"> CLOTHING </Dropdown.Toggle>
-                                            <Dropdown.Menu>
-                                                <Dropdown.Item href="#/action-1">Top Wear</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">Party Wear</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-3">Bottom Wear</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">Indian Wear</Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
                                         <Dropdown>
@@ -74,9 +64,6 @@ class Header extends Component {
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </NavDropdown>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Nav.Link href="">SHOP</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
                                     <Nav.Link href="">Contact Us</Nav.Link>

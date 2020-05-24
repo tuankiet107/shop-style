@@ -5,6 +5,8 @@ import { Row, Col, Toast, Button } from 'react-bootstrap';
 function Cart() {
     const [showA, setShowA] = useState(false);
     const toggleShowA = () => setShowA(!showA);
+
+    // const [count, setCount] = useState(0);
     
     return (
         <div
@@ -16,8 +18,9 @@ function Cart() {
             }} >
             <Row style={{flexWrap: 'nowrap'}}>
                 <Col xs={2} style={{maxWidth: 'none'}}>
-                    <Button onClick={toggleShowA} variant>
+                    <Button onClick={toggleShowA} variant className="d-flex pt-2">
                         <i className="fas fa-shopping-cart"></i>
+                        <span class="badge">{count}</span>
                     </Button>
                 </Col>
                 <Col xs={10}>

@@ -22,73 +22,100 @@ class SlideSlick extends Component {
     render(){
         let settings = {
             dots: true,
-            infinite: true,
+            infinite: false,
             speed: 500,
             slidesToShow: 3,
-            slidesToScroll: 1
+            slidesToScroll: 2,
+            initialSlide: 0,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 2,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  initialSlide: 2
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1
+                }
+              }
+            ]
         };
 
         return(
         <Slider {...settings}>
             <div className="slider-slick">
                 <div className="box">
-                    <img src={AntMan} className="model" />
+                    <img alt="" src={AntMan} className="model" />
                     <div className="details">
-                        <img src={AntManlogo} className="logo" />
+                        <img alt="" src={AntManlogo} className="logo" />
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas corporis asperiores aut </p>
                     </div>
                 </div>
             </div>
             <div className="slider-slick">
                 <div className="box">
-                    <img src={DeadPool} className="model" />
+                    <img alt="" src={DeadPool} className="model" />
                     <div className="details">
-                        <img src={DeadPoollogo} className="logo" />
+                        <img alt="" src={DeadPoollogo} className="logo" />
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas corporis asperiores aut </p>
                     </div>
                 </div>
             </div>
             <div className="slider-slick">
                 <div className="box">
-                    <img src={IronMan} className="model" />
+                    <img alt="" src={IronMan} className="model" />
                     <div className="details">
-                        <img src={IronManlogo} className="logo" />
+                        <img alt="" src={IronManlogo} className="logo" />
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas corporis asperiores aut </p>
                     </div>
                 </div>
             </div>
             <div className="slider-slick">
                 <div className="box">
-                    <img src={CapTain} className="model" />
+                    <img alt="" src={CapTain} className="model" />
                     <div className="details">
-                        <img src={CapTainlogo} className="logo" />
+                        <img alt="" src={CapTainlogo} className="logo" />
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas corporis asperiores aut </p>
                     </div>
                 </div>
             </div> 
             <div className="slider-slick">
                 <div className="box">
-                    <img src={SpiderMan} className="model" />
+                    <img alt="" src={SpiderMan} className="model" />
                     <div className="details">
-                        <img src={SpiderManlogo} className="logo" />
+                        <img alt="" src={SpiderManlogo} className="logo" />
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas corporis asperiores aut </p>
                     </div>
                 </div>
             </div> 
             <div className="slider-slick">
                 <div className="box">
-                    <img src={Thor} className="model" />
+                    <img alt="" src={Thor} className="model" />
                     <div className="details">
-                        <img src={Thorlogo} className="logo" />
+                        <img alt="" src={Thorlogo} className="logo" />
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas corporis asperiores aut </p>
                     </div>
                 </div>
             </div>
             <div className="slider-slick">
                 <div className="box">
-                    <img src={Venom} className="model" />
+                    <img alt="" src={Venom} className="model" />
                     <div className="details">
-                        <img src={Venomlogo} className="logo" />
+                        <img alt="" src={Venomlogo} className="logo" />
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas corporis asperiores aut </p>
                     </div>
                 </div>

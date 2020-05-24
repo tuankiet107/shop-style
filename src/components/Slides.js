@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Carousel } from 'react-bootstrap';
 
+import img1 from '../img/slides/img1.jpeg';
+import img2 from '../img/slides/img2.jpg';
+import img3 from '../img/slides/img3.jpg';
+
 class Slides extends Component {
     render() {
         return(
