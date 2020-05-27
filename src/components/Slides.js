@@ -12,7 +12,7 @@ class Slides extends Component {
                 <Carousel.Item>
                     <img
                     className="d-block w-100"
-                    src="" 
+                    src={img1}
                     alt="First slide"
                     />
                     <Carousel.Caption>
@@ -23,7 +23,7 @@ class Slides extends Component {
                 <Carousel.Item>
                     <img
                     className="d-block w-100"
-                    src=""
+                    src={img2}
                     alt="Third slide"
                     />
                     <Carousel.Caption>
@@ -34,7 +34,7 @@ class Slides extends Component {
                 <Carousel.Item>
                     <img
                     className="d-block w-100"
-                    src=""
+                    src={img3}
                     alt="Third slide"
                     />
 

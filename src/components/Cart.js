@@ -1,47 +1,49 @@
-import React, { useState } from 'react';
-import CartItem from './CartItem';
-import { Row, Col, Toast, Button } from 'react-bootstrap';
+import React, { Component } from 'react';
 
-function Cart() {
-    const [showA, setShowA] = useState(false);
-    const toggleShowA = () => setShowA(!showA);
+import {NavDropdown, ListGroup} from 'react-bootstrap';
 
-    // const [count, setCount] = useState(0);
-    
-    return (
-        <div
-            aria-live="polite"
-            aria-atomic="true"
-            style={{
-                position: 'relative',
-                width: '130px'
-            }} >
-            <Row style={{flexWrap: 'nowrap'}}>
-                <Col xs={2} style={{maxWidth: 'none'}}>
-                    <Button onClick={toggleShowA} variant className="d-flex pt-2">
-                        <i className="fas fa-shopping-cart"></i>
-                        <span class="badge">{count}</span>
-                    </Button>
-                </Col>
-                <Col xs={10}>
-                <Toast show={showA} onClose={toggleShowA} style={{height: 'auto', width: '270px',position: 'absolute',top: 0, zIndex: '2'}}>
-                    <Toast.Header>
-                    <img
-                        src="holder.js/20x20?text=%20"
-                        className="rounded mr-2"
-                        alt=""
-                    />
-                    </Toast.Header>
-                    <Toast.Body>
+class Cart extends Component {
 
-                        <CartItem />
+    render(){
+        // let {items} = this.props;
+        // let result = items.map((item,index) => {
+        //     return  <ListGroup.Item key={index}>
+        //                 <h6>{item.name}</h6>
+        //                 <p>{item.quantity} - <span>{item.price}</span></p>
+        //             </ListGroup.Item>
+        // })
+        return(
+            <NavDropdown title={
+                            <i className="fas fa-shopping-cart">
+                                <span className="badge">{this.props.quantity}</span>
+                            </i>
+                        }
+                        id="basic-nav-dropdown"
+            >
+            <ListGroup>
+                {/* <ListGroup.Item>
+                    <h6>Name</h6>
+                    <p>1x - <span> 50$</span></p>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                    <h6>Name</h6>
+                    <p>1x - <span> 50$</span></p>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                    <h6>Name</h6>
+                    <p>1x - <span> 50$</span></p>
+                </ListGroup.Item> */}
 
-                    </Toast.Body>
-                </Toast>
-                </Col>
-            </Row>
-        </div>
-    );
+                {/* {result} */}
+
+                <ListGroup horizontal style={{margin: '5px 15px'}}>
+                        <button className="btn">VIEW CART</button>
+                        <div className="total-price">Total: $1500</div>
+                </ListGroup>
+            </ListGroup>
+            </NavDropdown>
+        )
+    }
 }
 
   export default Cart;

@@ -5,13 +5,18 @@ import { Container } from 'react-bootstrap';
 
 
 class Products extends Component {
+
+  onAddItem = (product) => {
+    this.props.onAddItem(product);
+  }
+
   render() {
     return(
       <Container>
       
-        <Clothes />
+        <Clothes onAddItem={this.onAddItem} />
 
-        <Accessories />
+        <Accessories onAddItem={this.onAddItem} />
 
       </Container>
     )

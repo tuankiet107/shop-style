@@ -13,19 +13,19 @@ class Footer extends Component{
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat obcaecati quae aliquid aperiam impedit aut, quia ipsam quidem repudiandae, sunt numquam perspiciatis tempora ad maiores earum architecto natus, rerum voluptates.</p>
                             <ul>
                                 <li>
-                                    <i class="fab fa-facebook-square"></i>
+                                    <i className="fab fa-facebook-square"></i>
                                 </li>
                                 <li>
-                                    <i class="fab fa-youtube"></i>
+                                    <i className="fab fa-youtube"></i>
                                 </li>
                                 <li>
-                                    <i class="fab fa-whatsapp"></i>
+                                    <i className="fab fa-whatsapp"></i>
                                 </li>
                                 <li>
-                                    <i class="fab fa-google-plus-g"></i>
+                                    <i className="fab fa-google-plus-g"></i>
                                 </li>
                                 <li>
-                                    <i class="fab fa-twitter"></i>
+                                    <i className="fab fa-twitter"></i>
                                 </li>
                             </ul>
                         </div>
@@ -35,12 +35,12 @@ class Footer extends Component{
                         <div className="footer-link">
                             <h4>Information</h4>
                             <ul>
-                                <li><a href="">About Us</a></li>
-                                <li><a href="">Customer Service</a></li>
-                                <li><a href="">Our Sitemap</a></li>
-                                <li><a href="">Terms & Conditions</a></li>
-                                <li><a href="">Privacy Policy</a></li>
-                                <li><a href="">Delivery Information</a></li>
+                                <li><a href="/">About Us</a></li>
+                                <li><a href="/">Customer Service</a></li>
+                                <li><a href="/">Our Sitemap</a></li>
+                                <li><a href="/">Terms & Conditions</a></li>
+                                <li><a href="/">Privacy Policy</a></li>
+                                <li><a href="/">Delivery Information</a></li>
                             </ul>
                         </div>
                     </Col>
@@ -50,19 +50,19 @@ class Footer extends Component{
                             <h4>Contact Us</h4>
                             <ul>
                                 <li>
-                                    <i class="fas fa-map-marker-alt"></i>
+                                    <i className="fas fa-map-marker-alt"></i>
                                     Address: 
-                                    <a href=""> 123ABC, Xuan Khanh, Can Tho City Ahihi</a>
+                                    <a href="/"> 123ABC, Xuan Khanh, Can Tho City Ahihi</a>
                                 </li>
                                 <li>
-                                    <i class="fas fa-phone-square"></i>
+                                    <i className="fas fa-phone-square"></i>
                                     Phone: 
-                                    <a href=""> 1234567890</a>
+                                    <a href="/"> 1234567890</a>
                                 </li>
                                 <li>
-                                    <i class="fas fa-envelope"></i>
+                                    <i className="fas fa-envelope"></i>
                                     Email: 
-                                    <a href=""> info@gmail.com</a>
+                                    <a href="/"> info@gmail.com</a>
                                 </li>
                             </ul>
                         </div>

@@ -24,7 +24,7 @@ class Header extends Component {
             <Container fluid>
                 <Row>
 
-                    <Navbar className="header" style={{width:"100%", height: "auto"}} expand="lg" bg="light" variant="light">
+                    <Navbar style={{width:"100%", height: "auto"}} expand="lg" bg="light" variant="light">
                         <Navbar.Brand href="" style={{fontFamily: 'Audrey', fontSize: '2rem'}}>ShopStyle</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
@@ -75,7 +75,7 @@ class Header extends Component {
                                 </Nav.Item>
                                 <Nav.Item>
 
-                                    <Cart />
+                                    <Cart cartQty={this.props.cartQty} products={this.props.products} />
                                 
                                 </Nav.Item>
                             </Nav>
