@@ -56,6 +56,7 @@ class SlideSlick extends Component {
         };
 
         return(
+        <div className="container">
         <Slider {...settings}>
             <div className="slider-slick">
                 <div className="box">
@@ -121,6 +122,7 @@ class SlideSlick extends Component {
                 </div>
             </div> 
         </Slider>
+        </div>
         )
     }
 }

@@ -4,6 +4,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 class Footer extends Component{
     render(){
         return(
+            <footer id="contact">
             <div className="main-footer">
                 <Container>
                 <Row>
@@ -70,6 +71,7 @@ class Footer extends Component{
                 </Row>
                 </Container>
             </div>
+            </footer>
         )
     }
 }

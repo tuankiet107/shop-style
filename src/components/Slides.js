@@ -8,6 +8,7 @@ import img3 from '../img/slides/img3.jpg';
 class Slides extends Component {
     render() {
         return(
+            <div className="main-slides">
             <Carousel>
                 <Carousel.Item>
                     <img
@@ -44,6 +45,7 @@ class Slides extends Component {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
+            </div>
         )
     }
 }

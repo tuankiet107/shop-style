@@ -1,9 +1,7 @@
 /* HEADER */
-
-.main-header {
-    width: 100%;
-    height: 100%;
-
+header {
+    padding-bottom: 74px;
+    
     .navbar-brand{
         margin-left: 100px;
     }
@@ -23,6 +21,16 @@
             
             @media screen and (max-width: 992px){
                 margin: 0;
+            }
+
+            .dropdown{
+                .dropdown-menu{
+                    .mini-cart{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                }
             }
         }
     
@@ -90,5 +98,25 @@
                 font-size: 14px;
             }
         } 
+    }
+}
+
+.mt-5 {
+    .table-striped{
+        thead{
+            tr{
+                border-top: none !important;
+                border-bottom: 5px solid gray;
+            }
+        }
+        tbody{
+            tr{
+                line-height: 40px;
+
+                i{
+                    cursor: pointer;
+                }
+            }
+        }
     }
 }

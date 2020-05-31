@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Slider from "react-slick";
+import { connect } from 'react-redux';
+import { addBasket } from '../actions/addAction';
 
 class Clothes extends Component {
   constructor(props){
@@ -10,36 +12,42 @@ class Clothes extends Component {
   }
 
   componentDidMount(){
-    let products = [{
-        "id": "91e00493-6c62-4e1a-ad2c-54d380d2c904",
-        "name": "Kaymbo",
-        "price": "$24.35",
-        "image": "https://s1.thcdn.com/productimg/1600/1600/11676398-1394552253457309.png"
+    let products = [
+      {
+        id: "91e00493-6c62-4e1a-ad2c-54d380d2c904",
+        name: "Kaymbo",
+        price: 24.35,
+        image: "https://s1.thcdn.com/productimg/1600/1600/11676398-1394552253457309.png",
+        numbers: 0,
+        inCart: false
       }, {
-        "id": "a5b8f2a3-83b5-4cbd-b1b0-4d422779b29a",
-        "name": "Realbuzz",
-        "price": "$31.64",
-        "image": "https://www.pngkit.com/png/full/439-4395154_superhero-work-out-clothing-superman-batman-ironman-avengers.png"
+        id: "a5b8f2a3-83b5-4cbd-b1b0-4d422779b29a",
+        name: "Realbuzz",
+        price: 31.64,
+        image: "https://www.netclipart.com/pp/m/107-1073546_clipart-clothes-jumper-cute-outfits-niche-png.png",
+        numbers: 0,
+        inCart: false
       }, {
-        "id": "c1235be2-1c47-4ca2-aa21-18ef9435953b",
-        "name": "Photobug",
-        "price": "$28.31",
-        "image": "https://s1.thcdn.com/productimg/1600/1600/11676434-1924552259011185.png"
+        id: "c1235be2-1c47-4ca2-aa21-18ef9435953b",
+        name: "Photobug",
+        price: 28.31,
+        image: "https://s1.thcdn.com/productimg/1600/1600/11676434-1924552259011185.png",
+        numbers: 0,
+        inCart: false
       }, {
-        "id": "66b0908b-7846-4079-85a2-13d0dd155cbe",
-        "name": "Oyoyo",
-        "price": "$48.40",
-        "image": "https://www.pngkit.com/png/full/439-4395154_superhero-work-out-clothing-superman-batman-ironman-avengers.png"
+        id: "66b0908b-7846-4079-85a2-13d0dd155cbe",
+        name: "Oyoyo",
+        price: 48.40,
+        image: "https://i.pinimg.com/736x/3a/c7/ca/3ac7ca6edbf529d834e148c5fa44d818.jpg",
+        numbers: 0,
+        inCart: false
       }, {
-        "id": "35601403-06a5-439f-b90a-5e17909ba3da",
-        "name": "Photobean",
-        "price": "$67.77",
-        "image": "https://i.pinimg.com/originals/17/d6/46/17d646c165b87504fe32d61a5af51423.png"
-      }, {
-        "id": "bfdb8bff-f0bc-411f-ba35-0fe8f8f2e173",
-        "name": "Vitz",
-        "price": "$73.16",
-        "image": "https://s1.thcdn.com/productimg/1600/1600/11676434-1924552259011185.png"
+        id: "35601403-06a5-439f-b90a-5e17909ba3da",
+        name: "Photobean",
+        price: 67.77,
+        image: "https://i.pinimg.com/originals/17/d6/46/17d646c165b87504fe32d61a5af51423.png",
+        numbers: 0,
+        inCart: false
       }];
 
       this.setState({
@@ -83,15 +91,17 @@ class Clothes extends Component {
         };
 
         let {products} = this.state;
+        let {addBasket} = this.props;
         
         let result = products.map((product,index) => {
           return <div className="info-product" key={index}>
-                      <img alt="" src={product.image} className="model" />
+                      <img alt="" src={product.image} />
                       <div className="details">
                           <span>{product.name}</span>
-                          <span>{product.price}</span>
-                          <button className="btn btn-danger" onClick={this.addItem}>Add to cart</button>
+                          <span>${product.price}</span>
                       </div>
+                      <div className="overlay"></div>
+                      <div onClick={ () => addBasket(product)} className="button"><a> Add to cart </a> </div>
                   </div>
         })
 
@@ -108,4 +118,4 @@ class Clothes extends Component {
     }
 }
 
-export default Clothes;
+export default connect(null, { addBasket })(Clothes);
