@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import Slides from '../components/Slides';
 import Products from '../components/Products';
-import SlideSlick from '../components/SlideSlick';
+import NewNow from '../components/NewNow';
 import Footer from '../components/Footer';
 
 class Home extends Component {
@@ -11,7 +11,7 @@ class Home extends Component {
             <div>
                 <Slides />
 
-                <SlideSlick />
+                <NewNow />
 
                 <Products />
 

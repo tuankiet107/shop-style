@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
-import Clothes from './Clothes';
-import Accessories from './Accessories';
-import { Container } from 'react-bootstrap';
+import Women from './Women';
+import Men from './Men';
 
 
 class Products extends Component {
-
-  onAddItem = (product) => {
-    this.props.onAddItem(product);
-  }
-
   render() {
     return(
-      <Container>
+      <div className="container-fluid">
       
-        <Clothes onAddItem={this.onAddItem} />
+        <Women />
 
-        <Accessories onAddItem={this.onAddItem} />
+        <Men />
 
-      </Container>
+      </div>
     )
   }
 }

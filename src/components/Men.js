@@ -3,7 +3,14 @@ import Slider from "react-slick";
 import { connect } from 'react-redux';
 import { addBasket } from '../actions/addAction';
 
-class Accessories extends Component {
+import img1 from '../img/boys/img1.webp';
+import img2 from '../img/boys/img2.webp';
+import img3 from '../img/boys/img3.webp';
+import img4 from '../img/boys/img4.webp';
+import img5 from '../img/boys/img5.webp';
+import img6 from '../img/boys/img6.webp';
+
+class Men extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -17,7 +24,7 @@ class Accessories extends Component {
       id: "83eccdfe-753c-41bb-99f8-69d42f3bf892",
       name: "Photocat",
       price: 19.00,
-      image: "https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/99e1a716127b41d6bfb15a41dd976747_Large.png",
+      image: img1,
       numbers: 0,
       inCart: false,
     }, 
@@ -25,7 +32,7 @@ class Accessories extends Component {
       id: "37f16990-6173-4789-b911-046bd3c75aab",
       name: "Dabjam",
       price: 45.00,
-      image: "https://m.media-amazon.com/images/I/717ysJGdBIL._SR500,500_.jpg",
+      image: img2,
       numbers: 0,
       inCart: false
     }, 
@@ -33,7 +40,7 @@ class Accessories extends Component {
       id: "e40a2186-d52c-4a39-a24f-491801e50317",
       name: "Fivespan",
       price: 45.00,
-      image: "https://www.dhresource.com/600x600/f2/albu/g10/M01/CD/09/rBVaVlzeHlGAE4pmAAGmNpC5DTg711.jpg",
+      image: img3,
       numbers: 0,
       inCart: false
     },
@@ -41,10 +48,27 @@ class Accessories extends Component {
       id: "a8cb4b55-4cdb-4cc4-9f59-84fa107df631",
       name: "Trilith",
       price: 15.00,
-      image: "https://http2.mlstatic.com/iron-man-usb-20-flash-drive-de-almacenamiento-de-memoria-u-D_NQ_NP_692653-MLB31847775369_082019-F.webp",
+      image: img4,
       numbers: 0,
       inCart: false
-    }];
+    },
+    {
+      id: "a84bfsaf-4casf-4cfas-9f00-fasfajsfassf",
+      name: "Triple",
+      price: 85.00,
+      image: img5,
+      numbers: 0,
+      inCart: false
+    },
+    {
+      id: "fasfasfsaf-jfj6u-4cfas-0100-1asf5sfas5",
+      name: "Banana",
+      price: 40.00,
+      image: img6,
+      numbers: 0,
+      inCart: false
+    }
+  ];
 
       this.setState({
         products
@@ -55,10 +79,19 @@ class Accessories extends Component {
         let settings = {
             infinite: false,
             speed: 500,
-            slidesToShow: 3,
-            slidesToScroll: 1,
+            slidesToShow: 4,
+            slidesToScroll: 2,
             initialSlide: 0,
             responsive: [
+              {
+                breakpoint: 1324,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 2,
+                    infinite: true,
+                    dots: true
+                }
+              },
               {
                 breakpoint: 1024,
                 settings: {
@@ -73,13 +106,6 @@ class Accessories extends Component {
                   slidesToShow: 1,
                   slidesToScroll: 1,
                   initialSlide: 2
-                }
-              },
-              {
-                breakpoint: 480,
-                settings: {
-                  slidesToShow: 1,
-                  slidesToScroll: 1
                 }
               }
             ]
@@ -102,7 +128,7 @@ class Accessories extends Component {
 
         return(
         <div className="product">
-          <div className="title">Clothes</div>
+          <div className="title">Men</div>
           <Slider {...settings}>
 
                 {result}
@@ -113,4 +139,4 @@ class Accessories extends Component {
     }
 }
 
-export default connect(null, { addBasket })(Accessories);
+export default connect(null, { addBasket })(Men);

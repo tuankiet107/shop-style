@@ -34,6 +34,8 @@ function Cart({basketProps, productQuantity, clearProduct}){
             </tr>
         )
     })
+
+    let totalPrice = basketProps.cartCost;
     
     return(
         <div className="container mt-5">
@@ -50,9 +52,16 @@ function Cart({basketProps, productQuantity, clearProduct}){
             </thead>
             <tbody>
                 { productsInCart }
+
+                    
             </tbody>
 
             </Table>
+
+            <div className="total-price">
+                <h3>Totals: </h3>
+                <span>${totalPrice}.00</span>
+            </div>
         </div>
     )
 }

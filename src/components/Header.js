@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col} from 'react-bootstrap';
-import { Nav, Navbar, NavDropdown, Dropdown, ListGroup} from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown, ListGroup} from 'react-bootstrap';
 import { Form, Button } from 'react-bootstrap';
 
 import { connect } from 'react-redux';
@@ -50,46 +50,21 @@ class Header extends Component {
         <div style={{position: 'fixed', zIndex: '99999', width: '100%'}}>
             <Container fluid>
                 <Row>
-                    <Navbar style={{width:"100%", height: "auto"}} expand="lg" bg="light" variant="light">
-                        <Navbar.Brand href="" style={{fontFamily: 'Audrey', fontSize: '2rem'}}>ShopStyle</Navbar.Brand>
+                    <Navbar style={{width:"100%", height: "auto", background: '#ffff', borderBottom: '1px solid #D7D7D8'}} expand="lg">
+                        <Link to="/"><Navbar.Brand style={{fontFamily: 'Audrey', fontSize: '2rem'}}>
+                            ShopStyle
+                        </Navbar.Brand></Link>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="m-auto p-2">
                                 <Nav.Item>
-                                    <Link to="/" className="nav-link">Home</Link>
+                                    <Link to="/new" className="nav-link">New</Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Link to="/about" className="nav-link">About Us</Link>
+                                    <Link to="/women" className="nav-link">Women</Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <NavDropdown title="Product" id="collasible-nav-dropdown">
-                                        <Dropdown>
-                                        <Dropdown.Toggle variant="" id="dropdown-basic"> Clothes </Dropdown.Toggle>
-                                            <Dropdown.Menu>
-                                                <Dropdown.Item href="#/action-1">Jackets</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">Shirts</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">T-Shirts</Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                        <Dropdown>
-                                        <Dropdown.Toggle variant="" id="dropdown-basic"> MEN/WOMEN </Dropdown.Toggle>
-                                            <Dropdown.Menu>
-                                                <Dropdown.Item href="#/action-1">Dress</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">T-Shirts</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-1">Jackets</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">Trousers</Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                        <Dropdown>
-                                        <Dropdown.Toggle variant="" id="dropdown-basic"> ACCESSORIES </Dropdown.Toggle>
-                                            <Dropdown.Menu>
-                                                <Dropdown.Item href="#/action-1">Bags</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">Sunglasses</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-3">Fragrances</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">Wallets</Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                    </NavDropdown>
+                                    <Link to="/men" className="nav-link">Men</Link>
                                 </Nav.Item>
                                 <Nav.Item>
                                     <a href="#contact" className="nav-link">Contact Us</a>

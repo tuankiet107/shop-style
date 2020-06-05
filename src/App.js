@@ -9,6 +9,9 @@ import {
 import Header from './components/Header';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
+import New from './pages/New';
+import Women from './pages/Women';
+import Men from './pages/Men';
 
 function App(){
     return(
@@ -19,6 +22,9 @@ function App(){
                 <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/cart" component={Cart} />
+                  <Route path="/new" component={New} />
+                  <Route path="/women" component={Women} />
+                  <Route path="/men" component={Men} />
                 </Switch>
 
             </div>
