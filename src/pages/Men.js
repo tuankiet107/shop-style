@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
-import { addBasket } from '../actions/addAction';
+import { useDispatch } from 'react-redux';
+import { ADD_PRODUCT_BASKET } from '../actions/types';
 
 import boy1 from '../img/boys/img1.webp';
 import boy2 from '../img/boys/img2.webp';
@@ -62,6 +63,8 @@ function Men(){
       }
     ]
 
+    const dispatch = useDispatch();
+
     let result = products.map((product,index) => {
         return  <div className="info-product" key={index}>
                     <img alt="" src={product.image} />
@@ -70,7 +73,9 @@ function Men(){
                         <span>{product.price}.000đ</span>
                     </div>
                     <div className="overlay"></div>
-                    <div onClick={ () => addBasket(product)} className="button"><a> Add to cart </a> </div>
+                    <div onClick={ () => dispatch({type: ADD_PRODUCT_BASKET, payload: product.name})} className="button">
+                      <a> Add to cart </a> 
+                    </div>
                 </div>
     })
     return(

@@ -1,5 +1,4 @@
 import { ADD_PRODUCT_BASKET, 
-    GET_NUMBERS_BASKET, 
     INCREASE_QUANTITY, 
     DECREASE_QUANTITY, 
     CLEAR_PRODUCT
@@ -200,8 +199,7 @@ export default (state = initialState, action) => {
                     [action.payload]: productSelected
                 }
             }
-        case GET_NUMBERS_BASKET:
-            return {...state};
+
         case INCREASE_QUANTITY:
             productSelected = {...state.products[action.payload]};
             productSelected.numbers += 1;
@@ -214,6 +212,7 @@ export default (state = initialState, action) => {
                     [action.payload]: productSelected
                 }
             };
+
         case DECREASE_QUANTITY:
             productSelected = {...state.products[action.payload]};
             let newCartCost = 0;
@@ -236,6 +235,7 @@ export default (state = initialState, action) => {
                     [action.payload]: productSelected
                 }
             };
+
         case CLEAR_PRODUCT:
             productSelected = {...state.products[action.payload]};
             let numbersBackup = productSelected.numbers;
@@ -250,6 +250,7 @@ export default (state = initialState, action) => {
                     [action.payload]: productSelected
                 }
             }
+            
         default:
             return state;
     }

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Slider from "react-slick";
-import { connect } from 'react-redux';
-import { addBasket } from '../actions/addAction';
+import { useDispatch } from 'react-redux'; // look like mapDispatchToProps 
+import { ADD_PRODUCT_BASKET } from '../actions/types';
 
 import img1 from '../img/girls/img1.jpg';
 import img2 from '../img/girls/img2.webp';
@@ -10,15 +10,8 @@ import img4 from '../img/girls/img4.webp';
 import img5 from '../img/girls/img5.jpg';
 import img6 from '../img/girls/img6.jpg';
 
-class Clothes extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      products: []
-    }
-  }
+function Women() {
 
-  componentDidMount(){
     let products = [
       {
         id: "91e00493-6c62-4e1a-ad2c-54d380d2c904",
@@ -64,72 +57,65 @@ class Clothes extends Component {
         inCart: false
       }];
 
-      this.setState({
-        products
+      let settings = {
+          infinite: false,
+          speed: 500,
+          slidesToShow: 4,
+          slidesToScroll: 2,
+          initialSlide: 0,
+          responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                infinite: true
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                initialSlide: 2
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
+            }
+          ]
+      };
+
+      const dispatch = useDispatch();
+      
+      let result = products.map((product,index) => {
+        return <div className="info-product" key={index}>
+                    <img alt="" src={product.image} />
+                    <div className="details">
+                        <span>{product.name}</span>
+                        <span>{product.price}.000đ</span>
+                    </div>
+                    <div className="overlay"></div>
+                    <div onClick={ () => dispatch({type: ADD_PRODUCT_BASKET, payload: product.name})} className="button">
+                        <a> Add to cart </a> 
+                    </div>
+                </div>
       })
 
-  }
+      return(
+      <div className="product">
+        <div className="title">Women</div>
+        <Slider {...settings}>
 
-    render(){
-        let settings = {
-            infinite: false,
-            speed: 500,
-            slidesToShow: 4,
-            slidesToScroll: 2,
-            initialSlide: 0,
-            responsive: [
-              {
-                breakpoint: 1024,
-                settings: {
-                  slidesToShow: 2,
-                  slidesToScroll: 2,
-                  infinite: true
-                }
-              },
-              {
-                breakpoint: 600,
-                settings: {
-                  slidesToShow: 1,
-                  slidesToScroll: 1,
-                  initialSlide: 2
-                }
-              },
-              {
-                breakpoint: 480,
-                settings: {
-                  slidesToShow: 1,
-                  slidesToScroll: 1
-                }
-              }
-            ]
-        };
-
-        let {products} = this.state;
-        let {addBasket} = this.props;
+              {result}
         
-        let result = products.map((product,index) => {
-          return <div className="info-product" key={index}>
-                      <img alt="" src={product.image} />
-                      <div className="details">
-                          <span>{product.name}</span>
-                          <span>${product.price}</span>
-                      </div>
-                      <div className="overlay"></div>
-                      <div onClick={ () => addBasket(product)} className="button"><a> Add to cart </a> </div>
-                  </div>
-        })
-
-        return(
-        <div className="product">
-          <div className="title">Women</div>
-          <Slider {...settings}>
-
-                {result}
-          
-          </Slider>
-        </div>
-        )
-    }
+        </Slider>
+      </div>
+      )
 }
 
-export default connect(null, { addBasket })(Clothes);
+export default Women

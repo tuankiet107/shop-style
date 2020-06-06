@@ -38,7 +38,7 @@ class Header extends Component {
                         <img src={product.image} style={{width: '50px', height: '50px'}} alt="" />
                         <div className="details">
                             <h6>{product.name}</h6>
-                            <p>{product.numbers} - <span> ${product.price}</span></p>
+                            <p>{product.numbers} - <span> ${product.price}.000đ</span></p>
                         </div>
                     </ListGroup.Item>
                 </Link>

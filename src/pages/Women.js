@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { addBasket } from '../actions/addAction';
+import { useDispatch } from 'react-redux';
+import { ADD_PRODUCT_BASKET } from '../actions/types';
 
 import girl1 from '../img/girls/img1.jpg';
 import girl2 from '../img/girls/img2.webp';
@@ -10,7 +10,7 @@ import girl4 from '../img/girls/img4.webp';
 import girl5 from '../img/girls/img5.jpg';
 import girl6 from '../img/girls/img6.jpg';
 
-function Women({addBasket}){
+function Women(){
     // this is here to get all product from store
     let products = 
     [{
@@ -56,7 +56,9 @@ function Women({addBasket}){
         numbers: 0,
         inCart: false
       }
-    ]
+    ];
+
+    const dispatch = useDispatch();
 
     let result = products.map((product,index) => {
         return  <div className="info-product" key={index}>
@@ -66,7 +68,9 @@ function Women({addBasket}){
                         <span>{product.price}.000đ</span>
                     </div>
                     <div className="overlay"></div>
-                    <div onClick={ () => addBasket(product)} className="button"><a> Add to cart </a> </div>
+                    <div onClick={ () => dispatch({type: ADD_PRODUCT_BASKET, payload: product.name})} className="button">
+                        <a> Add to cart </a> 
+                    </div>
                 </div>
     })
     return(
@@ -83,4 +87,4 @@ function Women({addBasket}){
     )
 }
 
-export default connect(null, { addBasket })(Women);
+export default Women;

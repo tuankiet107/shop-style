@@ -1,6 +1,6 @@
 import React from 'react';
-import  { useSelector, useDispatch } from 'react-redux';
-import { enjoyProduct } from '../actions/enjoyAction';
+import  { useDispatch } from 'react-redux';
+import { ENJOY_PRODUCT } from '../actions/types';
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -100,7 +100,7 @@ function NewNow(){
                     <div className="details">
                             <span className="name">{product.name}</span>
                             <span className="price">{product.price}.000đ</span>
-                            <span onClick={() => dispatch(enjoyProduct)} className="far fa-heart"></span>
+                            <span onClick={() => dispatch({type: ENJOY_PRODUCT, payload: product})} className="far fa-heart"></span>
                     </div>
                 </div>
     })

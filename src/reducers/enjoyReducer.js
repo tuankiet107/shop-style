@@ -50,11 +50,27 @@ let initialState = {
 }
 
 export default (state = initialState, action) => {
+    let productEnjoyed = "";
+    let newHeartNumber = 0;
+
     switch(action.type){
         case ENJOY_PRODUCT:
-            // let productEnjoyed = {...state.products};
-            // console.log(productEnjoyed);
-            // return state;
+            const productAction = (product) => product.id === action.payload.id;
+            productEnjoyed = state.products.find(productAction);
+            
+            productEnjoyed.heart = !productEnjoyed.heart;
+            if(productEnjoyed.heart === true){
+                newHeartNumber = state.heartNumber;
+                newHeartNumber += 1;
+            }
+
+            return {
+                ...state,
+                heartNumber: newHeartNumber,
+                products: [
+                    ...state.products
+                ]
+            }
         default:
             return state;
     }

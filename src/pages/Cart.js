@@ -1,17 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { productQuantity, clearProduct } from '../actions/productQuantity';
 
 import { Table } from 'react-bootstrap';
 
-function Cart({basketProps, productQuantity, clearProduct}){      
-    console.log(basketProps);
+function Cart({productQuantity, clearProduct}){
 
     let productsInCart = [];
 
+    const basketProps = useSelector(state => state.basketState);
+
     Object.keys(basketProps.products).forEach(function(item){
-        console.log(item);
-        console.log(basketProps.products[item].inCart);
         if(basketProps.products[item].inCart === true){
             productsInCart.push(basketProps.products[item])
         }
@@ -24,13 +23,13 @@ function Cart({basketProps, productQuantity, clearProduct}){
                 <td><i className="fas fa-times" onClick={() => clearProduct(product.name)}></i></td>
                 <td><img src={product.image} style={{width: '50px', height: '50px'}} alt=""/></td>
                 <td>{product.name}</td>
-                <td>{product.price}.00</td>
+                <td>{product.price}.000đ</td>
                 <td style={{width: '250px'}}>
                     <i className="fas fa-minus mr-5" onClick={() => productQuantity('decrease',product.name)}></i>
                     <span>{product.numbers}</span>
                     <i className="fas fa-plus ml-5" onClick={() => productQuantity('increase',product.name)}></i>
                 </td>
-                <td style={{width: '250px'}}>${product.numbers * product.price}.00</td>
+                <td style={{width: '250px'}}>{product.numbers * product.price}.000đ</td>
             </tr>
         )
     })
@@ -51,27 +50,18 @@ function Cart({basketProps, productQuantity, clearProduct}){
                 </tr>
             </thead>
             <tbody>
-                { productsInCart }
-
-                    
+                { productsInCart }                
             </tbody>
 
             </Table>
 
             <div className="total-price">
                 <h3>Totals: </h3>
-                <span>${totalPrice}.00</span>
+                <span>{totalPrice}.000đ</span>
             </div>
         </div>
     )
 }
 
 
-
-const mapStateToProps = state => {
-    return {
-        basketProps: state.basketState
-    }
-}
-
-export default connect(mapStateToProps, {productQuantity, clearProduct})(Cart);
+export default connect(null, {productQuantity, clearProduct})(Cart);
