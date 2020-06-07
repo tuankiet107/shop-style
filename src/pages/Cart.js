@@ -20,14 +20,14 @@ function Cart({productQuantity, clearProduct}){
     productsInCart = productsInCart.map((product, index) => {        
         return (
             <tr key={index}>
-                <td><i className="fas fa-times" onClick={() => clearProduct(product.name)}></i></td>
+                <td><i className="fas fa-times" onClick={() => clearProduct(product)}></i></td>
                 <td><img src={product.image} style={{width: '50px', height: '50px'}} alt=""/></td>
                 <td>{product.name}</td>
                 <td>{product.price}.000đ</td>
                 <td style={{width: '250px'}}>
-                    <i className="fas fa-minus mr-5" onClick={() => productQuantity('decrease',product.name)}></i>
+                    <i className="fas fa-minus mr-5" onClick={() => productQuantity('decrease',product)}></i>
                     <span>{product.numbers}</span>
-                    <i className="fas fa-plus ml-5" onClick={() => productQuantity('increase',product.name)}></i>
+                    <i className="fas fa-plus ml-5" onClick={() => productQuantity('increase',product)}></i>
                 </td>
                 <td style={{width: '250px'}}>{product.numbers * product.price}.000đ</td>
             </tr>

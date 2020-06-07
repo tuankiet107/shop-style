@@ -3,58 +3,56 @@ import Slider from "react-slick";
 import { useDispatch } from 'react-redux'; // look like mapDispatchToProps 
 import { ADD_PRODUCT_BASKET } from '../actions/types';
 
-import img1 from '../img/girls/img1.jpg';
-import img2 from '../img/girls/img2.webp';
-import img3 from '../img/girls/img3.webp';
-import img4 from '../img/girls/img4.webp';
-import img5 from '../img/girls/img5.jpg';
-import img6 from '../img/girls/img6.jpg';
-
 function Women() {
 
     let products = [
       {
-        id: "91e00493-6c62-4e1a-ad2c-54d380d2c904",
-        name: "Kaymbo",
-        price: 24.00,
-        image: img1,
-        numbers: 0,
-        inCart: false
-      }, {
-        id: "a5b8f2a3-83b5-4cbd-b1b0-4d422779b29a",
-        name: "Realbuzz",
-        price: 31.00,
-        image: img2,
-        numbers: 0,
-        inCart: false
-      }, {
-        id: "c1235be2-1c47-4ca2-aa21-18ef9435953b",
-        name: "Photobug",
-        price: 28.00,
-        image: img3,
-        numbers: 0,
-        inCart: false
-      }, {
-        id: "66b0908b-7846-4079-85a2-13d0dd155cbe",
-        name: "Oyoyo",
-        price: 48.00,
-        image: img4,
-        numbers: 0,
-        inCart: false
-      }, {
-        id: "35601403-06a5-439f-b90a-5e17909ba3da",
-        name: "Photobean",
-        price: 67.00,
-        image: img5,
-        numbers: 0,
-        inCart: false
-      }, {
-        id: "356sf03-061-439f-050a-3d0ddasfd",
-        name: "Blackbean",
-        price: 67.00,
-        image: img6,
-        numbers: 0,
-        inCart: false
+        "id": "tttttttegfa1",
+        "name": "Shirt",
+        "price": 4,
+        "image": "https://i.pinimg.com/564x/dc/fb/a2/dcfba2a3c0f7f2e4285feb48efb36f26.jpg",
+        "numbers": 0,
+        "inCart": false
+      },
+      {
+        "id": "24444444tget",
+        "name": "Shoes",
+        "price": 46,
+        "image": "https://i.pinimg.com/564x/a9/36/3f/a9363f3ff0c628426d68180d1e60d39f.jpg",
+        "numbers": 0,
+        "inCart": false
+      },
+      {
+        "id": "3hhhhhhhhhhhsgf",
+        "name": "Bacon",
+        "price": 89,
+        "image": "https://i.pinimg.com/564x/cf/fe/2a/cffe2a099ff419f869790fb5843f3efe.jpg",
+        "numbers": 0,
+        "inCart": false
+      },
+      {
+        "id": "4777777775yy5g",
+        "name": "Soap",
+        "price": 42,
+        "image": "https://i.pinimg.com/564x/ab/53/55/ab5355be225cd517d28be0de023d3871.jpg",
+        "numbers": 0,
+        "inCart": false
+      },
+      {
+        "id": "5assssssds",
+        "name": "Cheese",
+        "price": 19,
+        "image": "https://i.pinimg.com/564x/ef/4e/0b/ef4e0b760a19b6a5404f92c57a19cdaf.jpg",
+        "numbers": 0,
+        "inCart": false
+      },
+      {
+        "id": "6sssssssssffffffffsf",
+        "name": "Soap",
+        "price": 24,
+        "image": "https://i.pinimg.com/564x/06/ae/16/06ae1616d931fc54011f3012edb5dc3c.jpg",
+        "numbers": 0,
+        "inCart": false
       }];
 
       let settings = {
@@ -100,7 +98,7 @@ function Women() {
                         <span>{product.price}.000đ</span>
                     </div>
                     <div className="overlay"></div>
-                    <div onClick={ () => dispatch({type: ADD_PRODUCT_BASKET, payload: product.name})} className="button">
+                    <div onClick={ () => dispatch({type: ADD_PRODUCT_BASKET, payload: product})} className="button">
                         <a> Add to cart </a> 
                     </div>
                 </div>
