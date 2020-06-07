@@ -3,65 +3,58 @@ import {Container, Row, Col} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { ADD_PRODUCT_BASKET } from '../actions/types';
 
-import boy1 from '../img/boys/img1.webp';
-import boy2 from '../img/boys/img2.webp';
-import boy3 from '../img/boys/img3.webp';
-import boy4 from '../img/boys/img4.webp';
-import boy5 from '../img/boys/img5.webp';
-import boy6 from '../img/boys/img6.webp';
-
 function Men(){
     // this is here to get all product from store
     let products = 
-    [    {
-        id: "83eccdfe-753c-41bb-99f8-69d42f3bf892",
-        name: "Photocat",
-        price: 19.00,
-        image: boy1,
-        numbers: 0,
-        inCart: false,
-      }, 
-      {
-        id: "37f16990-6173-4789-b911-046bd3c75aab",
-        name: "Dabjam",
-        price: 45.00,
-        image: boy2,
-        numbers: 0,
-        inCart: false
-      }, 
-      {
-        id: "e40a2186-d52c-4a39-a24f-491801e50317",
-        name: "Fivespan",
-        price: 45.00,
-        image: boy3,
-        numbers: 0,
-        inCart: false
-      },
-      {
-        id: "a8cb4b55-4cdb-4cc4-9f59-84fa107df631",
-        name: "Trilith",
-        price: 15.00,
-        image: boy4,
-        numbers: 0,
-        inCart: false
-      },
-      {
-        id: "a84bfsaf-4casf-4cfas-9f00-fasfajsfassf",
-        name: "Triple",
-        price: 85.00,
-        image: boy5,
-        numbers: 0,
-        inCart: false
-      },
-      {
-        id: "fasfasfsaf-jfj6u-4cfas-0100-1asf5sfas5",
-        name: "Banana",
-        price: 40.00,
-        image: boy6,
-        numbers: 0,
-        inCart: false
-      }
-    ]
+    [{
+      "id": "1faskfjasf",
+      "name": "name 1",
+      "price": 51,
+      "image": "https://i.pinimg.com/564x/83/9f/d3/839fd3f0d22c6eea27d1ccaa77bb722e.jpg",
+      "numbers": 0,
+      "inCart": false
+    },
+    {
+      "id": "2fasfasggd",
+      "name": "name 2",
+      "price": 30,
+      "image": "https://i.pinimg.com/564x/2e/aa/dd/2eaadd83a29543bfed7a920280c94818.jpg",
+      "numbers": 0,
+      "inCart": false
+    },
+    {
+      "id": "3bvbfhfhfdaf",
+      "name": "name 3",
+      "price": 26,
+      "image": "https://i.pinimg.com/564x/aa/6d/83/aa6d83808165fb25e0b8a1d958cda5e6.jpg",
+      "numbers": 0,
+      "inCart": false
+    },
+    {
+      "id": "4fasfsfewsay",
+      "name": "name 4",
+      "price": 69,
+      "image": "https://st.mngbcn.com/rcs/pics/static/T6/fotos/S20/67050513_99.jpg?ts=1573828488276&imwidth=508&imdensity=2",
+      "numbers": 0,
+      "inCart": false
+    },
+    {
+      "id": "5fasfy575iuka",
+      "name": "name 5",
+      "price": 20,
+      "image": "https://st.mngbcn.com/rcs/pics/static/T6/fotos/S20/67010505_37.jpg?ts=1576488844293&imwidth=508&imdensity=2",
+      "numbers": 0,
+      "inCart": false
+    },
+    {
+      "id": "6a45651asafsas",
+      "name": "name 6",
+      "price": 32,
+      "image": "https://st.mngbcn.com/rcs/pics/static/T6/fotos/S20/67000588_99.jpg?ts=1574681709606&imwidth=508&imdensity=2",
+      "numbers": 0,
+      "inCart": false
+    }
+    ];
 
     const dispatch = useDispatch();
 
@@ -73,14 +66,14 @@ function Men(){
                         <span>{product.price}.000đ</span>
                     </div>
                     <div className="overlay"></div>
-                    <div onClick={ () => dispatch({type: ADD_PRODUCT_BASKET, payload: product.name})} className="button">
-                      <a> Add to cart </a> 
+                    <div onClick={ () => dispatch({type: ADD_PRODUCT_BASKET, payload: product})} className="button">
+                        <a> Add to cart </a> 
                     </div>
                 </div>
     })
     return(
         <div className="page-products">
-            <div className="title">Men</div>
+            <div className="title">Women</div>
             <Container>
                 <Row>
                     <Col xs={12}>

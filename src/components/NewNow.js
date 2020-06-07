@@ -100,7 +100,9 @@ function NewNow(){
                     <div className="details">
                             <span className="name">{product.name}</span>
                             <span className="price">{product.price}.000đ</span>
-                            <span onClick={() => dispatch({type: ENJOY_PRODUCT, payload: product})} className="far fa-heart"></span>
+                            <span onClick={() => dispatch({type: ENJOY_PRODUCT, payload: product})} 
+                                  className={(product.heart === false) ? "far fa-heart" : "far fa-heart set-color"}>
+                            </span>
                     </div>
                 </div>
     })
