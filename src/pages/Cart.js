@@ -10,23 +10,24 @@ function Cart({productQuantity, clearProduct}){
 
     const basketProps = useSelector(state => state.basketState);
 
-    basketProps.products.forEach(function(item){
-        if(item.inCart === true){
-            productsInCart.push(item)
+    Object.keys(basketProps.products).forEach(function(item){
+        if(basketProps.products[item].inCart === true){
+            productsInCart.push(basketProps.products[item])
         }
-    })    
+        console.log(productsInCart);
+    })
 
     productsInCart = productsInCart.map((product, index) => {        
         return (
             <tr key={index}>
-                <td><i className="fas fa-times" onClick={() => clearProduct(product)}></i></td>
+                <td><i className="fas fa-times" onClick={() => clearProduct(product.name)}></i></td>
                 <td><img src={product.image} style={{width: '50px', height: '50px'}} alt=""/></td>
                 <td>{product.name}</td>
                 <td>{product.price}.000đ</td>
                 <td style={{width: '250px'}}>
-                    <i className="fas fa-minus mr-5" onClick={() => productQuantity('decrease',product)}></i>
+                    <i className="fas fa-minus mr-5" onClick={() => productQuantity('decrease',product.name)}></i>
                     <span>{product.numbers}</span>
-                    <i className="fas fa-plus ml-5" onClick={() => productQuantity('increase',product)}></i>
+                    <i className="fas fa-plus ml-5" onClick={() => productQuantity('increase',product.name)}></i>
                 </td>
                 <td style={{width: '250px'}}>{product.numbers * product.price}.000đ</td>
             </tr>
