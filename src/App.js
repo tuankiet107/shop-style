@@ -12,6 +12,7 @@ import Cart from './pages/Cart';
 import New from './pages/New';
 import Women from './pages/Women';
 import Men from './pages/Men';
+import Details from './pages/Details';
 
 function App(){
     return(
@@ -25,6 +26,7 @@ function App(){
                   <Route path="/new" component={New} />
                   <Route path="/women" component={Women} />
                   <Route path="/men" component={Men} />
+                  <Route path="/:detail" component={Details} />
                 </Switch>
 
             </div>

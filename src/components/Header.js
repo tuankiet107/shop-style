@@ -88,7 +88,7 @@ class Header extends Component {
                                             { productsInCart }
                                             
                                         <ListGroup horizontal style={{margin: '5px 15px'}}>
-                                                <button className="btn">BUY NOW</button>
+                                            <Link to="/cart"><button className="btn">BUY NOW</button></Link>
                                         </ListGroup>
                                         </ListGroup>
                                     </NavDropdown>

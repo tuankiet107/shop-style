@@ -1,69 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { ADD_PRODUCT_BASKET } from '../actions/types';
 
+import axios from 'axios';
+
 function Men(){
-    // this is here to get all product from store
-    let products = 
-    [ 
-      {
-        "id": "1faskfjasf",
-        "name": "name 1",
-        "price": 51,
-        "image": "https://i.pinimg.com/564x/83/9f/d3/839fd3f0d22c6eea27d1ccaa77bb722e.jpg",
-        "numbers": 0,
-        "inCart": false
-      },
-      {
-        "id": "2fasfasggd",
-        "name": "name 2",
-        "price": 30,
-        "image": "https://i.pinimg.com/564x/2e/aa/dd/2eaadd83a29543bfed7a920280c94818.jpg",
-        "numbers": 0,
-        "inCart": false
-      },
-      {
-        "id": "3bvbfhfhfdaf",
-        "name": "name 3",
-        "price": 26,
-        "image": "https://i.pinimg.com/564x/aa/6d/83/aa6d83808165fb25e0b8a1d958cda5e6.jpg",
-        "numbers": 0,
-        "inCart": false
-      },
-      {
-        "id": "4fasfsfewsay",
-        "name": "name 4",
-        "price": 69,
-        "image": "https://st.mngbcn.com/rcs/pics/static/T6/fotos/S20/67050513_99.jpg?ts=1573828488276&imwidth=508&imdensity=2",
-        "numbers": 0,
-        "inCart": false
-      },
-      {
-        "id": "5fasfy575iuka",
-        "name": "name 5",
-        "price": 20,
-        "image": "https://st.mngbcn.com/rcs/pics/static/T6/fotos/S20/67010505_37.jpg?ts=1576488844293&imwidth=508&imdensity=2",
-        "numbers": 0,
-        "inCart": false
-      },
-      {
-        "id": "6a45651asafsas",
-        "name": "name 6",
-        "price": 32,
-        "image": "https://st.mngbcn.com/rcs/pics/static/T6/fotos/S20/67000588_99.jpg?ts=1574681709606&imwidth=508&imdensity=2",
-        "numbers": 0,
-        "inCart": false
-      },
-      {
-        "id": "7",
-        "name": "name 7",
-        "price": 63,
-        "image": "image 7",
-        "numbers": 71,
-        "inCart": false
-      }
-    ]
+    
+  const [products, setProducts] = useState([]);
+    
+  useEffect(() => {
+    async function getApiProducts() {
+
+        try {
+          const response = await axios.get('https://5ed1c80d4e6d7200163a0b7e.mockapi.io/api/products');
+          const data = response.data;
+          setProducts(data[0].men);
+          
+        } catch (error) {
+          console.log('Failed to fetch api: ', error);
+        }
+
+    }
+
+    getApiProducts();
+  }, []);
 
     const dispatch = useDispatch();
 

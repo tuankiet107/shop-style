@@ -105,7 +105,12 @@
                     cursor: pointer;
 
                     .fa-heart{
+                        color: rgb(150, 149, 149);
                         font-size: 22px;
+                    }
+
+                    .like {
+                        color: rgb(228, 4, 4);
                     }
                 }
             }

@@ -106,15 +106,30 @@ header {
         thead{
             tr{
                 border-top: none !important;
-                border-bottom: 5px solid gray;
+                border-bottom: 2px solid gray;
             }
         }
         tbody{
             tr{
                 line-height: 40px;
 
-                i{
+                .fa-trash{
                     cursor: pointer;
+                    color: orange;
+                }
+
+                span{
+                    cursor: pointer;
+                    margin: 0 5px;
+                    padding: 5px 10px;
+                    border: 1px solid black;
+                }
+
+                .fa-minus, .fa-plus {
+                    &:hover{
+                        background: #000;
+                        color: white;
+                    }
                 }
             }
         }
