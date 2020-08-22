@@ -1,5 +1,7 @@
 @import 'styles/header';
+@import 'styles/auth';
 @import 'styles/body';
+@import 'styles/cartInner';
 @import 'styles/footer';
 @import 'styles/page-body';
 
@@ -7,13 +9,11 @@
     margin: 0;
     padding: 0;
 }
-body {
-    background-color: white !important;
-    font-size: 10px;
+
+body{
+    font-family: "Poppins", sans-serif !important; 
 }
-a{
-    text-decoration: none !important;
-}
+
 ul {
     list-style: none;
 }

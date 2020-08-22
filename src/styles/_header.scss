@@ -1,148 +1,155 @@
-/* HEADER */
 header {
-    padding-bottom: 74px;
-    
-    .navbar-brand{
-        margin-left: 100px;
-    }
+  margin-bottom: 100px;
+  @media screen and (max-width: 992px) {
+    margin-bottom: 0;
+  }
+  .navbar {
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 8px 25px rgb(224, 224, 224);
 
-    .navbar-nav {
-        justify-content: space-around;
-    
+    @media screen and (max-width: 992px) {
+      height: 100%;
+    }
+    .navbar-collapse {
+      .navbar-nav {
         .nav-item {
-            margin: 0 10px;
-    
-            .nav-link{
-                color: black !important;
-                &:hover{
-                    color: #d34749 !important;
-                }
+          .nav-link {
+            padding: 30px 18px;
+            @media screen and (max-width: 992px) {
+              padding: 10px 19px;
             }
-            
-            @media screen and (max-width: 992px){
-                margin: 0;
+            color: black !important;
+            &:hover {
+              color: #f31045 !important;
             }
+          }
 
-            .dropdown{
-                .dropdown-menu{
-                    .mini-cart{
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                    }
-                }
-            }
+          @media screen and (max-width: 992px) {
+            margin: 0;
+          }
         }
-    
-        i:hover{
-            color: #d34749 !important;
+      }
+      .main-menu {
+        float: right;
+        @media screen and (max-width: 992px) {
+          float: none;
         }
-    
-        .btn {
-            line-height: 40px;
-            padding: 0 !important;
-        }
-    }
-    
-    .closeFormSearch{
-        display: none;
-    }
-    
-    .form-search{ 
-        background-color: rgb(19, 18, 18);
-        line-height: 60px;
-
-        input, input:focus{
-            background-color: rgb(19, 18, 18);
-            color: white;
-            border: none;
-            outline: none;
-            line-height: 60px;
-        }
-        
-        i{
-            color: white;
-        }
-    }
-}
-
-/* CART */
-.navbar-expand-lg {
-    .navbar-nav {
-        .dropdown-menu {
-            @media (min-width: 992px){
-                width: 300px;
-            }
-        }
-
-        .badge {
+        .nav-item:nth-child(1) {
+          position: relative;
+          width: 60px;
+          &::before {
             position: absolute;
-            top: 0px;
+            right: -15px;
+            top: 15px;
+            content: "HOT";
+            background: #ff003c;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            padding: 3px 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            @media screen and (max-width: 992px) {
+              top: 0;
+              right: -32px;
+            }
+          }
         }
+      }
 
-        .list-group {
-
-            .btn{
-                background-color: rgb(223, 66, 66);
-                color: white;
-                transition: all 0.3s ease;
-                &:hover{
-                    background-color: black;
-                    color: white;
-                }
-            }
-
-            .total-price {
-                line-height: 50px;
-                margin-left: 15px;
-                font-size: 14px;
-            }
-        } 
-    }
-}
-
-.mt-5 {
-    .table-striped{
-        thead{
-            tr{
-                border-top: none !important;
-                border-bottom: 2px solid gray;
-            }
-        }
-        tbody{
-            tr{
-                line-height: 40px;
-
-                .fa-trash{
-                    cursor: pointer;
-                    color: orange;
-                }
-
-                span{
-                    cursor: pointer;
-                    margin: 0 5px;
-                    padding: 5px 10px;
-                    border: 1px solid black;
-                }
-
-                .fa-minus, .fa-plus {
-                    &:hover{
-                        background: #000;
-                        color: white;
-                    }
-                }
-            }
-        }
-    }
-
-    .total-price{
+      .fix-card {
         display: flex;
-        justify-content: flex-end;
         align-items: center;
-        margin-right: 100px;
-
-        h3{
-            margin-right: 20px;
+        float: right;
+        @media screen and (max-width: 992px) {
+          float: none;
         }
+
+        form {
+          position: relative;
+          width: 80%;
+          input {
+            padding: 10px 20px;
+            border: 1px solid rgba(228, 227, 227, 0.933);
+            border-radius: 30px;
+            outline: none;
+          }
+
+          .search-icon {
+            cursor: pointer;
+            position: absolute;
+            top: 12px;
+            right: 15px;
+          }
+        }
+        .favorit-items {
+          position: relative;
+          margin: 0 10px;
+          i {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            color: #4e4e4e;
+            line-height: 50px;
+            border: 1px solid #eeee;
+            border-radius: 50%;
+            text-align: center;
+            span {
+              width: 25px;
+              height: 25px;
+              text-align: center;
+              background-color: rgb(0, 177, 255);
+              color: white;
+              border-radius: 50%;
+              font-size: 16px;
+              position: absolute;
+              top: 0;
+            }
+          }
+        }
+        .shopping-card {
+          position: relative;
+
+          a {
+            padding: 10px 20px;
+            i {
+              width: 50px;
+              height: 50px;
+              color: #4e4e4e;
+              line-height: 50px;
+              border: 1px solid #eeee;
+              border-radius: 50%;
+              text-align: center;
+              span {
+                width: 25px;
+                height: 25px;
+                text-align: center;
+                background-color: rgb(0, 177, 255);
+                color: white;
+                border-radius: 50%;
+                font-size: 16px;
+                position: absolute;
+                top: 0;
+                right: 10px;
+              }
+            }
+          }
+        }
+
+        .btn {
+          color: #fff;
+          background-color: rgb(1, 141, 255);
+          padding: 10px 20px !important;
+          border-radius: 30px;
+          text-transform: uppercase;
+        }
+      }
     }
+  }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import  { useDispatch, useSelector } from 'react-redux';
-import { ENJOY_PRODUCT } from '../actions/types';
+import { ENJOY_PRODUCT } from '../../actions/types';
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

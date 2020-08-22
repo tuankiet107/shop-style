@@ -1,7 +1,7 @@
 /* FOOTER */
-
 .main-footer{
-    background: #202020;
+    background: #f4f4f45c;
+    color: grey;
     padding: 60px 0;
 
     .col-md-12, .col-sm-12{
@@ -11,8 +11,8 @@
 
         .footer-widget {
             h4{
-                color: #fff;
-                font-size: 16px;
+                color: #2C2C2C;
+                font-size: 20px;
                 text-transform: uppercase;
                 font-weight: 700;
                 letter-spacing: 2px;
@@ -21,7 +21,7 @@
 
                 &::before{
                     content: "";
-                    border-bottom: 3px solid rgb(204, 50, 50);
+                    border-bottom: 2px solid #2577FD;
                     width: 100%;
                     height: 3px;
                     position: absolute;
@@ -30,27 +30,27 @@
                 }
             }
             p{
-                color: #cccccc;
+                color: #868c98;
                 font-weight: 400;
-                font-size: 14px;
+                font-size: 16px;
                 padding-bottom: 20px;   
             }
             ul{
                 li{
                     float: left;
                     margin-right: 10px;
-                    border: 2px solid white;
-                    text-align: center;
-                    width: 36px;
-                    height: 36px;
-                    line-height: 30px;
-                    color: white;
+                    border: 2px solid #2C2C2C;
+                    padding: 10px;
+                    vertical-align: middle;
+                    color: #2C2C2C;
                     transition: all 0.5s ease;
                     cursor: pointer;
-
                     &:hover{
-                        color: rgb(204, 50, 50);
-                        border: 2px solid rgb(204, 50, 50);
+                        color: #2577FD;
+                        border: 2px solid #2577FD;
+                    }
+                    i{
+                        font-size: 20px;
                     }
                 }
             } 
@@ -58,8 +58,8 @@
 
         .footer-link {
             h4{
-                color: #fff;
-                font-size: 16px;
+                color: #2C2C2C;
+                font-size: 20px;
                 text-transform: uppercase;
                 font-weight: 700;
                 letter-spacing: 2px;
@@ -68,7 +68,7 @@
 
                 &::before{
                     content: "";
-                    border-bottom: 3px solid rgb(204, 50, 50);
+                    border-bottom: 3px solid #2577FD;
                     width: 100%;
                     height: 3px;
                     position: absolute;
@@ -79,18 +79,17 @@
 
             ul{
                 li{
-                    color: white;
+                    color: #2C2C2C;
                     cursor: pointer;
                     margin-bottom: 8px;
-                    
                     &:hover {
                         a{
-                            color: rgb(204, 50, 50);
+                            color: #2577FD;
                             margin-left: 10px;
                         }
                     }
                     a{
-                        color: white;
+                        color: #868c98;;
                         transition: all 0.5s ease;
                     }
                 }
@@ -99,8 +98,8 @@
 
         .footer-link-contact {
             h4{
-                color: #fff;
-                font-size: 16px;
+                color: #2C2C2C;
+                font-size: 20px;
                 text-transform: uppercase;
                 font-weight: 700;
                 letter-spacing: 2px;
@@ -109,7 +108,7 @@
 
                 &::before{
                     content: "";
-                    border-bottom: 3px solid rgb(204, 50, 50);
+                    border-bottom: 3px solid #2577FD;
                     width: 100%;
                     height: 3px;
                     position: absolute;
@@ -121,21 +120,20 @@
             ul{
                 li{
                     margin-bottom: 12px;
-                    font-size: 17px;
-                    color: white;
+                    font-size: 16px;
+                    color: #868c98;;
 
                     i{
                         margin-right: 10px;
                         &:hover{
                             a{
-                                color: rgb(204, 50, 50);
+                                color: #2577FD;
                             }
                         }
-
-                        a{
-                            color: white;
-                            transition: all 0.5s ease;
-                        }
+                    }
+                    a{
+                        color: #868c98;;
+                        transition: all 0.5s ease;
                     }
                 }
             }
@@ -143,12 +141,10 @@
     } 
 }
 
-
 /* FOOTER COPYRIGHT */
 .footer-copyright {
-    background: #2C2C2C;
     padding: 20px 0;
     text-align: center;
-    color: white;
+    color: #868c98;
     font-size: 16px;
 }

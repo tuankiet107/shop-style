@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { ADD_PRODUCT_BASKET } from '../actions/types';
+import { ADD_PRODUCT_BASKET } from '../../actions/types';
 
 function Details({location}){
         
@@ -24,7 +24,7 @@ function Details({location}){
                     </div>
                     <div className="product-price">Price: {data.price}.000đ</div>
                     <div onClick={ () => dispatch({type: ADD_PRODUCT_BASKET, payload: data})} className="btn btn-primary">
-                        <a> Add to cart </a>
+                        <span> Add to cart </span>
                     </div>
                 </Col>
             </Row>

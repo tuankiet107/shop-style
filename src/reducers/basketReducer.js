@@ -170,11 +170,11 @@ export default (state = initialState, action) => {
             productSelected.inCart = true;
             
             return {
-                ...state, // trải state ra để update các state con 
+                ...state,
                 basketNumbers: state.basketNumbers + 1,
-                cartCost: state.cartCost + productSelected.price, // productSelected.price để cộng giá tiền sp đó
-                products: [ // update products trong giỏ hàng chỉ gồm những sp đc click 
-                    ...state.products, // spread để clone ra giá trị mới
+                cartCost: state.cartCost + productSelected.price,
+                products: [
+                  ...state.products
                 ]
             }
 
@@ -186,7 +186,7 @@ export default (state = initialState, action) => {
                 basketNumbers: state.basketNumbers + 1,
                 cartCost: state.cartCost + productSelected.price,
                 products: [
-                    ...state.products
+                  ...state.products
                 ]
             };
 
