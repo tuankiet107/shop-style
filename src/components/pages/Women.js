@@ -3,6 +3,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
 
+import { Link } from 'react-router-dom';
+import Footer from '../views/Footer';
+
 import axios from "axios";
 
 function Women() {
@@ -28,7 +31,15 @@ function Women() {
 
   let result = products.map((product, index) => {
     return (
-      <Col className="info-product" xl={4} lg={4} md={6} sm={6} xs={12} key={index} >
+      <Col
+        className="info-product"
+        xl={4}
+        lg={4}
+        md={6}
+        sm={6}
+        xs={12}
+        key={index}
+      >
         <img alt="" src={product.image} />
         <div className="details">
           <span>{product.name}</span>
@@ -50,10 +61,18 @@ function Women() {
     <div className="page-products">
       <h2 className="title">Women</h2>
       <Container>
-        <Row>
-          {result}
-        </Row>
+        <Row>{result}</Row>
       </Container>
+
+      <Footer />
+
+      <div className="footer-copyright">
+        <p>
+          All Rights Reserved. © 2020
+          <Link to="/"> The Kstore </Link>
+          Design By: Tuan Kiet
+        </p>
+      </div>
     </div>
   );
 }

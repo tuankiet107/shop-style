@@ -3,6 +3,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
 
+import { Link } from 'react-router-dom';
+import Footer from '../views/Footer';
+
 import axios from "axios";
 
 function New() {
@@ -60,6 +63,16 @@ function New() {
       <Container>
         <Row>{result}</Row>
       </Container>
+
+      <Footer />
+
+      <div className="footer-copyright">
+        <p>
+          All Rights Reserved. © 2020
+          <Link to="/"> The Kstore </Link>
+          Design By: Tuan Kiet
+        </p>
+      </div>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Modal, Form, Button} from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 
-// import firebase from 'firebase';
+import firebase from 'firebase';
 
 class Signup extends Component {
     constructor(){
@@ -40,28 +40,33 @@ class Signup extends Component {
             return;
         }
 
-        // firebase
-        //     .auth()
-        //     .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        //     .then( async authUser => {
-        //         firebase
-        //             .firestore()
-        //             .collection('users')
-        //             .doc(this.state.email)
-        //             .set({
-        //                 email: authUser.user.email
-        //             })
-        //             .then( () => {
-        //                 history.push('/');
-        //                 localStorage.setItem('user', this.state.email)
-        //             }, err => {
-        //                 console.log(err);
-        //                 this.setState({ signupError: 'Add user is not successfully!'})
-        //             })
-        //     }, authErr => {
-        //         console.log(authErr);
-        //         this.setState({ signupError: 'Create user is not successfully!'})
-        //     })
+        firebase
+            .auth() 
+            .createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then( authUser => {
+                firebase
+                    .firestore()
+                    .collection('users')
+                    .doc(this.state.email)
+                    .set({
+                        email: authUser.user.email
+                    })
+                    .then( () => {
+                        if(this.state.email === "admin@gmail.com"){
+                            history.push('/listProduct');
+                            // localStorage.setItem('user', this.state.email);
+                        } else { 
+                            history.push('/') 
+                            // localStorage.setItem('user', this.state.email)
+                        }
+                    }, err => {
+                        console.log(err);
+                        this.setState({ signupError: 'Add user is not successfully!'})
+                    })
+            }, authErr => {
+                console.log(authErr);
+                this.setState({ signupError: 'Create user is not successfully!'})
+            })
     }
 
     render() {

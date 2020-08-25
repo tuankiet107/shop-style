@@ -13,10 +13,10 @@ function Women() {
       <div className="category">
         <div className="product-wrapper">
           <Row>
-            <Col className="col-img" xl={4} lg={4} data-aos="slide-left">
+            <Col className="col-img" xl={4} lg={4} data-aos="zoom-in">
               <img alt="" src={img} />
             </Col>
-            <Col className="col-intro" xl={8} lg={8} md={12} sm={12} xs={12} data-aos="slide-right">
+            <Col className="col-intro" xl={8} lg={8} md={12} sm={12} xs={12} data-aos="zoom-in">
               <div className="intro-product">
                 <h1>Welcome to the women's world clothes</h1>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, expedita?</p>

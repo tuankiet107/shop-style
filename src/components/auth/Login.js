@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Form, Button, Alert} from 'react-bootstrap';
 import {Link, withRouter } from 'react-router-dom';
 
-// const firebase = require('firebase');
+import firebase from 'firebase';
 
 class Login extends Component {
     constructor(){
@@ -31,16 +31,21 @@ class Login extends Component {
         e.preventDefault();
         const { history } = this.props;
 
-        // firebase
-        //     .auth()
-        //     .signInWithEmailAndPassword(this.state.email, this.state.password)
-        //     .then(() => {
-        //         history.push('/')
-        //         localStorage.setItem('user', this.state.email);
-        //     }, err => {
-        //         console.log(err);
-        //         this.setState({ loginError: 'Fail to login user'})
-        //     })
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(() => {
+                if(this.state.email === "admin@gmail.com"){
+                    history.push('/listProduct');
+                    // localStorage.setItem('user', this.state.email);
+                } else { 
+                    history.push('/');
+                    // localStorage.setItem('user', this.state.email);
+                }
+            }, err => {
+                console.log(err);
+                this.setState({ loginError: 'Fail to login user'})
+            })
     }
 
     render() {

@@ -1,58 +1,59 @@
-.cart_inner{
-    margin: 140px 0;
-    .table {
-        thead {
-        tr {
-            border-top: none !important;
-            border-bottom: 2px solid gray;
-            th{
-                font-size: 18px;
-                font-weight: 500;
-                font-family: "Playfair Display", serif;
-                color: #828bb2;
-            }
+.cart_inner {
+  margin: 140px 0;
+  .table {
+    thead {
+      tr {
+        border-top: none !important;
+        border-bottom: 2px solid gray;
+        th {
+          font-size: 18px;
+          font-weight: 500;
+          font-family: "Playfair Display", serif;
+          color: #828bb2;
         }
-        }
-        tbody {
-        tr {
-            line-height: 40px;
-
-            td{
-                padding: 20px 0 !important;
-                vertical-align: middle;
-                color: #506172;
-                font-family: "Playfair Display", serif;
-                font-size: 16px;
-                span{
-                    padding: 10px 20px;
-                    border: 1px solid #eeeeee;
-                }
-                .fas{
-                    cursor: pointer;
-                    &:hover{
-                        background-color: #eeee;    
-                    }
-                }
-            }
-    
-            .fa-trash {
-            cursor: pointer;
-            color: orange;
-            }
-        }
-        }
+      }
     }
-    
-    .subtotal {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        h3, span{
-            color: #506172;
+    tbody {
+      tr {
+        line-height: 40px;
+
+        td {
+          padding: 20px 0 !important;
+          vertical-align: middle;
+          color: #506172;
+          font-family: "Playfair Display", serif;
+          font-size: 16px;
+          span {
+            padding: 10px 20px;
+            border: 1px solid #eeeeee;
+          }
+          .fas {
+            cursor: pointer;
+            &:hover {
+              background-color: #eeee;
+            }
+          }
         }
-    
-        h3 {
-        margin-right: 50px;
+
+        .fa-trash {
+          cursor: pointer;
+          color: orange;
         }
-    }   
+      }
+    }
+  }
+
+  .subtotal {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    h3,
+    span {
+      color: #506172;
+    }
+
+    h3 {
+      margin-right: 50px;
+    }
+  }
 }
