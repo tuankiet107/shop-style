@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import Footer from '../views/Footer';
 
 import axios from "axios";
+import Header from "../views/Header";
 
 function New() {
   const [products, setProducts] = useState([]);
@@ -58,21 +59,25 @@ function New() {
     );
   });
   return (
-    <div className="page-products">
-      <h2 className="title">New</h2>
-      <Container>
-        <Row>{result}</Row>
-      </Container>
+    <div>
+        <Header />
+        
+        <div className="page-products">
+          <h2 className="title">New</h2>
+          <Container>
+            <Row>{result}</Row>
+          </Container>
 
-      <Footer />
+          <Footer />
 
-      <div className="footer-copyright">
-        <p>
-          All Rights Reserved. © 2020
-          <Link to="/"> The Kstore </Link>
-          Design By: Tuan Kiet
-        </p>
-      </div>
+          <div className="footer-copyright">
+            <p>
+              All Rights Reserved. © 2020
+              <Link to="/"> The Kstore </Link>
+              Design By: Tuan Kiet
+            </p>
+          </div>
+        </div>
     </div>
   );
 }

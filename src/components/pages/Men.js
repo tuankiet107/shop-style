@@ -4,32 +4,49 @@ import { useDispatch } from "react-redux";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
 
 import { Link } from 'react-router-dom';
+import Header from "../views/Header";
 import Footer from '../views/Footer';
 
-import axios from "axios";
+import firebase from "firebase";
 
 function Men() {
-  const [products, setProducts] = useState([]);
+  const [data, setData] = useState(null);
+  let listProducts = [];
+  let result;
 
   useEffect(() => {
-    async function getApiProducts() {
-      try {
-        const response = await axios.get(
-          "https://5ed1c80d4e6d7200163a0b7e.mockapi.io/api/products"
-        );
-        const data = response.data;
-        setProducts(data[0].men);
-      } catch (error) {
-        console.log("Failed to fetch api: ", error);
-      }
-    }
+    async function fetchDataFromDB(){
+      firebase
+      .firestore()
+      .collection("products")
+      .doc("veTsDR2nMSiv3ldp7J0F")
+      .get()
+      .then( doc => {
+        if(doc.exists){
+          setData(doc.data().products);
+        }else{
+          console.log("No such document!");
+        }
+      })
+      .catch(function(error) {
+        console.log("Error getting document:", error);
+      })
+  }
 
-    getApiProducts();
+    fetchDataFromDB();
   }, []);
 
   const dispatch = useDispatch();
 
-  let result = products.map((product, index) => {
+  if(data){
+    Object.keys(data).filter(item => {
+      if(data[item].sex === 'men'){
+        listProducts.push(data[item])
+      }
+    })
+  }
+
+  result = listProducts.map(product => {
     return (
       <Col
         className="info-product"
@@ -38,7 +55,7 @@ function Men() {
         md={6}
         sm={6}
         xs={12}
-        key={index}
+        key={product.id}
       >
         <img alt="" src={product.image} />
         <div className="details">
@@ -56,24 +73,33 @@ function Men() {
         </div>
       </Col>
     );
-  });
+  })
+
   return (
-    <div className="page-products">
-      <h2 className="title">Men</h2>
-      <Container>
-        <Row>{result}</Row>
-      </Container>
+    <div>
+      <Header />
+      {
+        data === null ? 
+        
+          <div className="page-loading">Page is loading...</div>  :
 
-      
-      <Footer />
+          <div className="page-products">
+            <h2 className="title">Men</h2>
+            <Container>
+              <Row>{result}</Row>
+            </Container>
 
-      <div className="footer-copyright">
-          <p>
-          All Rights Reserved. © 2020  
-          <Link to="/"> The Kstore  </Link>
-          Design By: Tuan Kiet
-          </p>
-      </div>
+            <Footer />
+
+            <div className="footer-copyright">
+                <p>
+                All Rights Reserved. © 2020  
+                <Link to="/"> The Kstore  </Link>
+                Design By: Tuan Kiet
+                </p>
+            </div>
+          </div>
+      }
     </div>
   );
 }

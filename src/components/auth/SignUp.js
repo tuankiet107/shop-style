@@ -3,11 +3,13 @@ import {Modal, Form, Button} from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 
 import firebase from 'firebase';
+import Header from '../views/Header';
 
 class Signup extends Component {
     constructor(){
         super();
         this.state = {
+            username: '',
             email: '',
             password: '',
             passwordConfirm: '',
@@ -17,6 +19,9 @@ class Signup extends Component {
 
     userTyping = (type, e) => {
         switch(type){
+            case 'username':
+                this.setState({ username: e.target.value })
+                break;
             case 'email':
                 this.setState({ email: e.target.value })
                 break;
@@ -49,15 +54,16 @@ class Signup extends Component {
                     .collection('users')
                     .doc(this.state.email)
                     .set({
+                        username: this.state.username,
                         email: authUser.user.email
                     })
                     .then( () => {
                         if(this.state.email === "admin@gmail.com"){
                             history.push('/listProduct');
-                            // localStorage.setItem('user', this.state.email);
+                            localStorage.setItem('user', this.state.email);
                         } else { 
                             history.push('/') 
-                            // localStorage.setItem('user', this.state.email)
+                            localStorage.setItem('user', this.state.email)
                         }
                     }, err => {
                         console.log(err);
@@ -71,44 +77,54 @@ class Signup extends Component {
 
     render() {
         return (
-            <div className="sign-up">
-                <Modal.Dialog>
-                    <Modal.Header>
-                        <Modal.Title>Sign up</Modal.Title>
-                    </Modal.Header>
+            <div>
+                <Header />
 
-                    <Modal.Body>
-                        <Form onSubmit={(e) => this.handleSignup(e)} >
-                            <Form.Group>
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" onChange={(e) => this.userTyping('email',e)} />
-                            </Form.Group>
+                <div className="sign-up">
+                    <Modal.Dialog>
+                        <Modal.Header>
+                            <Modal.Title>Sign up</Modal.Title>
+                        </Modal.Header>
 
-                            <Form.Group>
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" onChange={(e) => this.userTyping('password',e)} />
-                            </Form.Group>
+                        <Modal.Body>
+                            <Form onSubmit={(e) => this.handleSignup(e)} >
+                                <Form.Group>
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control type="text" onChange={(e) => this.userTyping('username',e)} />
+                                </Form.Group>
 
-                            <Form.Group>
-                                <Form.Label>Confirm Your Password</Form.Label>
-                                <Form.Control type="password" onChange={(e) => this.userTyping('passwordConfirm',e)} />
-                            </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control type="email" onChange={(e) => this.userTyping('email',e)} />
+                                </Form.Group>
 
-                            {this.state.signupError ? <div style={{color: 'red'}}>{this.state.signupError}</div> : ''}
-                            
-                            <Button variant="primary" type="submit"> Sign up </Button>
-                        </Form>
-                    </Modal.Body>
-                    
-                    <Modal.Footer>
-                        <Form.Text className="text-muted">
-                        Already Have An Acount ?
-                        </Form.Text>
-                        <Link to="/login">Log in</Link>
-                    </Modal.Footer>
+                                <Form.Group>
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" onChange={(e) => this.userTyping('password',e)} />
+                                </Form.Group>
 
-                </Modal.Dialog>
+                                <Form.Group>
+                                    <Form.Label>Confirm Your Password</Form.Label>
+                                    <Form.Control type="password" onChange={(e) => this.userTyping('passwordConfirm',e)} />
+                                </Form.Group>
+
+                                {this.state.signupError ? <div style={{color: 'red'}}>{this.state.signupError}</div> : ''}
+                                
+                                <Button variant="primary" type="submit"> Sign up </Button>
+                            </Form>
+                        </Modal.Body>
+                        
+                        <Modal.Footer>
+                            <Form.Text className="text-muted">
+                            Already Have An Acount ?
+                            </Form.Text>
+                            <Link to="/login">Log in</Link>
+                        </Modal.Footer>
+
+                    </Modal.Dialog>
+                </div>
             </div>
+            
         )
     }
 }

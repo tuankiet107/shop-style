@@ -3,6 +3,7 @@ import { connect, useSelector } from "react-redux";
 import { productQuantity, clearProduct } from "../../actions/productQuantity";
 
 import { Table } from "react-bootstrap";
+import Header from "../views/Header";
 
 function Cart({ productQuantity, clearProduct }) {
   let productsInCart = [];
@@ -51,27 +52,32 @@ function Cart({ productQuantity, clearProduct }) {
   let totalPrice = basketProps.cartCost;
 
   return (
-    <div className="container">
-      <div className="cart_inner">
-        <Table style={{ textAlign: "center" }}>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Product</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>{productsInCart}</tbody>
-        </Table>
+    <div>
+      <Header />
 
-        <div className="subtotal">
-          <h3>Subtotal: </h3>
-          <span>{totalPrice}.000đ</span>
+      <div className="container">
+        <div className="cart_inner">
+          <Table style={{ textAlign: "center" }}>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Product</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>{productsInCart}</tbody>
+          </Table>
+
+          <div className="subtotal">
+            <h3>Subtotal: </h3>
+            <span>{totalPrice}.000đ</span>
+          </div>
         </div>
       </div>
+      
     </div>
   );
 }

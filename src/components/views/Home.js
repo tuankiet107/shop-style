@@ -7,11 +7,14 @@ import NewNow from "./NewNow";
 import Women from "./Women";
 import Men from "./Men";
 import Footer from './Footer';
+import Header from "./Header";
 
 class Products extends Component {
   render() {
     return (
       <div>
+        <Header />
+        
         <Slides />
 
         <NewNow />

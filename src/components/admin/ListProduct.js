@@ -1,84 +1,123 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Table, Form } from "react-bootstrap";
-
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import firebase from "firebase";
+import Header from "../views/Header";
 
-class ListProduct extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      data: null
+function ListProduct() {
+  const history = useHistory();
+  const [data, setData] = useState(null);
+  let products = [], result;
+  const [type, setType] = useState("all");
+
+  useEffect(() => {
+    async function fetchDataFromDB() {
+      firebase
+        .firestore()
+        .collection("products")
+        .doc("veTsDR2nMSiv3ldp7J0F")
+        .onSnapshot((doc) => {
+          setData(doc.data().products);
+        });
     }
-  }
 
-  componentDidMount() {
-    firebase
-    .firestore()
-    .collection("products")
-    .doc("wPi6Oe5LCwQKTJobOiB0")
-    .get()
-    .then( doc => {
-      this.setState({
-        data: doc.data()
-      })
+    fetchDataFromDB();
+  }, []);
+
+  function onUpdate(value){
+    history.push({
+      pathname: '/updateProduct',
+      state: value
     })
-    .catch((err) => console.log(err));
   }
 
-  render() {
-    const {data} = this.state;
-    let loading;
-    let menProducts,womenProducts;
-    if(data){
-      menProducts = data.men.map(item => {
-        return  <tr key={item.id}>
-                  <td><img src={item.image} alt="" /></td>
-                  <td>{item.name}</td>
-                  <td>{item.price}</td>
-                  <td>{item.quantity}</td>
-                  <td>
-                    <span className="btn btn-success">Edit</span>
-                    <span className="btn btn-danger">Delete</span>
-                  </td>
-                </tr>
+  function onDelete(value) {
+    let storageRef = firebase
+      .storage()
+      .ref()
+      .child("images/" + value.nameStorage);
+    storageRef
+      .delete()
+      .then(function () {
+        firebase
+          .firestore()
+          .collection("products")
+          .doc("veTsDR2nMSiv3ldp7J0F")
+          .update({
+            [`products.${value.id}`]: firebase.firestore.FieldValue.delete(),
+          });
       })
-      womenProducts = data.women.map(item => {
-        return  <tr key={item.id}>
-                  <td><img src={item.image} alt="" /></td>
-                  <td>{item.name}</td>
-                  <td>{item.price}</td>
-                  <td>{item.quantity}</td>
-                  <td>
-                    <span className="btn btn-success">Edit</span>
-                    <span className="btn btn-danger">Delete</span>
-                  </td>
-                </tr>
-      })
-    }else{
-      loading = <div className="page-loading">Page is loading...</div>
-    }
-    return (
+      .catch(function (err) {
+        console.log(err);
+      });
+  }
+
+  function selectType(e) {
+    setType(e.target.value);
+  }
+
+  if (data) {
+    Object.keys(data).filter((item) => {
+      switch (type) {
+        case "all":
+          products.push(data[item]);
+          break;
+        case data[item].sex:
+          products.push(data[item]);
+          break;
+        default:
+          break;
+      }
+    });
+
+    result = products.map((product) => {
+      return (
+        <tr key={product.id}>
+          <td>
+            <img src={product.image} alt="" />
+          </td>
+          <td>{product.name}</td>
+          <td>${product.price}.00</td>
+          <td>{product.quantity}</td>
+          <td>
+            <span className="btn btn-success" onClick={() => onUpdate(product)}>Edit</span>
+            <span className="btn btn-danger" onClick={() => onDelete(product)}>
+              Delete
+            </span>
+          </td>
+        </tr>
+      );
+    });
+  }
+
+  return (
+    <div>
+      <Header />
+
       <div>
-        { 
-          data === null ? 
-          
-          loading  : 
-          
+        {data === null ? (
+          <div className="page-loading">Page is loading...</div>
+        ) : (
           <Container className="list-product-page">
             <div className="custome">
               <Link to="/addProduct" className="btn btn-primary">
                 Add Product
               </Link>
               <Form>
-                <Form.Control as="select" custom>
-                  <option value="0">Men</option>
-                  <option value="1">Women</option>
+                <span>Sort</span>
+                <Form.Control
+                  as="select"
+                  defaultValue="all"
+                  onChange={selectType}
+                >
+                  <option value="all">all</option>
+                  <option value="men">men</option>
+                  <option value="women">women</option>
                 </Form.Control>
               </Form>
             </div>
-  
+
             <Table style={{ textAlign: "center" }}>
               <thead>
                 <tr>
@@ -89,16 +128,13 @@ class ListProduct extends Component {
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
-                  {menProducts}
-                  {womenProducts}
-              </tbody>
+              <tbody>{result}</tbody>
             </Table>
-        </Container>
-        }
+          </Container>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default ListProduct;

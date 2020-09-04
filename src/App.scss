@@ -12,7 +12,12 @@
 }
 
 body{
-    font-family: "Poppins", sans-serif !important; 
+    font-family: "Poppins", sans-serif !important;
+
+    .not-found{
+        font-size: 50px;
+        text-align: center;
+    }
 }
 
 ul {
