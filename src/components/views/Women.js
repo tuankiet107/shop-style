@@ -13,7 +13,7 @@ function Women() {
       <div className="category">
         <div className="product-wrapper">
           <Row>
-            <Col className="col-img" xl={4} lg={4} data-aos="zoom-in">
+            <Col className="col-img" xl={4} lg={4} data-aos="zoom-in" data-aos-offset="100">
               <img alt="" src={img} />
             </Col>
             <Col className="col-intro" xl={8} lg={8} md={12} sm={12} xs={12} data-aos="zoom-in">
@@ -31,6 +31,7 @@ function Women() {
 }
 AOS.init({
   offset: 400,
-  duration: 1000
+  duration: 1000,
+  mirror: true
 });
 export default Women;

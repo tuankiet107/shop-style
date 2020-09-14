@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
+import { RESET_BASKET } from '../../actions/types';
 
 function Header() {
   const history = useHistory();
   const basket = useSelector((state) => state.basketState);
   const favorites = useSelector((state) => state.enjoyState);
+  const dispatch = useDispatch();
 
-  const [value, setValue] = useState('')
+  const [user, setUser] = useState('');
 
   useEffect(() => {
     async function fetchDataFromForm(){
-      setValue(localStorage.getItem('user'))
+      setUser(localStorage.getItem('user'))
     }
-
     fetchDataFromForm();
   })
 
@@ -24,6 +25,9 @@ function Header() {
   function handleSubmitFromSearch() {}
 
   function logOut() {
+    dispatch({
+        type: RESET_BASKET
+    })
     localStorage.removeItem("user");
     history.push("/");
   }
@@ -32,8 +36,8 @@ function Header() {
     history.push("/login");
   }
 
-  console.log('Render Header', localStorage.getItem('user'))
-
+  console.log('Render Header');
+  
   return (
     <header>
       <Container
@@ -114,7 +118,7 @@ function Header() {
                     </Link>
                   </div>
 
-                  { value ? (
+                  { user ? (
                     <button className="btn" onClick={logOut}>
                       Logout
                     </button>

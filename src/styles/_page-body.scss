@@ -3,7 +3,6 @@
   width: 100%;
   text-align: center;
   margin-top: 150px;
-  width: 100%;
   .title {
     font-family: "Playfair Display", serif;
     margin-bottom: 40px;
@@ -16,48 +15,38 @@
 
   .container {
     .info-product {
-      width: 252px;
-      height: 300px;
       outline: none;
-      cursor: pointer;
       position: relative;
+      padding: 20px 0;
+
+      .warning-product{
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 30px;
+        color: red;
+      }
 
       img {
         width: 300px;
         height: 280px;
+        cursor: pointer;
       }
-
-      .details {
-        position: absolute;
-        top: 160px;
-        left: 60px;
-        width: 252px;
-        display: flex;
-        flex-direction: column;
-        font-weight: 500;
-        font-size: 30px;
-        text-align: center;
-        text-transform: uppercase;
-        color: white;
-        z-index: 1;
-        transition: top 0.5s ease;
-      }
-
       &:hover {
-        .details {
-          top: 80px;
+        .button {
+          top: 200px;
+          opacity: 1;
         }
       }
-
       .button {
+        cursor: pointer;
         position: absolute;
         width: 252px;
-        top: 200px;
+        top: 230px;
         left: 60px;
-        text-align: center;
+        vertical-align: middle;
         opacity: 0;
-        transition: opacity 0.35s ease;
-
+        transition: 0.35s ease;
         span {
           width: 130px;
           padding: 12px 25px;
@@ -66,7 +55,6 @@
           border: solid 2px white;
           z-index: 1;
           position: relative;
-
           &::before {
             content: "";
             position: absolute;
@@ -75,25 +63,28 @@
             right: 0;
             width: 0;
             height: 100%;
-            background-color: #e74c3c;
+            background-color: #3384fd;
             transition: 0.25s;
             z-index: -1;
           }
-
           &:hover {
             &::before {
-              width: 130px;
-              height: 100%;
+              width: 100%;
               left: 0;
               right: auto;
             }
           }
         }
       }
-
-      &:hover {
-        .button {
-          opacity: 1;
+      .details{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 6px 0;
+        span{
+          font-family: "Poppins", sans-serif;
+          font-size: 24px;
+          text-transform: capitalize;
         }
       }
     }

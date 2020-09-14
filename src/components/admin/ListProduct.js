@@ -58,7 +58,7 @@ function ListProduct() {
   }
 
   if (data) {
-    Object.keys(data).filter((item) => {
+    Object.keys(data).forEach((item) => {
       switch (type) {
         case "all":
           products.push(data[item]);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Col, Button } from 'react-bootstrap';
+import { Container, Form, Col, Button, Table } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 import firebase from "firebase";
@@ -57,10 +57,18 @@ function UpdateProduct(props) {
                 .collection("products")
                 .doc("veTsDR2nMSiv3ldp7J0F")
                 .update({
-                  [`products.${productSelected.id}`]: { ...value, image: url }
+                  [`products.${value.id}`]: { ...value, image: url }
                 })
                 .then(
                   () => {
+                    firebase
+                      .firestore()
+                      .collection("products")
+                      .doc("veTsDR2nMSiv3ldp7J0F")
+                      .update({
+                        [`products.${productSelected.id}`]: firebase.firestore.FieldValue.delete(),
+                      });
+
                     history.push("/listProduct");
                   },
                   (err) => {
@@ -74,6 +82,30 @@ function UpdateProduct(props) {
 
     return (
         <Container className="add-product-page">
+          <h1>Products selected to edit</h1>
+          <Table bordered style={{textAlign: 'center'}}>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Id</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Sex</th>
+              </tr>
+            </thead>
+            <tbody style={{lineHeight: '100px'}}>
+              <tr>
+                <td><img src={productSelected.image} style={{width: '100px', height: '100px'}} alt="" /></td>
+                <td>{productSelected.name}</td>
+                <td>{productSelected.id}</td>
+                <td>{productSelected.price}</td>
+                <td>{productSelected.quantity}</td>
+                <td>{productSelected.sex}</td>
+              </tr>
+            </tbody>
+          </Table>
+
           <Form>
             <Form.Row>
               <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">

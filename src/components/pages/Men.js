@@ -11,8 +11,8 @@ import firebase from "firebase";
 
 function Men() {
   const [data, setData] = useState(null);
-  let listProducts = [];
-  let result;
+  const dispatch = useDispatch();
+  let listProducts = [], result;
 
   useEffect(() => {
     async function fetchDataFromDB(){
@@ -36,8 +36,6 @@ function Men() {
     fetchDataFromDB();
   }, []);
 
-  const dispatch = useDispatch();
-
   if(data){
     Object.keys(data).filter(item => {
       if(data[item].sex === 'men'){
@@ -60,13 +58,10 @@ function Men() {
         <img alt="" src={product.image} />
         <div className="details">
           <span>{product.name}</span>
-          <span>{product.price}.000đ</span>
+          <span>${product.price}.00</span>
         </div>
-        <div className="overlay"></div>
         <div
-          onClick={() =>
-            dispatch({ type: ADD_PRODUCT_BASKET, payload: product })
-          }
+          onClick={() => dispatch({ type: ADD_PRODUCT_BASKET, payload: product }) }
           className="button"
         >
           <span> Add to cart </span>
@@ -81,7 +76,7 @@ function Men() {
       {
         data === null ? 
         
-          <div className="page-loading">Page is loading...</div>  :
+          <div className="page-loading">Loading...</div>  :
 
           <div className="page-products">
             <h2 className="title">Men</h2>

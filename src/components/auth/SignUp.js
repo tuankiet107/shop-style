@@ -10,6 +10,7 @@ class Signup extends Component {
         super();
         this.state = {
             username: '',
+            phone: '',
             email: '',
             password: '',
             passwordConfirm: '',
@@ -58,12 +59,19 @@ class Signup extends Component {
                         email: authUser.user.email
                     })
                     .then( () => {
+                        firebase.firestore().collection('cart').doc(this.state.email).set({
+                            [this.state.email] : {
+                                products: [],
+                                totals: 0
+                            }
+                        })
+
                         if(this.state.email === "admin@gmail.com"){
                             history.push('/listProduct');
                             localStorage.setItem('user', this.state.email);
                         } else { 
                             history.push('/') 
-                            localStorage.setItem('user', this.state.email)
+                            localStorage.setItem('user', this.state.email);
                         }
                     }, err => {
                         console.log(err);

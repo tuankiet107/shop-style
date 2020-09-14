@@ -1,26 +1,27 @@
 import React from "react";
-import { connect, useSelector } from "react-redux";
-import { productQuantity, clearProduct } from "../../actions/productQuantity";
-
 import { Table } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { CLEAR_PRODUCT, DECREASE_QUANTITY, INCREASE_QUANTITY } from '../../actions/types';
 import Header from "../views/Header";
 
-function Cart({ productQuantity, clearProduct }) {
+
+function Cart() {
   let productsInCart = [];
 
   const basketProps = useSelector((state) => state.basketState);
+  const dispatch = useDispatch();
 
   basketProps.products.forEach(function(item) {
-    if (item.inCart === true) {
-      productsInCart.push(item);
-    }
+    productsInCart.push(item);
   });
 
   productsInCart = productsInCart.map((product, index) => {
     return (
       <tr key={index}>
         <td>
-          <i className="fas fa-trash" onClick={() => clearProduct(product)}></i>
+          <i className="fas fa-trash" 
+            onClick={() => dispatch({ type: CLEAR_PRODUCT, payload: product})}>
+          </i>
         </td>
         <td>
           <img
@@ -34,16 +35,16 @@ function Cart({ productQuantity, clearProduct }) {
         <td>
           <span
             className="fas fa-minus"
-            onClick={() => productQuantity("decrease", product)}
+            onClick={() => dispatch({ type: DECREASE_QUANTITY, payload: product })}
           ></span>
-          <span>{product.numbers}</span>
+          <span>{product.quantity}</span>
           <span
             className="fas fa-plus"
-            onClick={() => productQuantity("increase", product)}
+            onClick={() => dispatch({ type: INCREASE_QUANTITY, payload: product })}
           ></span>
         </td>
         <td>
-          {product.numbers * product.price}.000đ
+          {product.quantity * product.price}.000đ
         </td>
       </tr>
     );
@@ -82,4 +83,4 @@ function Cart({ productQuantity, clearProduct }) {
   );
 }
 
-export default connect(null, { productQuantity, clearProduct })(Cart);
+export default Cart;

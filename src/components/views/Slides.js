@@ -1,53 +1,33 @@
-import React, { Component } from 'react';
-import { Carousel } from 'react-bootstrap';
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import girl from '../../img/girl_slider.png';
 
-import img1 from '../../img/slides/img1.jpeg';
-import img2 from '../../img/slides/img2.jpg';
-import img3 from '../../img/slides/img3.jpg';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-class Slides extends Component {
-    render() {
-        return(
-            <div className="main-slides">
-            <Carousel>
-                <Carousel.Item>
-                    <img
-                    className="d-block w-100"
-                    src={img1}
-                    alt="First slide"
-                    />
-                    <Carousel.Caption>
-                    <h3>First slide label</h3>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                    className="d-block w-100"
-                    src={img2}
-                    alt="Third slide"
-                    />
-                    <Carousel.Caption>
-                    <h3>Second slide label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                    className="d-block w-100"
-                    src={img3}
-                    alt="Third slide"
-                    />
-
-                    <Carousel.Caption>
-                    <h3>Third slide label</h3>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-            </Carousel>
+function Slides() {
+    return (
+        <div className="slider-area">
+            <div className="single-slider">
+                <Container>
+                    <Row>
+                        <Col data-aos="fade-out" className="hero_img" xl={6} lg={6} md={6} sm={6}>
+                            <img src={girl} alt="" />
+                        </Col>
+                        <Col className="hero_caption" xl={5} lg={5} md={5} sm={5} 
+                            data-aos="fade-up">
+                            <span>50% discount</span>
+                            <h1>Winter Collection</h1>
+                            <p>Best Cloth Collection By 2020!</p>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
-        )
-    }
+        </div>
+    )
 }
-
-export default Slides;
+AOS.init({
+  offset: 400,
+  duration: 1000
+});
+export default Slides

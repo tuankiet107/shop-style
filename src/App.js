@@ -24,7 +24,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/cart" component={Cart} />
-          <Route path="/new" component={New} />
+          {/* <Route path="/new" component={New} /> */}
           <Route path="/women" component={Women} />
           <Route path="/men" component={Men} />
           {/* <Route path="/:detail" component={Details} /> */}
