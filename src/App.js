@@ -4,9 +4,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Home from "./components/views/Home";
 import Cart from "./components/pages/Cart";
-import New from "./components/pages/New";
+import Discount from './components/pages/Discount';
 import Women from "./components/pages/Women";
 import Men from "./components/pages/Men";
+import Checkout from './components/pages/Checkout';
+
 // import Details from './components/pages/Details';
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
@@ -24,7 +26,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/cart" component={Cart} />
-          {/* <Route path="/new" component={New} /> */}
+          <Route path="/discount" component={Discount} />
           <Route path="/women" component={Women} />
           <Route path="/men" component={Men} />
           {/* <Route path="/:detail" component={Details} /> */}
@@ -32,6 +34,8 @@ function App() {
           <Route path="/listProduct" component={ListProduct} />
           <Route path="/addProduct" component={AddProduct} />
           <Route path="/updateProduct" component={UpdateProduct} />
+          
+          <Route path="/checkouts" component={Checkout} />
 
           <Route path="*" component={NotFound} />
         </Switch>

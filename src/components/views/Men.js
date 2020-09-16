@@ -5,10 +5,10 @@ import 'aos/dist/aos.css';
 
 import img from '../../img/men.png';
 
-import { Container, Row, Col} from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function Men() {
-  return(
+  return (
     <Container fluid>
       <div className="category">
         <div className="product-wrapper" >

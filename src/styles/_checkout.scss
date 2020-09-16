@@ -1,0 +1,52 @@
+div{
+    h2{
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 40px;
+    }
+    .checkouts{
+        width: 60%;
+        margin: 50px auto;
+        h3{
+            text-transform: capitalize;
+        }
+        form{
+            background-color: #FAFAFA;
+            margin-top: 30px;
+            .row{
+                .col{
+                    margin-bottom: 20px ;
+                    button{
+                        float: right;
+                        position: relative;
+                        z-index: 1;
+                        color: white;
+                        padding: 10px 15px;
+                        background-color: #018DFF;
+                        outline: none;
+                        border: none;
+                        border-radius: 5px;
+                        overflow: hidden;
+                        &::before{
+                            content: "";
+                            position: absolute;
+                            background-color: #4dadfb;
+                            top: 0;
+                            left: 0;
+                            width: 0;
+                            height: 100%;
+                            transition: 0.5s;
+                            z-index: -1;
+                        }
+                        &:hover{
+                            &::before{
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

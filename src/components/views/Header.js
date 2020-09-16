@@ -69,8 +69,8 @@ function Header() {
               <div className="col-xl-5 col-lg-5 col-md-12 col-sm-12">
                 <Nav className="main-menu">
                   <Nav.Item>
-                    <Link to="/new" className="nav-link">
-                      New
+                    <Link to="/discount" className="nav-link">
+                      Discount
                     </Link>
                   </Nav.Item>
                   <Nav.Item>

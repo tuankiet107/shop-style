@@ -61,7 +61,7 @@ function Women() {
           <span>${product.price}.00</span>
         </div>
         <div
-          onClick={() => dispatch({ type: ADD_PRODUCT_BASKET, payload: product }) }
+          onClick={() => onAddToCart(product)}
           className="button"
         >
           <span> Add to cart </span>
@@ -69,6 +69,14 @@ function Women() {
       </Col>
     );
   })
+
+  function onAddToCart(product){
+    if(localStorage.getItem('user')){
+      dispatch({ type: ADD_PRODUCT_BASKET, payload: product })
+    }else{
+      alert('You have to login!')
+    }
+  }
 
   return (
     <div>

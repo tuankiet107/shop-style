@@ -42,8 +42,9 @@
         cursor: pointer;
         position: absolute;
         width: 252px;
-        top: 230px;
-        left: 60px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         vertical-align: middle;
         opacity: 0;
         transition: 0.35s ease;

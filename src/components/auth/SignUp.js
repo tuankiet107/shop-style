@@ -9,8 +9,6 @@ class Signup extends Component {
     constructor(){
         super();
         this.state = {
-            username: '',
-            phone: '',
             email: '',
             password: '',
             passwordConfirm: '',
@@ -20,9 +18,6 @@ class Signup extends Component {
 
     userTyping = (type, e) => {
         switch(type){
-            case 'username':
-                this.setState({ username: e.target.value })
-                break;
             case 'email':
                 this.setState({ email: e.target.value })
                 break;
@@ -40,7 +35,6 @@ class Signup extends Component {
     handleSignup = (e) => {
         e.preventDefault();
         const { history } = this.props;
-
         if(this.state.password !== this.state.passwordConfirm){
             this.setState({ signupError: 'Passwords do not match!' })
             return;
@@ -55,15 +49,12 @@ class Signup extends Component {
                     .collection('users')
                     .doc(this.state.email)
                     .set({
-                        username: this.state.username,
                         email: authUser.user.email
                     })
                     .then( () => {
+                        const mail = this.state.email.split('@')[0];
                         firebase.firestore().collection('cart').doc(this.state.email).set({
-                            [this.state.email] : {
-                                products: [],
-                                totals: 0
-                            }
+                            [mail] : []
                         })
 
                         if(this.state.email === "admin@gmail.com"){
@@ -96,10 +87,6 @@ class Signup extends Component {
 
                         <Modal.Body>
                             <Form onSubmit={(e) => this.handleSignup(e)} >
-                                <Form.Group>
-                                    <Form.Label>Username</Form.Label>
-                                    <Form.Control type="text" onChange={(e) => this.userTyping('username',e)} />
-                                </Form.Group>
 
                                 <Form.Group>
                                     <Form.Label>Email address</Form.Label>

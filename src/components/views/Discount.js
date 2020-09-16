@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
-function NewNow() {
+function Discount() {
   let settings = {
     dots: true,
     infinite: false,
@@ -71,11 +71,11 @@ function NewNow() {
   return (
     <div className="newnow">
       <div className="title">
-        <h2>New Now</h2>
+        <h2>Discount</h2>
       </div>
       <Slider {...settings}>{result}</Slider>
     </div>
   );
 }
 
-export default NewNow;
+export default Discount;

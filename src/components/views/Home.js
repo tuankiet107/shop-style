@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 
 import Slides from "./Slides";
-import NewNow from "./NewNow";
+import Discount from "./Discount";
 import Women from "./Women";
 import Men from "./Men";
 import Footer from './Footer';
@@ -17,7 +17,7 @@ class Products extends Component {
         
         <Slides />
 
-        <NewNow />
+        <Discount />
 
         <Women />
 

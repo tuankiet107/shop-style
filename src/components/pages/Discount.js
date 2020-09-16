@@ -9,7 +9,7 @@ import Footer from '../views/Footer';
 
 import firebase from "firebase";
 
-function Men() {
+function Discount() {
   const [data, setData] = useState(null);
   const dispatch = useDispatch();
   let listProducts = [], result;
@@ -107,4 +107,4 @@ function Men() {
   );
 }
 
-export default Men;
+export default Discount;

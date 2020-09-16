@@ -14,7 +14,9 @@ class AddProduct extends Component {
       image: "",
       price: null,
       quantity: null,
-      nameStorage: ""
+      nameStorage: "",
+      date: '',
+      discount: ""
     };
   }
 
@@ -24,6 +26,7 @@ class AddProduct extends Component {
         await this.setState({
           image: e.target.files[0],
           nameStorage: e.target.files[0].name,
+          date: toString(new Date())
         });
         break;
       case "id":
@@ -40,6 +43,9 @@ class AddProduct extends Component {
         break;
       case "price":
         await this.setState({ price: parseInt(e.target.value) });
+        break;
+      case "discount":
+        await this.setState({ discount: parseInt(e.target.value) });
         break;
       default:
         break;
@@ -123,7 +129,7 @@ class AddProduct extends Component {
             </Form.Row>
 
             <Form.Row>
-              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
+              <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
                 <Form.Label>Price</Form.Label>
                 <Form.Control
                   type="text"
@@ -131,7 +137,7 @@ class AddProduct extends Component {
                 />
               </Col>
 
-              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
+              <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
                 <Form.Label>Quantity</Form.Label>
                 <Form.Control
                   type="text"
@@ -139,7 +145,7 @@ class AddProduct extends Component {
                 />
               </Col>
 
-              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
+              <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
                 <Form.Label>Sex</Form.Label>
                 <Form.Control
                   as="select"
@@ -150,6 +156,16 @@ class AddProduct extends Component {
                   <option>women</option>
                 </Form.Control>
               </Col>
+              
+              <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
+                <Form.Label>Discount (%)</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Only numbers or empty"
+                  onChange={(e) => this.handleChange("discount", e)}
+                />
+              </Col>
+
             </Form.Row>
             <Button variant="primary" type="button" onClick={this.handleSubmit}>
               Add

@@ -5,6 +5,7 @@
 @import 'styles/footer';
 @import 'styles/page-body';
 @import 'styles/admin';
+@import 'styles/checkout';
 
 * {
     margin: 0;
@@ -13,11 +14,15 @@
 
 body{
     font-family: "Poppins", sans-serif !important;
+    overflow-x: hidden;
 
     .not-found{
         font-size: 50px;
         text-align: center;
     }
+}
+html{
+    scroll-behavior: smooth;
 }
 
 ul {

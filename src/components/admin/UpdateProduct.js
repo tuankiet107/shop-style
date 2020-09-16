@@ -13,7 +13,7 @@ function UpdateProduct(props) {
     function handleChange(type, e){
         switch (type) {
             case "image":
-              setValue({...value, image : e.target.files[0], nameStorage: e.target.files[0].name })
+              setValue({...value, image : e.target.files[0], nameStorage: e.target.files[0].name, date: toString(new Date()) })
               break;
             case "id":
               setValue({...value, id: e.target.value })
@@ -29,6 +29,9 @@ function UpdateProduct(props) {
               break;
             case "price":
               setValue({...value, price: parseInt(e.target.value) })
+              break;
+            case "discount":
+              setValue({...value, discount: parseInt(e.target.value) })
               break;
             default:
               break;
@@ -61,14 +64,15 @@ function UpdateProduct(props) {
                 })
                 .then(
                   () => {
-                    firebase
+                    if(value.id !== productSelected.id){
+                      firebase
                       .firestore()
                       .collection("products")
                       .doc("veTsDR2nMSiv3ldp7J0F")
                       .update({
                         [`products.${productSelected.id}`]: firebase.firestore.FieldValue.delete(),
                       });
-
+                    }
                     history.push("/listProduct");
                   },
                   (err) => {
@@ -134,7 +138,7 @@ function UpdateProduct(props) {
             </Form.Row>
 
             <Form.Row>
-              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
+              <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
                 <Form.Label>Price</Form.Label>
                 <Form.Control
                   type="text"
@@ -142,7 +146,7 @@ function UpdateProduct(props) {
                 />
               </Col>
 
-              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
+              <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
                 <Form.Label>Quantity</Form.Label>
                 <Form.Control
                   type="text"
@@ -150,7 +154,7 @@ function UpdateProduct(props) {
                 />
               </Col>
 
-              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
+              <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
                 <Form.Label>Sex</Form.Label>
                 <Form.Control
                   as="select"
@@ -160,6 +164,15 @@ function UpdateProduct(props) {
                   <option>men</option>
                   <option>women</option>
                 </Form.Control>
+              </Col>
+
+              <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
+                <Form.Label>Discount (%)</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Only numbers or empty"
+                  onChange={(e) => this.handleChange("discount", e)}
+                />
               </Col>
             </Form.Row>
             <Button variant="primary" type="button" onClick={handleSubmit}>

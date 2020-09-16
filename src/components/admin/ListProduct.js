@@ -71,6 +71,10 @@ function ListProduct() {
       }
     });
 
+    products.sort(function(a,b){
+      return new Date(b.date) - new Date(a.date);
+    });
+
     result = products.map((product) => {
       return (
         <tr key={product.id}>
