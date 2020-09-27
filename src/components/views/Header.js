@@ -3,32 +3,45 @@ import { Container, Nav, Navbar, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
-import { RESET_BASKET } from '../../actions/types';
+import { RESET_BASKET } from "../../actions/types";
 
 function Header() {
   const history = useHistory();
-  const basket = useSelector((state) => state.basketState);
-  const favorites = useSelector((state) => state.enjoyState);
   const dispatch = useDispatch();
+  const basket = useSelector((state) => state.basketState);
 
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    async function fetchDataFromForm(){
-      setUser(localStorage.getItem('user'))
+    async function fetchDataFromForm() {
+      setUser(localStorage.getItem("user"));
     }
     fetchDataFromForm();
-  })
+  });
 
-  function handleChangeFromSearch() {}
+  function handleChangeFromSearch(e) {
+    setSearch(e.target.value);
+  }
 
-  function handleSubmitFromSearch() {}
+  function handleSubmitFromSearch(e) {
+    e.preventDefault();
+    history.push({
+      pathname: "/search",
+      search: `?result=${search}`,
+      state: {
+        search: search,
+      },
+    });
+    document.getElementById("input-val").value = "";
+  }
 
   function logOut() {
     dispatch({
-        type: RESET_BASKET
-    })
+      type: RESET_BASKET,
+    });
     localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     history.push("/");
   }
 
@@ -36,8 +49,8 @@ function Header() {
     history.push("/login");
   }
 
-  console.log('Render Header');
-  
+  console.log("Header render");
+
   return (
     <header>
       <Container
@@ -70,22 +83,22 @@ function Header() {
                 <Nav className="main-menu">
                   <Nav.Item>
                     <Link to="/discount" className="nav-link">
-                      Discount
+                      Giảm giá
                     </Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Link to="/women" className="nav-link">
-                      Women
+                      Nữ
                     </Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Link to="/men" className="nav-link">
-                      Men
+                      Nam
                     </Link>
                   </Nav.Item>
                   <Nav.Item>
                     <a href="#contact" className="nav-link">
-                      Contact Us
+                      Liên hệ
                     </a>
                   </Nav.Item>
                 </Nav>
@@ -95,21 +108,17 @@ function Header() {
                 <div className="fix-card">
                   <form onSubmit={handleSubmitFromSearch}>
                     <input
-                      placeholder="Search products"
-                      className="input-val"
+                      placeholder="Tìm kiếm sản phẩm..."
+                      id="input-val"
                       onChange={handleChangeFromSearch}
                     />
-                    <div className="search-icon" onClick={handleSubmitFromSearch}>
+                    <div
+                      className="search-icon"
+                      onClick={handleSubmitFromSearch}
+                    >
                       <i className="fas fa-search"></i>
                     </div>
                   </form>
-
-                  <div className="favorit-items">
-                    <i className="far fa-heart">
-                      <span className="badge">{favorites.heartNumber}</span>
-                    </i>
-                  </div>
-
                   <div className="shopping-card">
                     <Link to="/cart">
                       <i className="fas fa-shopping-cart">
@@ -118,12 +127,12 @@ function Header() {
                     </Link>
                   </div>
 
-                  { user ? (
+                  {user ? (
                     <button className="btn" onClick={logOut}>
                       Logout
                     </button>
                   ) : (
-                      <button className="btn" onClick={logIn}>
+                    <button className="btn" onClick={logIn}>
                       LogIn
                     </button>
                   )}

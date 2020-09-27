@@ -1,0 +1,167 @@
+.page-loading {
+  height: 100vh;
+  width: 100%;
+  margin: 60px 0 0 0;
+  color: black;
+  font-size: 55px;
+  letter-spacing: 2px;
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+}
+
+.list-product-page {
+  margin-top: 30px;
+  @media screen and (max-width: 768px) {
+    width: 800px;
+  }
+  .custome {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+  }
+  .table {
+    tr {
+      .image {
+        position: relative;
+        .discount {
+          margin: 0;
+          font-size: 14px;
+          color: red;
+          position: absolute;
+          z-index: 1;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        img {
+          width: 80px;
+          height: 80px;
+        }
+        .id {
+          font-size: 14px;
+          position: absolute;
+        }
+      }
+    }
+    td {
+      vertical-align: baseline;
+      .origin-price {
+        color: #b9b8b8;
+        text-decoration: line-through;
+      }
+    }
+  }
+}
+
+.go-top-btn {
+  position: fixed;
+  bottom: 50px;
+  right: 30px;
+  padding: 12px;
+  font-size: 42px;
+  color: #2980b9;
+}
+
+.add-product-page {
+  margin-top: 30px;
+  form {
+    .btn {
+      width: 100%;
+      margin-bottom: 50px;
+    }
+  }
+}
+
+.update-product-page {
+  margin-top: 30px;
+  form {
+    margin-top: 50px;
+    border: 1px solid #e8e7e7;
+    .btn {
+      width: 100%;
+      margin-bottom: 50px;
+    }
+  }
+}
+
+.admin-users {
+  margin-top: 20px;
+  .table {
+    text-align: center;
+  }
+}
+
+// chats
+.admin-chat-page {
+  margin-left: 254px !important;
+  padding: 0;
+  position: relative;
+  .col-left {
+    padding: 0;
+    width: 25%;
+    position: fixed;
+    .list-user {
+      border-right: 1px solid grey;
+      height: 100vh;
+      .view-user {
+        border: 1px solid rgb(230, 228, 228);
+        background-color: #fff;
+        padding: 8px 5px;
+        cursor: pointer;
+      }
+    }
+  }
+  .col-right {
+    padding: 0;
+    position: absolute;
+    left: 30%;
+    width: 70%;
+    .view-chat {
+      width: 100%;
+      margin-bottom: 60px;
+      .user-admin {
+        max-width: 350px;
+        padding: 8px 10px;
+        border-radius: 20px;
+        overflow-wrap: break-word;
+        inline-size: fit-content;
+        margin: 6px 4px 6px auto;
+        max-inline-size: 350px;
+        color: white;
+        background-color: #3498db;
+      }
+      .user-friend {
+        max-width: 350px;
+        padding: 8px 10px;
+        border-radius: 20px;
+        overflow-wrap: break-word;
+        inline-size: fit-content;
+        margin: 6px auto 6px 4px;
+        max-inline-size: 350px;
+        color: white;
+        background-color: rgb(175, 175, 175);
+      }
+    }
+  }
+  .send-message {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 41%;
+    width: 59%;
+    form {
+      display: flex;
+      input {
+        height: 48px;
+      }
+      .btn {
+        color: white;
+        background-color: rgb(7, 79, 233);
+        &:hover {
+          background-color: rgb(13, 156, 252);
+        }
+      }
+    }
+  }
+}

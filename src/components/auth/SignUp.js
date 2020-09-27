@@ -1,127 +1,165 @@
-import React, { Component } from 'react';
-import {Modal, Form, Button} from 'react-bootstrap';
-import { Link, withRouter } from 'react-router-dom';
+import React, { useState } from "react";
+import { Modal, Form, Button } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
+import firebase from "firebase";
+import Header from "../views/Header";
+import { useForm } from "react-hook-form";
 
-import firebase from 'firebase';
-import Header from '../views/Header';
+function SignUp() {
+  const [user, setUser] = useState();
+  const { handleSubmit, register, errors } = useForm();
+  const history = useHistory();
 
-class Signup extends Component {
-    constructor(){
-        super();
-        this.state = {
-            email: '',
-            password: '',
-            passwordConfirm: '',
-            signupError: ''
-        }
+  function userTyping(type, e) {
+    switch (type) {
+      case "email":
+        setUser({ ...user, email: e.target.value });
+        break;
+      case "name":
+        setUser({ ...user, name: e.target.value });
+        break;
+      case "phone":
+        setUser({ ...user, phone: e.target.value });
+        break;
+      case "password":
+        setUser({ ...user, password: e.target.value });
+        break;
+      case "passwordConfirm":
+        setUser({ ...user, passwordConfirm: e.target.value });
+        break;
+      default:
+        break;
+    }
+  }
+
+  function handleSignup() {
+    if (user.password !== user.passwordConfirm) {
+      setUser({ ...user, signupError: "Mật khẩu không trùng khớp!" });
+      return;
     }
 
-    userTyping = (type, e) => {
-        switch(type){
-            case 'email':
-                this.setState({ email: e.target.value })
-                break;
-            case 'password':
-                this.setState({ password: e.target.value })
-                break;
-            case 'passwordConfirm':
-                this.setState({ passwordConfirm: e.target.value })
-                break;
-            default:
-                break;
-        }
-    }
-
-    handleSignup = (e) => {
-        e.preventDefault();
-        const { history } = this.props;
-        if(this.state.password !== this.state.passwordConfirm){
-            this.setState({ signupError: 'Passwords do not match!' })
-            return;
-        }
-
-        firebase
-            .auth() 
-            .createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then( authUser => {
-                firebase
-                    .firestore()
-                    .collection('users')
-                    .doc(this.state.email)
-                    .set({
-                        email: authUser.user.email
-                    })
-                    .then( () => {
-                        const mail = this.state.email.split('@')[0];
-                        firebase.firestore().collection('cart').doc(this.state.email).set({
-                            [mail] : []
-                        })
-
-                        if(this.state.email === "admin@gmail.com"){
-                            history.push('/listProduct');
-                            localStorage.setItem('user', this.state.email);
-                        } else { 
-                            history.push('/') 
-                            localStorage.setItem('user', this.state.email);
-                        }
-                    }, err => {
-                        console.log(err);
-                        this.setState({ signupError: 'Add user is not successfully!'})
-                    })
-            }, authErr => {
-                console.log(authErr);
-                this.setState({ signupError: 'Create user is not successfully!'})
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(user.email, user.password)
+      .then(
+        (authUser) => {
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(user.email)
+            .set({
+              email: authUser.user.email,
+              name: user.name,
+              phone: user.phone,
             })
-    }
+            .then(
+              async () => {
+                if (user.email === "admin@gmail.com") {
+                  await localStorage.setItem("user", user.email);
+                  history.push("/list-product");
+                } else {
+                  await localStorage.setItem("user", user.email);
+                  history.push("/");
+                }
+              },
+              (err) => {
+                console.log(err);
+                setUser({
+                  ...user,
+                  signupError: "Tạo tài khoản không thành công!",
+                });
+              }
+            );
+        },
+        (authErr) => {
+          console.log(authErr);
+          setUser({ ...user, signupError: "Tạo tài khoản không thành công!" });
+        }
+      );
+  }
 
-    render() {
-        return (
-            <div>
-                <Header />
+  return (
+    <div>
+      <Header />
 
-                <div className="sign-up">
-                    <Modal.Dialog>
-                        <Modal.Header>
-                            <Modal.Title>Sign up</Modal.Title>
-                        </Modal.Header>
+      <div className="sign-up">
+        <Modal.Dialog>
+          <Modal.Header>
+            <Modal.Title>Tạo tài khoản</Modal.Title>
+          </Modal.Header>
 
-                        <Modal.Body>
-                            <Form onSubmit={(e) => this.handleSignup(e)} >
+          <Modal.Body>
+            <Form>
+              <Form.Group>
+                <Form.Label>Họ và tên</Form.Label>
+                <Form.Control
+                  name="name"
+                  type="text"
+                  ref={register({ required: true })}
+                  onChange={(e) => userTyping("name", e)}
+                />
+              </Form.Group>
 
-                                <Form.Group>
-                                    <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" onChange={(e) => this.userTyping('email',e)} />
-                                </Form.Group>
+              <Form.Group>
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  name="email"
+                  type="email"
+                  ref={register({ required: true })}
+                  onChange={(e) => userTyping("email", e)}
+                />
+              </Form.Group>
 
-                                <Form.Group>
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" onChange={(e) => this.userTyping('password',e)} />
-                                </Form.Group>
+              <Form.Group>
+                <Form.Label>Phone</Form.Label>
+                <Form.Control
+                  name="phone"
+                  type="text"
+                  ref={register({ required: true })}
+                  onChange={(e) => userTyping("phone", e)}
+                />
+              </Form.Group>
 
-                                <Form.Group>
-                                    <Form.Label>Confirm Your Password</Form.Label>
-                                    <Form.Control type="password" onChange={(e) => this.userTyping('passwordConfirm',e)} />
-                                </Form.Group>
+              <Form.Group>
+                <Form.Label>Mật khẩu</Form.Label>
+                <Form.Control
+                  name="password"
+                  type="password"
+                  ref={register({ required: true })}
+                  onChange={(e) => userTyping("password", e)}
+                />
+              </Form.Group>
 
-                                {this.state.signupError ? <div style={{color: 'red'}}>{this.state.signupError}</div> : ''}
-                                
-                                <Button variant="primary" type="submit"> Sign up </Button>
-                            </Form>
-                        </Modal.Body>
-                        
-                        <Modal.Footer>
-                            <Form.Text className="text-muted">
-                            Already Have An Acount ?
-                            </Form.Text>
-                            <Link to="/login">Log in</Link>
-                        </Modal.Footer>
+              <Form.Group>
+                <Form.Label>Xác nhận mật khẩu</Form.Label>
+                <Form.Control
+                  name="passwordConfirm"
+                  type="password"
+                  ref={register({ required: true })}
+                  onChange={(e) => userTyping("passwordConfirm", e)}
+                />
+              </Form.Group>
 
-                    </Modal.Dialog>
+              {errors.email && (
+                <div style={{ color: "red" }}>
+                  Bạn phải nhập đầy đủ thông tin.
                 </div>
-            </div>
-            
-        )
-    }
+              )}
+
+              <Button variant="primary" onClick={handleSubmit(handleSignup)}>
+                Đăng ký
+              </Button>
+            </Form>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Form.Text className="text-muted">Bạn đã có tài khoản ?</Form.Text>
+            <Link to="/login">Đăng nhập</Link>
+          </Modal.Footer>
+        </Modal.Dialog>
+      </div>
+    </div>
+  );
 }
 
-export default withRouter(Signup);
+export default SignUp;

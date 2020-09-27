@@ -1,108 +1,137 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { ADD_PRODUCT_BASKET } from "../../actions/types";
-
-import { Link } from 'react-router-dom';
-import Header from "../views/Header";
-import Footer from '../views/Footer';
-
 import firebase from "firebase";
+import React, { useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { ADD_PRODUCT_BASKET } from "../../actions/types";
+import Footer from "../views/Footer";
+import Header from "../views/Header";
 
 function Women() {
   const [data, setData] = useState(null);
   const dispatch = useDispatch();
-  let listProducts = [], result;
+  let listProducts = [],
+    result;
 
   useEffect(() => {
-    async function fetchDataFromDB(){
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+
+    async function fetchDataFromDB() {
       firebase
-      .firestore()
-      .collection("products")
-      .doc("veTsDR2nMSiv3ldp7J0F")
-      .get()
-      .then( doc => {
-        if(doc.exists){
-          setData(doc.data().products);
-        }else{
-          console.log("No such document!");
-        }
-      })
-      .catch(function(error) {
-        console.log("Error getting document:", error);
-      })
-  }
+        .firestore()
+        .collection("products")
+        .doc("veTsDR2nMSiv3ldp7J0F")
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            setData(doc.data().products);
+          } else {
+            console.log("No such document!");
+          }
+        })
+        .catch(function (error) {
+          console.log("Error getting document:", error);
+        });
+    }
 
     fetchDataFromDB();
   }, []);
 
-  if(data){
-    Object.keys(data).filter(item => {
-      if(data[item].sex === 'women'){
-        listProducts.push(data[item])
+  if (data) {
+    Object.keys(data).forEach((item) => {
+      if (data[item].sex === "women") {
+        listProducts.push(data[item]);
       }
-    })
+    });
   }
 
-  result = listProducts.map(product => {
+  listProducts.sort((a, b) => {
+    return b.date - a.date;
+  });
+
+  result = listProducts.map((product) => {
     return (
       <Col
         className="info-product"
-        xl={4}
+        xl={3}
         lg={4}
-        md={6}
+        md={4}
         sm={6}
         xs={12}
         key={product.id}
       >
         <img alt="" src={product.image} />
+        {product.quantity === 0 ? (
+          <span className="over-qty">Hết hàng</span>
+        ) : (
+          ""
+        )}
         <div className="details">
-          <span>{product.name}</span>
-          <span>${product.price}.00</span>
+          <p>{product.name}</p>
+          <div className="info-price">
+            {product.discount ? <span>{product.priceDiscount}.000đ</span> : ""}
+            {product.priceDiscount ? (
+              <span className="discount">{product.price}.000đ</span>
+            ) : (
+              <span>{product.price}.000đ</span>
+            )}
+          </div>
         </div>
-        <div
-          onClick={() => onAddToCart(product)}
-          className="button"
-        >
-          <span> Add to cart </span>
+        <div onClick={() => onAddToCart(product)} className="button">
+          <span> Thêm vào giỏ </span>
         </div>
       </Col>
     );
-  })
+  });
 
-  function onAddToCart(product){
-    if(localStorage.getItem('user')){
-      dispatch({ type: ADD_PRODUCT_BASKET, payload: product })
-    }else{
-      alert('You have to login!')
+  function onAddToCart(product) {
+    if (localStorage.getItem("user")) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "center",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Đã thêm vào giỏ hàng.",
+      });
+      dispatch({ type: ADD_PRODUCT_BASKET, payload: product });
+    } else {
+      Swal.fire({
+        icon: "warning",
+        text: "Bạn phải đăng nhập trước.",
+      });
     }
   }
 
   return (
     <div>
       <Header />
-      {
-        data === null ? 
-        
-          <div className="page-loading">Loading...</div>  :
 
-          <div className="page-products">
-            <h2 className="title">Women</h2>
-            <Container>
-              <Row>{result}</Row>
-            </Container>
+      {data === null ? (
+        <div className="page-loading">Loading...</div>
+      ) : (
+        <div className="page-products">
+          <h2 className="title">Sản phẩm nữ</h2>
+          <Container fluid>
+            <Row>{result}</Row>
+          </Container>
 
-            <Footer />
+          <Footer />
 
-            <div className="footer-copyright">
-                <p>
-                All Rights Reserved. © 2020  
-                <Link to="/"> The Kstore  </Link>
-                Design By: Tuan Kiet
-                </p>
-            </div>
+          <div className="footer-copyright">
+            <p>
+              All Rights Reserved. © 2020
+              <Link to="/"> The Kstore </Link>
+              Design By: Tuan Kiet
+            </p>
           </div>
-      }
+        </div>
+      )}
     </div>
   );
 }

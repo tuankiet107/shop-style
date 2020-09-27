@@ -1,6 +1,5 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ENJOY_PRODUCT } from "../../actions/types";
+import React, { useEffect, useState } from "react";
+import firebase from "firebase";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,10 +8,13 @@ import Slider from "react-slick";
 function Discount() {
   let settings = {
     dots: true,
-    infinite: false,
-    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    infinite: true,
+    speed: 1000,
+    focusOnSelect: true,
     slidesToShow: 4,
-    slidesToScroll: 2,
+    slidesToScroll: 1,
     initialSlide: 0,
     responsive: [
       {
@@ -44,9 +46,35 @@ function Discount() {
     ],
   };
 
-  const products = useSelector((state) => state.enjoyState.products);
+  const [data, setData] = useState();
+  let products = [];
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    async function getDataFromDB() {
+      firebase
+        .firestore()
+        .collection("products")
+        .doc("veTsDR2nMSiv3ldp7J0F")
+        .get()
+        .then((doc) => {
+          setData(doc.data());
+        });
+    }
+
+    getDataFromDB();
+  }, []);
+
+  if (data) {
+    Object.keys(data.products).forEach((product) => {
+      if (data.products[product].discount) {
+        products.push(data.products[product]);
+      }
+    });
+  }
+
+  products.sort((a, b) => {
+    return b.date - a.date;
+  });
 
   let result = products.map((product, index) => {
     return (
@@ -57,21 +85,15 @@ function Discount() {
         <div className="details">
           <span className="name">{product.name}</span>
           <span className="price">{product.price}.000đ</span>
-          <span
-            onClick={() => dispatch({ type: ENJOY_PRODUCT, payload: product })}
-            className={
-              product.heart === true ? "like fas fa-heart" : "fas fa-heart"
-            }
-          ></span>
         </div>
       </div>
     );
   });
 
   return (
-    <div className="newnow">
+    <div className="discount">
       <div className="title">
-        <h2>Discount</h2>
+        <h2>Giảm giá</h2>
       </div>
       <Slider {...settings}>{result}</Slider>
     </div>

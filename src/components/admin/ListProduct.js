@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Container, Table, Form } from "react-bootstrap";
+import { Container, Table, Form, Row, Col } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 
 import firebase from "firebase";
-import Header from "../views/Header";
+import MenuLeft from "./MenuLeft";
+import Swal from "sweetalert2";
 
 function ListProduct() {
   const history = useHistory();
   const [data, setData] = useState(null);
-  let products = [], result;
+  let products = [],
+    result;
   const [type, setType] = useState("all");
 
   useEffect(() => {
@@ -25,11 +27,11 @@ function ListProduct() {
     fetchDataFromDB();
   }, []);
 
-  function onUpdate(value){
+  function onUpdate(value) {
     history.push({
-      pathname: '/updateProduct',
-      state: value
-    })
+      pathname: "/update-product",
+      state: value,
+    });
   }
 
   function onDelete(value) {
@@ -39,7 +41,7 @@ function ListProduct() {
       .child("images/" + value.nameStorage);
     storageRef
       .delete()
-      .then(function () {
+      .then(async function () {
         firebase
           .firestore()
           .collection("products")
@@ -47,6 +49,18 @@ function ListProduct() {
           .update({
             [`products.${value.id}`]: firebase.firestore.FieldValue.delete(),
           });
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Đã xóa sản phẩm",
+        });
       })
       .catch(function (err) {
         console.log(err);
@@ -63,6 +77,11 @@ function ListProduct() {
         case "all":
           products.push(data[item]);
           break;
+        case "discount":
+          if (data[item].priceDiscount) {
+            products.push(data[item]);
+          }
+          break;
         case data[item].sex:
           products.push(data[item]);
           break;
@@ -71,23 +90,46 @@ function ListProduct() {
       }
     });
 
-    products.sort(function(a,b){
-      return new Date(b.date) - new Date(a.date);
+    products.sort(function (a, b) {
+      return b.date - a.date;
     });
 
     result = products.map((product) => {
       return (
         <tr key={product.id}>
-          <td>
+          <td className="image">
             <img src={product.image} alt="" />
+            {product.discount ? (
+              <span className="discount">Giảm giá {product.discount}%</span>
+            ) : (
+              ""
+            )}
+            <span className="id">Mã: {product.id}</span>
           </td>
           <td>{product.name}</td>
-          <td>${product.price}.00</td>
-          <td>{product.quantity}</td>
           <td>
-            <span className="btn btn-success" onClick={() => onUpdate(product)}>Edit</span>
+            {product.priceDiscount ? (
+              <p>{Math.ceil(product.priceDiscount)}.000đ</p>
+            ) : (
+              ""
+            )}
+            {product.priceDiscount ? (
+              <span className="origin-price">{product.price}.000đ</span>
+            ) : (
+              <span>{product.price}.000đ</span>
+            )}
+          </td>
+          {product.quantity === 0 ? (
+            <td style={{ color: "red" }}>Hết</td>
+          ) : (
+            <td>{product.quantity}</td>
+          )}
+          <td>
+            <span className="btn btn-success" onClick={() => onUpdate(product)}>
+              Sửa
+            </span>
             <span className="btn btn-danger" onClick={() => onDelete(product)}>
-              Delete
+              Xóa
             </span>
           </td>
         </tr>
@@ -97,46 +139,53 @@ function ListProduct() {
 
   return (
     <div>
-      <Header />
+      <Row>
+        <MenuLeft />
 
-      <div>
-        {data === null ? (
-          <div className="page-loading">Page is loading...</div>
-        ) : (
-          <Container className="list-product-page">
-            <div className="custome">
-              <Link to="/addProduct" className="btn btn-primary">
-                Add Product
-              </Link>
-              <Form>
-                <span>Sort</span>
-                <Form.Control
-                  as="select"
-                  defaultValue="all"
-                  onChange={selectType}
-                >
-                  <option value="all">all</option>
-                  <option value="men">men</option>
-                  <option value="women">women</option>
-                </Form.Control>
-              </Form>
-            </div>
+        <Col xl={10} lg={10} md={10} sm={10} style={{ marginLeft: "auto" }}>
+          {data === null ? (
+            <div className="page-loading">Page is loading...</div>
+          ) : (
+            <Container fluid className="list-product-page">
+              <div className="custome">
+                <Link to="/add-product" className="btn btn-primary">
+                  Thêm sản phẩm
+                </Link>
+                <Form>
+                  <span>Sắp xếp</span>
+                  <Form.Control
+                    as="select"
+                    defaultValue="all"
+                    onChange={selectType}
+                  >
+                    <option value="all">Tất cả</option>
+                    <option value="men">Nam</option>
+                    <option value="women">Nữ</option>
+                    <option value="discount">Giảm giá</option>
+                  </Form.Control>
+                </Form>
+              </div>
 
-            <Table style={{ textAlign: "center" }}>
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>{result}</tbody>
-            </Table>
-          </Container>
-        )}
-      </div>
+              <Table style={{ textAlign: "center" }}>
+                <thead>
+                  <tr>
+                    <th>Ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>{result}</tbody>
+              </Table>
+            </Container>
+          )}
+        </Col>
+      </Row>
+
+      <a className="go-top-btn" href="#top">
+        <i className="fas fa-arrow-up"></i>
+      </a>
     </div>
   );
 }

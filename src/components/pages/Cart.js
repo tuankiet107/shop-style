@@ -1,16 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { CLEAR_PRODUCT, DECREASE_QUANTITY, INCREASE_QUANTITY } from '../../actions/types';
+import {
+  CLEAR_PRODUCT,
+  DECREASE_QUANTITY,
+  INCREASE_QUANTITY,
+} from "../../actions/types";
 import Header from "../views/Header";
-
+import Footer from "../views/Footer";
 
 function Cart() {
   let productsInCart = [];
   const basketProps = useSelector((state) => state.basketState);
   const dispatch = useDispatch();
 
-  basketProps.products.forEach(function(item) {
+  basketProps.products.forEach(function (item) {
     productsInCart.push(item);
   });
 
@@ -27,25 +31,42 @@ function Cart() {
 
         <td className="item">
           <h3>{product.name}</h3>
-          <p>${product.price}.00</p>
+          {product.priceDiscount ? (
+            <p>{product.priceDiscount}.000đ</p>
+          ) : (
+            <p>{product.price}.000đ</p>
+          )}
           <div className="qty-parent">
-              <span
-                className="fas fa-minus"
-                onClick={() => dispatch({ type: DECREASE_QUANTITY, payload: product })}
-              ></span>
-              <span>{product.quantity}</span>
+            <span>{product.quantity}</span>
+            <div className="btn-qty">
               <span
                 className="fas fa-plus"
-                onClick={() => dispatch({ type: INCREASE_QUANTITY, payload: product })}
+                onClick={() =>
+                  dispatch({ type: INCREASE_QUANTITY, payload: product })
+                }
               ></span>
+              <span
+                className="fas fa-minus"
+                onClick={() =>
+                  dispatch({ type: DECREASE_QUANTITY, payload: product })
+                }
+              ></span>
+            </div>
           </div>
-          <p className="price">${product.quantity * product.price}.00</p>
+          {product.priceDiscount ? (
+            <p className="price">
+              {product.quantity * product.priceDiscount}.000đ
+            </p>
+          ) : (
+            <p className="price">{product.quantity * product.price}.000đ</p>
+          )}
         </td>
 
         <td className="remove">
-          <i className="fas fa-trash" 
-            onClick={() => dispatch({ type: CLEAR_PRODUCT, payload: product})}>
-          </i>
+          <i
+            className="fas fa-trash"
+            onClick={() => dispatch({ type: CLEAR_PRODUCT, payload: product })}
+          ></i>
         </td>
       </tr>
     );
@@ -57,7 +78,15 @@ function Cart() {
     <div>
       <Header />
 
-      <div className="container">
+      <div className="container main-cart">
+        <div className="header-page">
+          <h1>Giỏ hàng của bạn</h1>
+          <p className="count-cart">
+            Có {basketProps.basketNumbers === 0 ? 0 : basketProps.basketNumbers}{" "}
+            sản phẩm trong giỏ hàng
+          </p>
+        </div>
+
         <div className="cart_inner">
           <table>
             <thead>
@@ -71,13 +100,17 @@ function Cart() {
           </table>
 
           <div className="subtotal">
-            <h3>Subtotal: </h3>
-            <span>${totalPrice}.00</span>
+            <h3>Tổng tiền: </h3>
+            <span>{totalPrice}.000đ</span>
           </div>
 
-          <Link to="/checkouts" className="btn btn-checkout">Checkout</Link>
+          <Link to="/checkouts" className="btn btn-checkout">
+            Thanh toán
+          </Link>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

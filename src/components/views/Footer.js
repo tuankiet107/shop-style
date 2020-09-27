@@ -10,7 +10,7 @@ class Footer extends Component {
             <Row>
               <Col lg="4" md="12" sm="12">
                 <div className="footer-widget">
-                  <h4>About ShopStyle</h4>
+                  <h4>Giới thiệu</h4>
                   <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Repellat obcaecati quae aliquid aperiam impedit aut, quia
@@ -39,7 +39,7 @@ class Footer extends Component {
 
               <Col lg="4" md="12" sm="12">
                 <div className="footer-link">
-                  <h4>Information</h4>
+                  <h4>Liên kết</h4>
                   <ul>
                     <li>
                       <a href="/">About Us</a>
@@ -65,21 +65,18 @@ class Footer extends Component {
 
               <Col lg="4" md="12" sm="12">
                 <div className="footer-link-contact">
-                  <h4>Contact Us</h4>
+                  <h4>Thông tin liên hệ</h4>
                   <ul>
                     <li>
                       <i className="fas fa-map-marker-alt"></i>
-                      Address:
                       <a href="/"> 123ABC, Ninh Kieu, Can Tho City</a>
                     </li>
                     <li>
                       <i className="fas fa-phone-square"></i>
-                      Phone:
                       <a href="/"> 1234567890</a>
                     </li>
                     <li>
                       <i className="fas fa-envelope"></i>
-                      Email:
                       <a href="/"> info@gmail.com</a>
                     </li>
                   </ul>

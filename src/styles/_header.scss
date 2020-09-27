@@ -1,7 +1,7 @@
 header {
   margin-bottom: 100px;
   @media screen and (max-width: 992px) {
-    margin-bottom: 0;
+    margin-bottom: 60px;
   }
   .navbar {
     width: 100%;
@@ -39,10 +39,10 @@ header {
         }
         .nav-item:nth-child(1) {
           position: relative;
-          width: 90px;
+          width: 110px;
           &::before {
             position: absolute;
-            right: -15px;
+            right: -5px;
             top: 15px;
             content: "HOT";
             background: #ff003c;
@@ -57,7 +57,7 @@ header {
             font-weight: 500;
             @media screen and (max-width: 992px) {
               top: 0;
-              right: -32px;
+              right: -10px;
             }
           }
         }
@@ -89,6 +89,7 @@ header {
             position: absolute;
             top: 12px;
             right: 15px;
+            color: #313131;
           }
         }
         .favorit-items {
@@ -148,16 +149,18 @@ header {
         .btn {
           color: #fff;
           background-color: rgb(1, 141, 255);
-          padding: 10px 20px !important;
+          // padding: 12px 25px !important;
+          width: 110px;
+          height: 56px;
           border-radius: 30px;
           border: none;
           text-transform: uppercase;
           position: relative;
           overflow-y: hidden;
           z-index: 1;
-          &:before{
+          &:before {
             content: "";
-            transition: 0.25s;
+            transition: 0.5s;
             position: absolute;
             z-index: -1;
             height: 100%;
@@ -166,8 +169,8 @@ header {
             left: 0;
             background-color: rgb(26, 180, 252);
           }
-          &:hover{
-            &:before{
+          &:hover {
+            &:before {
               width: 100%;
             }
           }

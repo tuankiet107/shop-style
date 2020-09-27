@@ -1,20 +1,27 @@
 import React, { Component } from "react";
-
-import { Link } from 'react-router-dom';
-
-import Slides from "./Slides";
+import { Link } from "react-router-dom";
 import Discount from "./Discount";
-import Women from "./Women";
-import Men from "./Men";
-import Footer from './Footer';
+import Footer from "./Footer";
 import Header from "./Header";
+import Men from "./Men";
+import Slides from "./Slides";
+import Women from "./Women";
+import Chat from "./Chat";
 
 class Products extends Component {
+  componentDidMount() {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+  }
+
   render() {
     return (
-      <div>
+      <div className="home-page">
+        <Chat />
+
         <Header />
-        
+
         <Slides />
 
         <Discount />
@@ -26,11 +33,11 @@ class Products extends Component {
         <Footer />
 
         <div className="footer-copyright">
-            <p>
-            All Rights Reserved. © 2020  
-            <Link to="/"> The Kstore  </Link>
+          <p>
+            All Rights Reserved. © 2020
+            <Link to="/"> The Kstore </Link>
             Design By: Tuan Kiet
-            </p>
+          </p>
         </div>
       </div>
     );

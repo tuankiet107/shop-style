@@ -4,10 +4,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Home from "./components/views/Home";
 import Cart from "./components/pages/Cart";
-import Discount from './components/pages/Discount';
+import Discount from "./components/pages/Discount";
 import Women from "./components/pages/Women";
 import Men from "./components/pages/Men";
-import Checkout from './components/pages/Checkout';
+import Checkout from "./components/pages/Checkout";
+import Search from "./components/pages/Search";
 
 // import Details from './components/pages/Details';
 import Login from "./components/auth/Login";
@@ -15,7 +16,10 @@ import SignUp from "./components/auth/SignUp";
 
 import ListProduct from "./components/admin/ListProduct";
 import AddProduct from "./components/admin/AddProduct";
-import UpdateProduct from './components/admin/UpdateProduct';
+import UpdateProduct from "./components/admin/UpdateProduct";
+import ListOrder from "./components/admin/ListOrder";
+import ListUser from "./components/admin/ListUser";
+import Chat from "./components/admin/Chat";
 
 function App() {
   return (
@@ -29,12 +33,16 @@ function App() {
           <Route path="/discount" component={Discount} />
           <Route path="/women" component={Women} />
           <Route path="/men" component={Men} />
+          <Route path="/search" component={Search} />
           {/* <Route path="/:detail" component={Details} /> */}
 
-          <Route path="/listProduct" component={ListProduct} />
-          <Route path="/addProduct" component={AddProduct} />
-          <Route path="/updateProduct" component={UpdateProduct} />
-          
+          <Route path="/list-product" component={ListProduct} />
+          <Route path="/add-product" component={AddProduct} />
+          <Route path="/update-product" component={UpdateProduct} />
+          <Route path="/list-order" component={ListOrder} />
+          <Route path="/list-user" component={ListUser} />
+          <Route path="/list-chat" component={Chat} />
+
           <Route path="/checkouts" component={Checkout} />
 
           <Route path="*" component={NotFound} />
@@ -44,8 +52,8 @@ function App() {
   );
 }
 
-function NotFound(){
-  return <div className="not-found" >404 NOT FOUND</div>
+function NotFound() {
+  return <div className="not-found">404 NOT FOUND</div>;
 }
 
 export default App;

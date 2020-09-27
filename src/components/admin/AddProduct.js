@@ -1,22 +1,22 @@
-import React, { Component } from "react";
-import { Container, Form, Button, Col } from "react-bootstrap";
-
 import firebase from "firebase";
-import Header from "../views/Header";
+import React, { Component } from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import MenuLeft from "./MenuLeft";
+import Swal from "sweetalert2";
 
 class AddProduct extends Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       id: "",
       name: "",
       sex: "",
       image: "",
-      price: null,
-      quantity: null,
+      price: "",
+      quantity: "",
       nameStorage: "",
-      date: '',
-      discount: ""
+      date: "",
     };
   }
 
@@ -26,7 +26,7 @@ class AddProduct extends Component {
         await this.setState({
           image: e.target.files[0],
           nameStorage: e.target.files[0].name,
-          date: toString(new Date())
+          date: new Date(),
         });
         break;
       case "id":
@@ -43,9 +43,6 @@ class AddProduct extends Component {
         break;
       case "price":
         await this.setState({ price: parseInt(e.target.value) });
-        break;
-      case "discount":
-        await this.setState({ discount: parseInt(e.target.value) });
         break;
       default:
         break;
@@ -80,14 +77,24 @@ class AddProduct extends Component {
             .collection("products")
             .doc("veTsDR2nMSiv3ldp7J0F")
             .update({
-              [`products.${id}`]: { ...obj, image: url }
+              [`products.${id}`]: { ...obj, image: url },
             })
             .then(
               () => {
-                history.push("/listProduct");
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 3000,
+                });
+                history.push("/list-product");
+                Toast.fire({
+                  icon: "success",
+                  title: "Đã thêm sản phẩm",
+                });
               },
               (err) => {
-                console.log('Add is error ', err);
+                console.log("Add is error ", err);
               }
             );
         });
@@ -97,82 +104,125 @@ class AddProduct extends Component {
 
   render() {
     return (
-      <div>
-        <Header />
+      <Row>
+        <MenuLeft />
 
-        <Container className="add-product-page">
-          <Form>
-            <Form.Row>
-              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
-                <Form.Label>Name product</Form.Label>
-                <Form.Control
-                  type="text"
-                  onChange={(e) => this.handleChange("name", e)}
-                />
-              </Col>
-              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
-                <Form.Label>Id</Form.Label>
-                <Form.Control
-                  type="text"
-                  onChange={(e) => this.handleChange("id", e)}
-                />
-              </Col>
-              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
-                <Form.File
-                  className="position-relative"
-                  required
-                  name="file"
-                  label="File"
-                  onChange={(e) => this.handleChange("image", e)}
-                />
-              </Col>
-            </Form.Row>
-
-            <Form.Row>
-              <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
-                <Form.Label>Price</Form.Label>
-                <Form.Control
-                  type="text"
-                  onChange={(e) => this.handleChange("price", e)}
-                />
-              </Col>
-
-              <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
-                <Form.Label>Quantity</Form.Label>
-                <Form.Control
-                  type="text"
-                  onChange={(e) => this.handleChange("quantity", e)}
-                />
-              </Col>
-
-              <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
-                <Form.Label>Sex</Form.Label>
-                <Form.Control
-                  as="select"
-                  onChange={(e) => this.handleChange("sex", e)}
+        <Col xl={10} lg={10} md={10} sm={10} style={{ marginLeft: "auto" }}>
+          <Container className="add-product-page">
+            <h2>Thêm sản phẩm</h2>
+            <Form>
+              <Form.Row>
+                <Col
+                  xl={4}
+                  lg={4}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  className="form-group"
                 >
-                  <option>...</option>
-                  <option>men</option>
-                  <option>women</option>
-                </Form.Control>
-              </Col>
-              
-              <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
-                <Form.Label>Discount (%)</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Only numbers or empty"
-                  onChange={(e) => this.handleChange("discount", e)}
-                />
-              </Col>
+                  <Form.Label>Tên sản phẩm</Form.Label>
+                  <Form.Control
+                    type="text"
+                    onChange={(e) => this.handleChange("name", e)}
+                  />
+                </Col>
+                <Col
+                  xl={4}
+                  lg={4}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  className="form-group"
+                >
+                  <Form.Label>Id</Form.Label>
+                  <Form.Control
+                    type="text"
+                    onChange={(e) => this.handleChange("id", e)}
+                  />
+                </Col>
+                <Col
+                  xl={4}
+                  lg={4}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  className="form-group"
+                >
+                  <Form.File
+                    className="position-relative"
+                    required
+                    name="file"
+                    label="Ảnh"
+                    onChange={(e) => this.handleChange("image", e)}
+                  />
+                </Col>
+              </Form.Row>
 
-            </Form.Row>
-            <Button variant="primary" type="button" onClick={this.handleSubmit}>
-              Add
-            </Button>
-          </Form>
-        </Container>
-      </div>
+              <Form.Row>
+                <Col
+                  xl={4}
+                  lg={4}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  className="form-group"
+                >
+                  <Form.Label>Giá (.000đ)</Form.Label>
+                  <Form.Control
+                    type="text"
+                    onChange={(e) => this.handleChange("price", e)}
+                  />
+                </Col>
+
+                <Col
+                  xl={4}
+                  lg={4}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  className="form-group"
+                >
+                  <Form.Label>Số lượng</Form.Label>
+                  <Form.Control
+                    type="text"
+                    onChange={(e) => this.handleChange("quantity", e)}
+                  />
+                </Col>
+
+                <Col
+                  xl={4}
+                  lg={4}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  className="form-group"
+                >
+                  <Form.Label>Giới tính</Form.Label>
+                  <Form.Control
+                    as="select"
+                    onChange={(e) => this.handleChange("sex", e)}
+                  >
+                    <option>Chọn...</option>
+                    <option value="men">Nam</option>
+                    <option value="women">Nữ</option>
+                  </Form.Control>
+                </Col>
+              </Form.Row>
+              <Button
+                variant="primary"
+                type="button"
+                onClick={this.handleSubmit}
+              >
+                Thêm
+              </Button>
+            </Form>
+
+            <Link to="/list-product">
+              <i className="fas fa-chevron-left"></i> Quay về
+            </Link>
+          </Container>
+        </Col>
+      </Row>
     );
   }
 }
