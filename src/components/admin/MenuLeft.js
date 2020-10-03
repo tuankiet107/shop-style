@@ -39,22 +39,27 @@ function MenuLeft() {
     <Col xl={2} lg={2} md={2} sm={2} className="left">
       <div className="main-header">
         <div className="menu-left">
-          <h4>KStore</h4>
+          <h3>KStore</h3>
           <ul className="list-item">
             <Link to="/">
+              <i className="fas fa-home"></i>
               <li>Cửa hàng</li>
             </Link>
             <Link to="/list-product">
-              <li>Quản lý sản phẩm</li>
+              <i className="fas fa-table"></i>
+              <li>Sản phẩm</li>
             </Link>
             <Link to="/list-order">
-              <li>Quản lý đơn hàng</li>
+              <i className="fas fa-pen"></i>
+              <li>Đơn hàng</li>
             </Link>
             <Link to="/list-user">
-              <li>Quản lý user</li>
+              <i className="fas fa-users"></i>
+              <li>Người dùng</li>
             </Link>
             <Link to="/list-chat">
-              <li>Messages</li>
+              <i className="fas fa-comment"></i>
+              <li>Tin nhắn</li>
             </Link>
           </ul>
 

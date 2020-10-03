@@ -123,10 +123,11 @@ function UpdateProduct(props) {
               <tr>
                 <th>Ảnh</th>
                 <th>Tên</th>
-                <th>Id</th>
+                <th>Mã (Id)</th>
                 <th>Giá</th>
                 <th>Số lượng</th>
                 <th>Giới tính</th>
+                <th>Giảm giá</th>
               </tr>
             </thead>
             <tbody style={{ lineHeight: "100px" }}>
@@ -143,6 +144,11 @@ function UpdateProduct(props) {
                 <td>{productSelected.price}.000đ</td>
                 <td>{productSelected.quantity}</td>
                 <td>{productSelected.sex}</td>
+                {productSelected.discount ? (
+                  <td>{productSelected.discount} %</td>
+                ) : (
+                  <td>0 %</td>
+                )}
               </tr>
             </tbody>
           </Table>
@@ -157,7 +163,7 @@ function UpdateProduct(props) {
                 />
               </Col>
               <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
-                <Form.Label>Id</Form.Label>
+                <Form.Label>Mã (Id)</Form.Label>
                 <Form.Control
                   type="text"
                   onChange={(e) => handleChange("id", e)}

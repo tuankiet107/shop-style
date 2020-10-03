@@ -19,6 +19,19 @@
     align-items: center;
     justify-content: space-evenly;
     margin-bottom: 20px;
+    .btn-plus-product {
+      i {
+        font-size: 18px;
+      }
+    }
+    .btn-pagination {
+      .btn-prev {
+        color: rgb(21, 115, 255);
+      }
+      .btn-next {
+        color: rgb(21, 115, 255);
+      }
+    }
   }
   .table {
     tr {
@@ -43,12 +56,21 @@
           position: absolute;
         }
       }
-    }
-    td {
-      vertical-align: baseline;
-      .origin-price {
-        color: #b9b8b8;
-        text-decoration: line-through;
+      td {
+        vertical-align: baseline;
+        .origin-price {
+          color: #b9b8b8;
+          text-decoration: line-through;
+        }
+        .btn-update {
+          color: #0084ff;
+          cursor: pointer;
+          margin-right: 20px;
+        }
+        .btn-delete {
+          cursor: pointer;
+          color: #ee4937;
+        }
       }
     }
   }
@@ -89,6 +111,17 @@
   margin-top: 20px;
   .table {
     text-align: center;
+    tr {
+      td {
+        .btn-delete-user {
+          color: rgb(250, 32, 32);
+          cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
   }
 }
 

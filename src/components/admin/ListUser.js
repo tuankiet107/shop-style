@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Row, Table } from "react-bootstrap";
+import { Col, Row, Table } from "react-bootstrap";
 import MenuLeft from "./MenuLeft";
+
 import firebase from "firebase";
-import Swal from "sweetalert2";
+// import functions from "firebase-functions";
+// import admin from "firebase-admin";
+// admin.initializeApp();
 
 function ListUser() {
   let lists = [],
@@ -39,12 +42,12 @@ function ListUser() {
         <tr key={index}>
           <td>{index + 1}</td>
           <td>{user.name}</td>
-          <td>{user.phone}</td>
           <td>{user.email}</td>
+          <td></td>
           <td>
-            <Button onClick={() => deleteUser(user)} variant="danger">
+            <span onClick={() => deleteUser(user)} className="btn-delete-user">
               Xóa
-            </Button>
+            </span>
           </td>
         </tr>
       );
@@ -52,19 +55,16 @@ function ListUser() {
   }
 
   function deleteUser(user) {
-    let account = firebase.auth().currentUser;
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-    });
-
-    console.log(account.email);
-    console.log(user.email);
-
+    // let account = firebase.auth().currentUser;
+    // const Toast = Swal.mixin({
+    //   toast: true,
+    //   position: "top-end",
+    //   showConfirmButton: false,
+    //   timer: 3000,
+    // });
+    // console.log(account.email);
+    // console.log(user.email);
     // temp = Math.random();
-
     // firebase
     //   .firestore()
     //   .collection("users")
@@ -107,7 +107,7 @@ function ListUser() {
                 <th>STT</th>
                 <th>Tên khách hàng</th>
                 <th>Email</th>
-                <th>Số điện thoại</th>
+                <th>Lịch sử mua hàng</th>
                 <th>Thao tác</th>
               </tr>
             </thead>

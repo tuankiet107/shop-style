@@ -40,24 +40,31 @@ function Chat() {
     }
     let docKey = buildDockey(user);
 
-    firebase
-      .firestore()
-      .collection("chats")
-      .doc(docKey)
-      .update({
-        messages: firebase.firestore.FieldValue.arrayUnion({
-          message: message,
-          sender: user,
-          timestamp: Date.now(),
-        }),
-        users: ["admin@gmail.com", user],
-      });
-    setRefresh(Math.random());
-    document.getElementById("input-val").value = "";
+    if (message) {
+      firebase
+        .firestore()
+        .collection("chats")
+        .doc(docKey)
+        .update({
+          messages: firebase.firestore.FieldValue.arrayUnion({
+            message: message,
+            sender: user,
+            timestamp: Date.now(),
+          }),
+          users: ["admin@gmail.com", user],
+        });
+      setRefresh(Math.random());
+      setMessage("");
+      // document.getElementById("input-val").value = "";
+    } else {
+      alert("Bạn chưa nhập tin nhắn.");
+    }
   }
 
   function onShowListChat() {
     const listChat = document.querySelector(".list-chat");
+    const wrapperChat = document.querySelector(".wrapper-chat");
+    wrapperChat.classList.toggle("show-wrapper");
     listChat.classList.toggle("show-chat");
     document.querySelector(".hello").style.display = "none";
 
@@ -91,13 +98,11 @@ function Chat() {
         .collection("chats")
         .doc(docKey)
         .set({
-          messages: [
-            { message: "Xin chào", sender: user, timestamp: Date.now() },
-          ],
+          messages: [],
           users: ["admin@gmail.com", user],
         });
     }
-    document.querySelector(".form-chat").style.display = "flex";
+    document.querySelector(".form-chat").style.display = "flex !important";
     document.querySelector(".btn-secondary").style.display = "none";
   }
 
@@ -121,28 +126,28 @@ function Chat() {
   }
 
   return (
-    <div className="wrapper-chat">
-      <div className="list-chat">
-        {localStorage.getItem("user") ? (
-          <button className="btn btn-secondary" onClick={onStartChatUser}>
-            Tiếp tục với vai trò {localStorage.getItem("user").split("@")[0]}
-          </button>
-        ) : (
-          <div>
+    <div className="chat-box">
+      <div className="wrapper-chat">
+        <div className="list-chat">
+          {localStorage.getItem("user") ? (
+            <button className="btn btn-secondary" onClick={onStartChatUser}>
+              Tiếp tục với vai trò {localStorage.getItem("user").split("@")[0]}
+            </button>
+          ) : (
             <button className="btn btn-secondary" onClick={onStartChatUser}>
               Tiếp tục với vai trò khách
             </button>
-          </div>
-        )}
+          )}
 
-        <div className="view-chat" id="view-list-chat">
-          {result}
+          <div className="view-chat" id="view-list-chat">
+            {result}
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="form-chat">
           <input
             id="input-val"
-            placeholder="Đặt câu hỏi..."
+            value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
           <div className="icon-send" onClick={handleSubmit}>
@@ -151,11 +156,13 @@ function Chat() {
         </form>
       </div>
 
-      <div className="icon-message" onClick={onShowListChat}>
-        <i className="fab fa-facebook-messenger"></i>
-      </div>
+      <div className="mini-chat-icon" onClick={onShowListChat}>
+        <div className="icon-message">
+          <i className="fab fa-facebook-messenger"></i>
+        </div>
 
-      <span className="hello">{welcome}</span>
+        <span className="hello">{welcome}</span>
+      </div>
     </div>
   );
 }

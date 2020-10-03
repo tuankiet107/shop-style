@@ -51,7 +51,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <div className="page-account">
       <Header />
 
       <div className="sign-in">

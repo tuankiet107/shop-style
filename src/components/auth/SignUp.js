@@ -6,7 +6,12 @@ import Header from "../views/Header";
 import { useForm } from "react-hook-form";
 
 function SignUp() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({
+    email: "",
+    name: "",
+    password: "",
+    passwordConfirm: "",
+  });
   const { handleSubmit, register, errors } = useForm();
   const history = useHistory();
 
@@ -17,9 +22,6 @@ function SignUp() {
         break;
       case "name":
         setUser({ ...user, name: e.target.value });
-        break;
-      case "phone":
-        setUser({ ...user, phone: e.target.value });
         break;
       case "password":
         setUser({ ...user, password: e.target.value });
@@ -73,13 +75,13 @@ function SignUp() {
         },
         (authErr) => {
           console.log(authErr);
-          setUser({ ...user, signupError: "Tạo tài khoản không thành công!" });
+          setUser({ ...user, errEmail: "* Ví dụ: example@gmail.com!" });
         }
       );
   }
 
   return (
-    <div>
+    <div className="page-account">
       <Header />
 
       <div className="sign-up">
@@ -91,7 +93,12 @@ function SignUp() {
           <Modal.Body>
             <Form>
               <Form.Group>
-                <Form.Label>Họ và tên</Form.Label>
+                <Form.Label>
+                  Họ và tên
+                  {errors.name && (
+                    <span style={{ color: "red" }}>* Bắt buộc</span>
+                  )}
+                </Form.Label>
                 <Form.Control
                   name="name"
                   type="text"
@@ -101,27 +108,32 @@ function SignUp() {
               </Form.Group>
 
               <Form.Group>
-                <Form.Label>Email</Form.Label>
+                <Form.Label>
+                  Email
+                  {errors.email && errors.email.type === "required" && (
+                    <span style={{ color: "red" }}>* Bắt buộc</span>
+                  )}
+                  {user && user.errEmail && (
+                    <span style={{ color: "red" }}>{user.errEmail}</span>
+                  )}
+                </Form.Label>
                 <Form.Control
                   name="email"
                   type="email"
-                  ref={register({ required: true })}
+                  ref={register({
+                    required: true,
+                  })}
                   onChange={(e) => userTyping("email", e)}
                 />
               </Form.Group>
 
               <Form.Group>
-                <Form.Label>Phone</Form.Label>
-                <Form.Control
-                  name="phone"
-                  type="text"
-                  ref={register({ required: true })}
-                  onChange={(e) => userTyping("phone", e)}
-                />
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Mật khẩu</Form.Label>
+                <Form.Label>
+                  Mật khẩu
+                  {errors.password && (
+                    <span style={{ color: "red" }}>* Bắt buộc</span>
+                  )}
+                </Form.Label>
                 <Form.Control
                   name="password"
                   type="password"
@@ -131,7 +143,12 @@ function SignUp() {
               </Form.Group>
 
               <Form.Group>
-                <Form.Label>Xác nhận mật khẩu</Form.Label>
+                <Form.Label>
+                  Xác nhận mật khẩu
+                  {errors.passwordConfirm && (
+                    <span style={{ color: "red" }}>* Bắt buộc</span>
+                  )}
+                </Form.Label>
                 <Form.Control
                   name="passwordConfirm"
                   type="password"
@@ -139,12 +156,6 @@ function SignUp() {
                   onChange={(e) => userTyping("passwordConfirm", e)}
                 />
               </Form.Group>
-
-              {errors.email && (
-                <div style={{ color: "red" }}>
-                  Bạn phải nhập đầy đủ thông tin.
-                </div>
-              )}
 
               <Button variant="primary" onClick={handleSubmit(handleSignup)}>
                 Đăng ký

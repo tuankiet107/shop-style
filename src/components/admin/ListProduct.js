@@ -71,6 +71,8 @@ function ListProduct() {
     setType(e.target.value);
   }
 
+  function onPrevPage() {}
+
   if (data) {
     Object.keys(data).forEach((item) => {
       switch (type) {
@@ -119,16 +121,16 @@ function ListProduct() {
               <span>{product.price}.000đ</span>
             )}
           </td>
-          {product.quantity === 0 ? (
+          {product.quantity <= 0 ? (
             <td style={{ color: "red" }}>Hết</td>
           ) : (
             <td>{product.quantity}</td>
           )}
           <td>
-            <span className="btn btn-success" onClick={() => onUpdate(product)}>
+            <span className="btn-update" onClick={() => onUpdate(product)}>
               Sửa
             </span>
-            <span className="btn btn-danger" onClick={() => onDelete(product)}>
+            <span className="btn-delete" onClick={() => onDelete(product)}>
               Xóa
             </span>
           </td>
@@ -148,8 +150,8 @@ function ListProduct() {
           ) : (
             <Container fluid className="list-product-page">
               <div className="custome">
-                <Link to="/add-product" className="btn btn-primary">
-                  Thêm sản phẩm
+                <Link to="/add-product" className="btn-plus-product">
+                  <i className="fas fa-plus"> Thêm sản phẩm</i>
                 </Link>
                 <Form>
                   <span>Sắp xếp</span>
@@ -164,6 +166,15 @@ function ListProduct() {
                     <option value="discount">Giảm giá</option>
                   </Form.Control>
                 </Form>
+
+                {/* <div className="btn-pagination">
+                  <button className="btn-prev" onClick={onPrevPage}>
+                    Trước
+                  </button>
+                  <button className="btn-next" onClick={onNextPage}>
+                    Sau
+                  </button>
+                </div> */}
               </div>
 
               <Table style={{ textAlign: "center" }}>
@@ -173,7 +184,7 @@ function ListProduct() {
                     <th>Tên sản phẩm</th>
                     <th>Giá</th>
                     <th>Số lượng</th>
-                    <th></th>
+                    <th>Hành động</th>
                   </tr>
                 </thead>
                 <tbody>{result}</tbody>

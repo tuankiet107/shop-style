@@ -134,7 +134,7 @@ class AddProduct extends Component {
                   xs={12}
                   className="form-group"
                 >
-                  <Form.Label>Id</Form.Label>
+                  <Form.Label>Mã (Id)</Form.Label>
                   <Form.Control
                     type="text"
                     onChange={(e) => this.handleChange("id", e)}
@@ -150,6 +150,7 @@ class AddProduct extends Component {
                 >
                   <Form.File
                     className="position-relative"
+                    placeholder="Chọn ảnh"
                     required
                     name="file"
                     label="Ảnh"
