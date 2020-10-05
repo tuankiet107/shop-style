@@ -87,7 +87,6 @@ function Checkout() {
         return item.id === data[item1].id;
       });
     });
-    // console.log(products);
     products.forEach((item3) => {
       Object.keys(data).forEach((item4) => {
         if (item3.id === data[item4].id) {
@@ -109,7 +108,7 @@ function Checkout() {
   return (
     <div>
       <div className="checkouts">
-        {errors.fullname ? (
+        {errors ? (
           <Alert variant="danger">Bạn phải nhập đầy đủ thông tin</Alert>
         ) : (
           ""
@@ -119,6 +118,9 @@ function Checkout() {
         <Form>
           <Row>
             <Col>
+              {errors.fullname && (
+                <span style={{ color: "red" }}>* Bắt buộc</span>
+              )}
               <Form.Control
                 type="text"
                 placeholder="Họ và tên"
@@ -135,6 +137,7 @@ function Checkout() {
           </Row>
           <Row>
             <Col>
+              {errors.phone && <span style={{ color: "red" }}>* Bắt buộc</span>}
               <Form.Control
                 type="text"
                 name="phone"
@@ -148,6 +151,9 @@ function Checkout() {
           </Row>
           <Row>
             <Col>
+              {errors.address && (
+                <span style={{ color: "red" }}>* Bắt buộc</span>
+              )}
               <Form.Control
                 type="text"
                 placeholder="Địa chỉ"

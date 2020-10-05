@@ -21,7 +21,6 @@ function Chat() {
         .doc(docKey)
         .onSnapshot(async (doc) => {
           setChat(doc.data());
-          // console.log("doc.data(): ", doc.data());
         });
     }
 
@@ -55,7 +54,6 @@ function Chat() {
         });
       setRefresh(Math.random());
       setMessage("");
-      // document.getElementById("input-val").value = "";
     } else {
       alert("Bạn chưa nhập tin nhắn.");
     }
@@ -104,6 +102,7 @@ function Chat() {
     }
     document.querySelector(".form-chat").style.display = "flex !important";
     document.querySelector(".btn-secondary").style.display = "none";
+    document.querySelector(".show-chat").style.overflowY = "scroll";
   }
 
   let userCurrent = localStorage.getItem("user");
@@ -128,6 +127,12 @@ function Chat() {
   return (
     <div className="chat-box">
       <div className="wrapper-chat">
+        <div className="header-chat">
+          <h4>KStore</h4>
+          <div className="close-chat" onClick={onShowListChat}>
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
         <div className="list-chat">
           {localStorage.getItem("user") ? (
             <button className="btn btn-secondary" onClick={onStartChatUser}>

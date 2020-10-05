@@ -8,10 +8,19 @@ import Swal from "sweetalert2";
 
 function ListProduct() {
   const history = useHistory();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
   let products = [],
     result;
   const [type, setType] = useState("all");
+
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 10,
+    totalRows: 10,
+  });
+  // const [filters, setFilters] = useState({})
+  const { page, limit, totalRows } = pagination;
+  const totalPages = Math.ceil(totalRows / limit);
 
   useEffect(() => {
     async function fetchDataFromDB() {
@@ -19,13 +28,24 @@ function ListProduct() {
         .firestore()
         .collection("products")
         .doc("veTsDR2nMSiv3ldp7J0F")
-        .onSnapshot((doc) => {
-          setData(doc.data().products);
+        .onSnapshot(async (doc) => {
+          const temp = await doc.data().products;
+          setData(temp);
         });
     }
-
     fetchDataFromDB();
   }, []);
+
+  // function getTotalPage() {
+  //   let size = 0;
+  //   if (data) {
+  //     for (let key in data) {
+  //       if (data.hasOwnProperty(key)) size++;
+  //     }
+  //     setPagination({ ...pagination, totalRows: size });
+  //   }
+  //   return size;
+  // }
 
   function onUpdate(value) {
     history.push({
@@ -71,7 +91,13 @@ function ListProduct() {
     setType(e.target.value);
   }
 
-  function onPrevPage() {}
+  function onPrevPage(newPage) {
+    console.log(newPage);
+  }
+
+  function onNextPage(newPage) {
+    console.log(newPage);
+  }
 
   if (data) {
     Object.keys(data).forEach((item) => {
@@ -167,14 +193,22 @@ function ListProduct() {
                   </Form.Control>
                 </Form>
 
-                {/* <div className="btn-pagination">
-                  <button className="btn-prev" onClick={onPrevPage}>
+                <div className="btn-pagination">
+                  <button
+                    disabled={page <= 1}
+                    className="btn btn-prev"
+                    onClick={() => onPrevPage(page - 1)}
+                  >
                     Trước
                   </button>
-                  <button className="btn-next" onClick={onNextPage}>
+                  <button
+                    disabled={page >= totalPages}
+                    className="btn btn-next"
+                    onClick={() => onNextPage(page + 1)}
+                  >
                     Sau
                   </button>
-                </div> */}
+                </div>
               </div>
 
               <Table style={{ textAlign: "center" }}>

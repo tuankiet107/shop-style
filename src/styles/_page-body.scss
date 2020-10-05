@@ -33,23 +33,34 @@
       .info-product {
         outline: none;
         position: relative;
-        padding: 40px 0;
+        margin-top: 40px;
+        padding: 0 0 40px 0;
+        .dis-percent {
+          position: absolute;
+          top: 0;
+          right: 10%;
+          color: white;
+          padding: 2px 6px;
+          background-color: #3b9aff;
+        }
         .over-qty {
           position: absolute;
-          top: 10%;
+          top: 0;
           left: 10%;
           font-size: 30px;
-          color: red;
+          background-color: #fc2f49;
+          color: white;
         }
         img {
           width: 300px;
           height: 280px;
           margin-bottom: 20px;
           cursor: pointer;
+          border: 1px solid rgb(231, 230, 230);
         }
         &:hover {
           .button {
-            top: 200px;
+            top: 170px;
             opacity: 1;
           }
         }

@@ -20,6 +20,7 @@ import UpdateProduct from "./components/admin/UpdateProduct";
 import ListOrder from "./components/admin/ListOrder";
 import ListUser from "./components/admin/ListUser";
 import Chat from "./components/admin/Chat";
+import PrivateRoutes from "./routes/PrivateRoute";
 
 function App() {
   return (
@@ -36,12 +37,12 @@ function App() {
           <Route path="/search" component={Search} />
           {/* <Route path="/:detail" component={Details} /> */}
 
-          <Route path="/list-product" component={ListProduct} />
-          <Route path="/add-product" component={AddProduct} />
-          <Route path="/update-product" component={UpdateProduct} />
-          <Route path="/list-order" component={ListOrder} />
-          <Route path="/list-user" component={ListUser} />
-          <Route path="/list-chat" component={Chat} />
+          <PrivateRoutes path="/list-product" component={ListProduct} />
+          <PrivateRoutes path="/add-product" component={AddProduct} />
+          <PrivateRoutes path="/update-product" component={UpdateProduct} />
+          <PrivateRoutes path="/list-order" component={ListOrder} />
+          <PrivateRoutes path="/list-user" component={ListUser} />
+          <PrivateRoutes path="/list-chat" component={Chat} />
 
           <Route path="/checkouts" component={Checkout} />
 

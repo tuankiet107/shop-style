@@ -1,6 +1,6 @@
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
-import { Button, Col, Row, Table } from "react-bootstrap";
+import { Button, Col, Dropdown, Row, Table } from "react-bootstrap";
 import MenuLeft from "./MenuLeft";
 
 function ListOrder() {
@@ -58,28 +58,38 @@ function ListOrder() {
             <td>{item.totals}.000đ</td>
             <td>{item.note}</td>
             <td>Đang giao</td>
-            <td>
-              <Button
-                variant="primary"
-                data-toggle="collapse"
-                href={item.id}
-                aria-expanded="false"
-                aria-controls={item.id}
-              >
-                Xem
-              </Button>
+            <td className="btn-custom">
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-basic">Xem</Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  {item.products.map((item2) => {
+                    return (
+                      <Dropdown.Item>
+                        <img
+                          src={item2.image}
+                          alt=""
+                          style={{ width: "60px", height: "60px" }}
+                        />
+                        <h4>{item2.name}</h4>
+                        <span>Số lượng: {item2.quantity}</span>
+                      </Dropdown.Item>
+                    );
+                  })}
+                </Dropdown.Menu>
+              </Dropdown>
               <Button className="pl-2" variant="danger">
                 Xóa
               </Button>
             </td>
           </tr>
 
-          {item.products.map((item2) => {
+          {/* {item.products.map((item2) => {
             return (
               <tr id={item.id}>
                 <td>
                   <img
-                    src={item2.name}
+                    src={item2.image}
                     alt=""
                     style={{ width: "80px", height: "80px" }}
                   />
@@ -88,7 +98,7 @@ function ListOrder() {
                 <td>{item2.name}</td>
               </tr>
             );
-          })}
+          })} */}
         </tbody>
       );
     });
@@ -101,10 +111,10 @@ function ListOrder() {
       <Row>
         <MenuLeft />
 
-        <Col xl={10} lg={10} md={10} sm={10} style={{ marginLeft: "auto" }}>
+        <Col xl={11} lg={11} md={11} sm={11} style={{ marginLeft: "auto" }}>
           <div className="admin-order">
             <h3>Quản lí đơn hàng</h3>
-            <Table striped bordered hover>
+            <Table bordered hover>
               <thead>
                 <tr>
                   <th>STT</th>

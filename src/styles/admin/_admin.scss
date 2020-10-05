@@ -25,12 +25,22 @@
       }
     }
     .btn-pagination {
-      .btn-prev {
+      .btn {
+        padding: 0;
         color: rgb(21, 115, 255);
+        width: 60px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        border: 1px solid rgb(226, 226, 226);
+        &:hover {
+          text-decoration: underline;
+        }
       }
-      .btn-next {
-        color: rgb(21, 115, 255);
-      }
+      // .btn-prev {
+      // }
+      // .btn-next {
+      // }
     }
   }
   .table {
@@ -69,7 +79,7 @@
         }
         .btn-delete {
           cursor: pointer;
-          color: #ee4937;
+          color: #fc2109;
         }
       }
     }
@@ -120,6 +130,22 @@
             text-decoration: underline;
           }
         }
+      }
+    }
+  }
+}
+
+.admin-order {
+  text-align: center;
+  .btn-custom {
+    display: flex;
+    .dropdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      h4 {
+        text-transform: capitalize;
+        padding: 0 10px;
       }
     }
   }
