@@ -5,6 +5,7 @@ import MenuLeft from "./MenuLeft";
 
 function ListOrder() {
   const [cart, setCart] = useState();
+  const [refresh, setRefresh] = useState();
   let listOrder = [],
     result;
 
@@ -21,11 +22,25 @@ function ListOrder() {
     }
 
     getUserFromDB();
-  }, []);
+  }, [refresh]);
 
-  // function showModal(products) {
-  //   console.log(products);
-  // }
+  function deleteOrderFn(item) {
+    if (cart) {
+      Object.keys(cart).forEach((key) => {
+        if (cart[key] === item) {
+          firebase
+            .firestore()
+            .collection("cart")
+            .doc("cart")
+            .update({
+              [key]: firebase.firestore.FieldValue.delete(),
+            });
+        }
+      });
+      setRefresh(Math.random());
+    }
+    return;
+  }
 
   if (cart) {
     Object.keys(cart).forEach((item) => {
@@ -78,33 +93,15 @@ function ListOrder() {
                   })}
                 </Dropdown.Menu>
               </Dropdown>
-              <Button className="pl-2" variant="danger">
+              <Button variant="danger" onClick={() => deleteOrderFn(item)}>
                 Xóa
               </Button>
             </td>
           </tr>
-
-          {/* {item.products.map((item2) => {
-            return (
-              <tr id={item.id}>
-                <td>
-                  <img
-                    src={item2.image}
-                    alt=""
-                    style={{ width: "80px", height: "80px" }}
-                  />
-                </td>
-                <td>{item2.name}</td>
-                <td>{item2.name}</td>
-              </tr>
-            );
-          })} */}
         </tbody>
       );
     });
   }
-
-  console.log("Render list order");
 
   return (
     <div className="list-order">
