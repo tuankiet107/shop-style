@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
 import Footer from "../views/Footer";
 import Header from "../views/Header";
+import ConvertPrice from "../../routes/ConvertPrice";
 
 function Women() {
   const [data, setData] = useState(null);
@@ -72,11 +73,15 @@ function Women() {
         <div className="details">
           <p>{product.name}</p>
           <div className="info-price">
-            {product.discount ? <span>{product.priceDiscount}.000đ</span> : ""}
-            {product.priceDiscount ? (
-              <span className="discount">{product.price}.000đ</span>
+            {product.discount ? (
+              <span>{ConvertPrice(product.priceDiscount)}</span>
             ) : (
-              <span>{product.price}.000đ</span>
+              ""
+            )}
+            {product.priceDiscount ? (
+              <span className="discount">{ConvertPrice(product.price)}</span>
+            ) : (
+              <span>{ConvertPrice(product.price)}</span>
             )}
           </div>
         </div>

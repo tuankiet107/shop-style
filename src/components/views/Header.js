@@ -18,7 +18,7 @@ function Header() {
       setUser(localStorage.getItem("user"));
     }
     fetchDataFromForm();
-  });
+  }, []);
 
   function handleChangeFromSearch(e) {
     setSearch(e.target.value);
@@ -48,8 +48,6 @@ function Header() {
   function logIn() {
     history.push("/login");
   }
-
-  console.log("Header render");
 
   return (
     <header>

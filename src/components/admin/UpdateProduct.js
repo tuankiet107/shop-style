@@ -5,6 +5,8 @@ import { Link, useHistory } from "react-router-dom";
 import MenuLeft from "./MenuLeft";
 import Swal from "sweetalert2";
 
+import ConvertPrice from "../../routes/ConvertPrice";
+
 function UpdateProduct(props) {
   const history = useHistory();
   const [value, setValue] = useState({});
@@ -48,8 +50,6 @@ function UpdateProduct(props) {
   function handleSubmit(e) {
     e.preventDefault();
     priceDiscount = value.price - (value.price * value.discount) / 100;
-    console.log(priceDiscount);
-
     let storageRef = firebase.storage().ref("images/" + value.nameStorage);
     let uploadTask = storageRef.put(value.image);
 
@@ -141,7 +141,7 @@ function UpdateProduct(props) {
                 </td>
                 <td>{productSelected.name}</td>
                 <td>{productSelected.id}</td>
-                <td>{productSelected.price}.000đ</td>
+                <td>{ConvertPrice(productSelected.price)}</td>
                 <td>{productSelected.quantity}</td>
                 <td>{productSelected.sex}</td>
                 {productSelected.discount ? (
@@ -182,7 +182,7 @@ function UpdateProduct(props) {
 
             <Form.Row>
               <Col xl={3} lg={3} md={12} sm={12} xs={12} className="form-group">
-                <Form.Label>Giá (.000đ)</Form.Label>
+                <Form.Label>Giá</Form.Label>
                 <Form.Control
                   type="text"
                   onChange={(e) => handleChange("price", e)}

@@ -8,6 +8,7 @@ import {
 } from "../../actions/types";
 import Header from "../views/Header";
 import Footer from "../views/Footer";
+import ConvertPrice from "../../routes/ConvertPrice";
 
 function Cart() {
   let productsInCart = [];
@@ -32,9 +33,9 @@ function Cart() {
         <td className="item">
           <h3>{product.name}</h3>
           {product.priceDiscount ? (
-            <p>{product.priceDiscount}.000đ</p>
+            <p>{ConvertPrice(product.priceDiscount)}</p>
           ) : (
-            <p>{product.price}.000đ</p>
+            <p>{ConvertPrice(product.price)}</p>
           )}
           <div className="qty-parent">
             <span>{product.quantity}</span>
@@ -55,10 +56,12 @@ function Cart() {
           </div>
           {product.priceDiscount ? (
             <p className="price">
-              {product.quantity * product.priceDiscount}.000đ
+              {ConvertPrice(product.quantity * product.priceDiscount)}
             </p>
           ) : (
-            <p className="price">{product.quantity * product.price}.000đ</p>
+            <p className="price">
+              {ConvertPrice(product.quantity * product.price)}
+            </p>
           )}
         </td>
 
@@ -71,8 +74,6 @@ function Cart() {
       </tr>
     );
   });
-
-  let totalPrice = basketProps.cartCost;
 
   return (
     <div>
@@ -101,7 +102,7 @@ function Cart() {
 
           <div className="subtotal">
             <h3>Tổng tiền: </h3>
-            <span>{totalPrice}.000đ</span>
+            <span>{ConvertPrice(basketProps.cartCost)}</span>
           </div>
 
           <Link to="/checkouts" className="btn btn-checkout">

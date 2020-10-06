@@ -168,7 +168,7 @@ class AddProduct extends Component {
                   xs={12}
                   className="form-group"
                 >
-                  <Form.Label>Giá (.000đ)</Form.Label>
+                  <Form.Label>Giá (vnd)</Form.Label>
                   <Form.Control
                     type="text"
                     onChange={(e) => this.handleChange("price", e)}

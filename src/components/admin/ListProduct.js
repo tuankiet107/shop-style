@@ -6,6 +6,8 @@ import firebase from "firebase";
 import MenuLeft from "./MenuLeft";
 import Swal from "sweetalert2";
 
+import ConvertPrice from "../../routes/ConvertPrice";
+
 function ListProduct() {
   const history = useHistory();
   const [data, setData] = useState();
@@ -137,14 +139,16 @@ function ListProduct() {
           <td>{product.name}</td>
           <td>
             {product.priceDiscount ? (
-              <p>{Math.ceil(product.priceDiscount)}.000đ</p>
+              <p>{ConvertPrice(Math.ceil(product.priceDiscount))}</p>
             ) : (
               ""
             )}
             {product.priceDiscount ? (
-              <span className="origin-price">{product.price}.000đ</span>
+              <span className="origin-price">
+                {ConvertPrice(product.price)}
+              </span>
             ) : (
-              <span>{product.price}.000đ</span>
+              <span>{ConvertPrice(product.price)}</span>
             )}
           </td>
           {product.quantity <= 0 ? (

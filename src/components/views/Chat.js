@@ -130,7 +130,7 @@ function Chat() {
         <div className="header-chat">
           <h4>KStore</h4>
           <div className="close-chat" onClick={onShowListChat}>
-            <i class="fas fa-times"></i>
+            <i className="fas fa-times"></i>
           </div>
         </div>
         <div className="list-chat">

@@ -1,9 +1,9 @@
-.main-cart{
+.main-cart {
   margin-bottom: 180px;
-  .header-page{
+  .header-page {
     margin-top: 140px;
     text-align: center;
-    &::after{
+    &::after {
       content: "";
       background-color: black;
       height: 4px;
@@ -16,55 +16,55 @@
     table {
       width: 100%;
       tbody {
-        tr{
+        tr {
           border-bottom: 1px solid #e7e6e6;
-          .image{
+          .image {
             width: 110px;
             padding: 30px 0;
             text-align: center;
           }
-          .item{
+          .item {
             vertical-align: middle;
             padding-left: 20px;
-            h3{
+            h3 {
               font-size: 24px;
               font-weight: bold;
               text-transform: uppercase;
               font-family: "initial", monospace;
             }
-            p{
+            p {
               color: rgb(122, 122, 122);
             }
-            .qty-parent{
+            .qty-parent {
               float: left;
               display: flex;
-              span{
+              span {
                 cursor: text;
                 font-size: 16px;
                 padding: 15px;
-                border: 1px solid rgb(129, 129, 129);
+                border: 1px solid #bbbaba;
               }
-              .btn-qty{
+              .btn-qty {
                 display: flex;
                 flex-direction: column;
-                .fas{
+                .fas {
                   cursor: pointer;
                   padding: 5px 10px;
                   border-left: none;
                 }
               }
             }
-            .price{
+            .price {
               float: right;
             }
           }
-          .remove{
+          .remove {
             text-align: right;
-            .fas{
+            .fas {
               cursor: pointer;
-              color:#ff3636;
-              &:hover{
-                color:#fa6c6c;
+              color: #ff3636;
+              &:hover {
+                color: #fa6c6c;
               }
             }
           }
@@ -80,7 +80,7 @@
         color: #506172;
         font-size: 40px;
       }
-  
+
       h3 {
         color: #506172;
         font-size: 24px;
@@ -88,9 +88,9 @@
       }
     }
 
-    .btn-checkout{
+    .btn-checkout {
       padding: 14px 25px;
-      background-color: #018DFF;
+      background-color: #018dff;
       position: relative;
       color: white;
       overflow: hidden;
@@ -99,7 +99,7 @@
       outline: none;
       border: none;
       border-radius: 0;
-      &::before{
+      &::before {
         content: "";
         position: absolute;
         top: 0;
@@ -111,8 +111,8 @@
         transition: 0.5s;
         z-index: -1;
       }
-      &:hover{
-        &::before{
+      &:hover {
+        &::before {
           left: 0;
           right: auto;
           width: 100%;

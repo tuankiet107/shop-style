@@ -59,7 +59,7 @@ function Checkout() {
             products: basket.products,
             totals: basket.cartCost,
             orderDate: new Date(),
-            note: info_checkout.note,
+            note: info_checkout.note ? info_checkout.note : "",
           },
         });
 
@@ -108,10 +108,8 @@ function Checkout() {
   return (
     <div>
       <div className="checkouts">
-        {errors ? (
+        {errors && (
           <Alert variant="danger">Bạn phải nhập đầy đủ thông tin</Alert>
-        ) : (
-          ""
         )}
         <h3>KStore</h3>
         <h5>Thông tin đơn hàng</h5>
@@ -176,7 +174,6 @@ function Checkout() {
                 rows={3}
                 name="note"
                 placeholder="Ghi chú"
-                ref={register({ required: true })}
                 onChange={(e) =>
                   setInfo_checkout({
                     ...info_checkout,
