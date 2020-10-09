@@ -7,22 +7,17 @@ import MenuLeft from "./MenuLeft";
 import Swal from "sweetalert2";
 
 import ConvertPrice from "../../routes/ConvertPrice";
+import Pagination from "./Pagination";
 
 function ListProduct() {
   const history = useHistory();
-  const [data, setData] = useState();
   let products = [],
-    result;
+    result,
+    lengthData;
   const [type, setType] = useState("all");
-
-  const [pagination, setPagination] = useState({
-    page: 1,
-    limit: 10,
-    totalRows: 10,
-  });
-  // const [filters, setFilters] = useState({})
-  const { page, limit, totalRows } = pagination;
-  const totalPages = Math.ceil(totalRows / limit);
+  const [data, setData] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(8);
 
   useEffect(() => {
     async function fetchDataFromDB() {
@@ -32,22 +27,14 @@ function ListProduct() {
         .doc("veTsDR2nMSiv3ldp7J0F")
         .onSnapshot(async (doc) => {
           const temp = await doc.data().products;
-          setData(temp);
+          Object.keys(temp).forEach((item) => {
+            products.push(temp[item]);
+          });
+          setData(products);
         });
     }
     fetchDataFromDB();
   }, []);
-
-  // function getTotalPage() {
-  //   let size = 0;
-  //   if (data) {
-  //     for (let key in data) {
-  //       if (data.hasOwnProperty(key)) size++;
-  //     }
-  //     setPagination({ ...pagination, totalRows: size });
-  //   }
-  //   return size;
-  // }
 
   function onUpdate(value) {
     history.push({
@@ -93,38 +80,39 @@ function ListProduct() {
     setType(e.target.value);
   }
 
-  function onPrevPage(newPage) {
-    console.log(newPage);
-  }
-
-  function onNextPage(newPage) {
-    console.log(newPage);
+  function paginateFn(pageNumber) {
+    return setCurrentPage(pageNumber);
   }
 
   if (data) {
-    Object.keys(data).forEach((item) => {
+    data.forEach((item) => {
       switch (type) {
         case "all":
-          products.push(data[item]);
+          products.push(item);
           break;
         case "discount":
-          if (data[item].priceDiscount) {
-            products.push(data[item]);
+          if (item.priceDiscount) {
+            products.push(item);
           }
           break;
-        case data[item].sex:
-          products.push(data[item]);
+        case item.sex:
+          products.push(item);
           break;
         default:
           break;
       }
     });
+    lengthData = products.length;
 
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
     products.sort(function (a, b) {
       return b.date - a.date;
     });
 
-    result = products.map((product) => {
+    const curentPosts = products.slice(indexOfFirstPost, indexOfLastPost);
+
+    result = curentPosts.map((product) => {
       return (
         <tr key={product.id}>
           <td className="image">
@@ -196,23 +184,6 @@ function ListProduct() {
                     <option value="discount">Giảm giá</option>
                   </Form.Control>
                 </Form>
-
-                <div className="btn-pagination">
-                  <button
-                    disabled={page <= 1}
-                    className="btn btn-prev"
-                    onClick={() => onPrevPage(page - 1)}
-                  >
-                    Trước
-                  </button>
-                  <button
-                    disabled={page >= totalPages}
-                    className="btn btn-next"
-                    onClick={() => onNextPage(page + 1)}
-                  >
-                    Sau
-                  </button>
-                </div>
               </div>
 
               <Table style={{ textAlign: "center" }}>
@@ -227,6 +198,12 @@ function ListProduct() {
                 </thead>
                 <tbody>{result}</tbody>
               </Table>
+
+              <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={lengthData}
+                paginate={paginateFn}
+              />
             </Container>
           )}
         </Col>

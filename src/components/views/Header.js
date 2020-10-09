@@ -12,13 +12,14 @@ function Header() {
 
   const [user, setUser] = useState("");
   const [search, setSearch] = useState("");
+  const [refresh, setRefresh] = useState(0)
 
   useEffect(() => {
     async function fetchDataFromForm() {
       setUser(localStorage.getItem("user"));
     }
     fetchDataFromForm();
-  }, []);
+  }, [refresh]);
 
   function handleChangeFromSearch(e) {
     setSearch(e.target.value);
@@ -40,8 +41,10 @@ function Header() {
     dispatch({
       type: RESET_BASKET,
     });
+
     localStorage.removeItem("user");
     sessionStorage.removeItem("user");
+    setRefresh(Math.random());
     history.push("/");
   }
 

@@ -1,11 +1,12 @@
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
-import { Button, Col, Dropdown, Row, Table } from "react-bootstrap";
+import { Button, Col, Dropdown, Form, Row, Table } from "react-bootstrap";
 import MenuLeft from "./MenuLeft";
+import ConvertPrice from '../../routes/ConvertPrice';
 
 function ListOrder() {
   const [cart, setCart] = useState();
-  const [refresh, setRefresh] = useState();
+  const [type, setType] = useState("all");
   let listOrder = [],
     result;
 
@@ -22,7 +23,7 @@ function ListOrder() {
     }
 
     getUserFromDB();
-  }, [refresh]);
+  },[type]);
 
   function deleteOrderFn(item) {
     if (cart) {
@@ -37,14 +38,45 @@ function ListOrder() {
             });
         }
       });
-      setRefresh(Math.random());
     }
     return;
   }
 
+  function orderStatusFn(item){
+    if(cart){
+      Object.keys(cart).forEach(itemKey => {
+        if(item === cart[itemKey]){
+          firebase
+          .firestore()
+          .collection('cart')
+          .doc('cart')
+          .update({
+            [`${itemKey}.status`]: true
+          })
+        }
+      })
+    }
+  }
+
   if (cart) {
     Object.keys(cart).forEach((item) => {
-      listOrder.push(cart[item]);
+      switch (type) {
+        case "all":
+          listOrder.push(cart[item]);
+          break;
+        case "wait":
+          if(cart[item].status === false){
+            listOrder.push(cart[item]);
+          }
+          break;
+        case "actived":
+          if(cart[item].status === true){
+            listOrder.push(cart[item]);
+          }
+          break;
+        default:
+          break;
+      }
     });
 
     listOrder.sort(function (a, b) {
@@ -61,7 +93,7 @@ function ListOrder() {
       let seconds = dateObj.getSeconds();
 
       return (
-        <tbody>
+
           <tr key={index}>
             <td>{index + 1}</td>
             <td>{item.fullName}</td>
@@ -70,17 +102,21 @@ function ListOrder() {
             <td>
               {year}/{day}/{month} {hour}:{minutes}:{seconds}
             </td>
-            <td>{item.totals}.000đ</td>
+            <td>{ConvertPrice(item.totals)}</td>
             <td>{item.note}</td>
-            <td>Đang giao</td>
+            <td onClick={() => orderStatusFn(item)}>
+              {
+                item.status === true ? <span className="active-status ">Đã xác nhận</span> : <span>Chờ xác nhận</span>
+              }
+            </td>
             <td className="btn-custom">
               <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">Xem</Dropdown.Toggle>
+                <Dropdown.Toggle id="dropdown-basic" variant="outline-primary">Xem</Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  {item.products.map((item2) => {
+                  {item.products.map((item2, index2) => {
                     return (
-                      <Dropdown.Item>
+                      <Dropdown.Item key={index2}>
                         <img
                           src={item2.image}
                           alt=""
@@ -93,12 +129,11 @@ function ListOrder() {
                   })}
                 </Dropdown.Menu>
               </Dropdown>
-              <Button variant="danger" onClick={() => deleteOrderFn(item)}>
+              <Button variant="outline-danger" onClick={() => deleteOrderFn(item)}>
                 Xóa
               </Button>
             </td>
           </tr>
-        </tbody>
       );
     });
   }
@@ -110,7 +145,23 @@ function ListOrder() {
 
         <Col xl={11} lg={11} md={11} sm={11} style={{ marginLeft: "auto" }}>
           <div className="admin-order">
-            <h3>Quản lí đơn hàng</h3>
+            <div className="title">
+              <h3>Quản lí đơn hàng</h3>
+
+              <Form>
+                    <span>Sắp xếp</span>
+                    <Form.Control
+                      as="select"
+                      defaultValue="all"
+                      onChange={(e) => setType(e.target.value)}
+                    >
+                      <option value="all">Tất cả</option>
+                      <option value="wait">Chờ xác nhận</option>
+                      <option value="actived">Đã xác nhận</option>
+                    </Form.Control>
+                </Form>
+
+            </div>
             <Table bordered hover>
               <thead>
                 <tr>
@@ -125,8 +176,9 @@ function ListOrder() {
                   <th>Thao tác</th>
                 </tr>
               </thead>
-
+              <tbody>
               {result}
+              </tbody>
             </Table>
           </div>
         </Col>

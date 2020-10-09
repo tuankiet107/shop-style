@@ -8,12 +8,16 @@ import { ADD_PRODUCT_BASKET } from "../../actions/types";
 import Footer from "../views/Footer";
 import Header from "../views/Header";
 import ConvertPrice from "../../routes/ConvertPrice";
+import Pagination from "../admin/Pagination";
 
 function Discount() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(8);
   const dispatch = useDispatch();
-  let listProducts = [],
-    result;
+  let products = [],
+    result,
+    lengthData;
 
   useEffect(() => {
     setTimeout(() => {
@@ -26,9 +30,13 @@ function Discount() {
         .collection("products")
         .doc("veTsDR2nMSiv3ldp7J0F")
         .get()
-        .then((doc) => {
+        .then(async (doc) => {
           if (doc.exists) {
-            setData(doc.data().products);
+            const temp = await doc.data().products;
+            Object.keys(temp).forEach((item) => {
+              products.push(temp[item]);
+            });
+            setData(products);
           } else {
             console.log("No such document!");
           }
@@ -41,15 +49,28 @@ function Discount() {
     fetchDataFromDB();
   }, []);
 
-  if (data) {
-    Object.keys(data).forEach((item) => {
-      if (data[item].discount) {
-        listProducts.push(data[item]);
-      }
-    });
+  function paginateFn(pageNumber) {
+    return setCurrentPage(pageNumber);
   }
 
-  result = listProducts.map((product) => {
+  if (data) {
+    data.forEach((item) => {
+      if (item.discount) {
+        products.push(item);
+      }
+    });
+    lengthData = products.length;
+  }
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  products.sort(function (a, b) {
+    return b.date - a.date;
+  });
+
+  const curentPosts = products.slice(indexOfFirstPost, indexOfLastPost);
+
+  result = curentPosts.map((product) => {
     return (
       <Col
         className="info-product"
@@ -119,6 +140,13 @@ function Discount() {
       ) : (
         <div className="page-products">
           <h2 className="title">Sản phẩm giảm giá</h2>
+
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={lengthData}
+            paginate={paginateFn}
+          />
+
           <Container fluid>
             <Row>{result}</Row>
           </Container>

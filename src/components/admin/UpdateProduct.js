@@ -1,6 +1,14 @@
 import firebase from "firebase";
 import React, { useState } from "react";
-import { Button, Col, Container, Form, Row, Table } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  ProgressBar,
+  Row,
+  Table,
+} from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import MenuLeft from "./MenuLeft";
 import Swal from "sweetalert2";
@@ -10,6 +18,7 @@ import ConvertPrice from "../../routes/ConvertPrice";
 function UpdateProduct(props) {
   const history = useHistory();
   const [value, setValue] = useState({});
+  const [now, setNow] = useState(0);
   const productSelected = props.location.state;
   let url;
   let priceDiscount;
@@ -58,6 +67,7 @@ function UpdateProduct(props) {
       function (snapshot) {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Update is " + progress + " % done");
+        setNow(progress);
       },
       function (err) {
         console.log(err.message);
@@ -227,6 +237,8 @@ function UpdateProduct(props) {
             <i className="fas fa-chevron-left"></i> Quay về
           </Link>
         </Container>
+
+        <ProgressBar now={now} label={`${now}%`} />
       </Col>
     </Row>
   );

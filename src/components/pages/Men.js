@@ -8,12 +8,16 @@ import { ADD_PRODUCT_BASKET } from "../../actions/types";
 import Footer from "../views/Footer";
 import Header from "../views/Header";
 import ConvertPrice from "../../routes/ConvertPrice";
+import Pagination from "../admin/Pagination";
 
 function Men() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(8);
   const dispatch = useDispatch();
-  let listProducts = [],
-    result;
+  let products = [],
+    result,
+    lengthData;
 
   useEffect(() => {
     setTimeout(() => {
@@ -26,9 +30,13 @@ function Men() {
         .collection("products")
         .doc("veTsDR2nMSiv3ldp7J0F")
         .get()
-        .then((doc) => {
+        .then(async (doc) => {
           if (doc.exists) {
-            setData(doc.data().products);
+            const temp = await doc.data().products;
+            Object.keys(temp).forEach((item) => {
+              products.push(temp[item]);
+            });
+            setData(products);
           } else {
             console.log("No such document!");
           }
@@ -40,6 +48,10 @@ function Men() {
 
     fetchDataFromDB();
   }, []);
+
+  function paginateFn(pageNumber) {
+    return setCurrentPage(pageNumber);
+  }
 
   function onAddToCart(product) {
     if (localStorage.getItem("user")) {
@@ -63,18 +75,23 @@ function Men() {
   }
 
   if (data) {
-    Object.keys(data).forEach((item) => {
-      if (data[item].sex === "men") {
-        listProducts.push(data[item]);
+    data.forEach((item) => {
+      if (item.sex === "men") {
+        products.push(item);
       }
     });
+    lengthData = products.length;
   }
 
-  listProducts.sort((a, b) => {
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  products.sort(function (a, b) {
     return b.date - a.date;
   });
 
-  result = listProducts.map((product) => {
+  const curentPosts = products.slice(indexOfFirstPost, indexOfLastPost);
+
+  result = curentPosts.map((product) => {
     return (
       <Col
         className="info-product"
@@ -122,6 +139,12 @@ function Men() {
       ) : (
         <div className="page-products">
           <h2 className="title">Sản phẩm nam</h2>
+
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={lengthData}
+            paginate={paginateFn}
+          />
 
           <Container fluid>
             <Row>{result}</Row>

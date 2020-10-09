@@ -8,12 +8,16 @@ import { ADD_PRODUCT_BASKET } from "../../actions/types";
 import Footer from "../views/Footer";
 import Header from "../views/Header";
 import ConvertPrice from "../../routes/ConvertPrice";
+import Pagination from "../admin/Pagination";
 
 function Women() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(8);
   const dispatch = useDispatch();
-  let listProducts = [],
-    result;
+  let products = [],
+    result,
+    lengthData;
 
   useEffect(() => {
     setTimeout(() => {
@@ -26,9 +30,13 @@ function Women() {
         .collection("products")
         .doc("veTsDR2nMSiv3ldp7J0F")
         .get()
-        .then((doc) => {
+        .then(async (doc) => {
           if (doc.exists) {
-            setData(doc.data().products);
+            const temp = await doc.data().products;
+            Object.keys(temp).forEach((item) => {
+              products.push(temp[item]);
+            });
+            setData(products);
           } else {
             console.log("No such document!");
           }
@@ -41,19 +49,49 @@ function Women() {
     fetchDataFromDB();
   }, []);
 
-  if (data) {
-    Object.keys(data).forEach((item) => {
-      if (data[item].sex === "women") {
-        listProducts.push(data[item]);
-      }
-    });
+  function paginateFn(pageNumber) {
+    return setCurrentPage(pageNumber);
   }
 
-  listProducts.sort((a, b) => {
+  function onAddToCart(product) {
+    if (localStorage.getItem("user")) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "center",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Đã thêm vào giỏ hàng.",
+      });
+      dispatch({ type: ADD_PRODUCT_BASKET, payload: product });
+    } else {
+      Swal.fire({
+        title: "warning",
+        text: "Bạn phải đăng nhập trước.",
+      });
+    }
+  }
+
+  if (data) {
+    data.forEach((item) => {
+      if (item.sex === "women") {
+        products.push(item);
+      }
+    });
+    lengthData = products.length;
+  }
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  products.sort(function (a, b) {
     return b.date - a.date;
   });
 
-  result = listProducts.map((product) => {
+  const curentPosts = products.slice(indexOfFirstPost, indexOfLastPost);
+
+  result = curentPosts.map((product) => {
     return (
       <Col
         className="info-product"
@@ -92,27 +130,6 @@ function Women() {
     );
   });
 
-  function onAddToCart(product) {
-    if (localStorage.getItem("user")) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "center",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-      Toast.fire({
-        icon: "success",
-        title: "Đã thêm vào giỏ hàng.",
-      });
-      dispatch({ type: ADD_PRODUCT_BASKET, payload: product });
-    } else {
-      Swal.fire({
-        icon: "warning",
-        text: "Bạn phải đăng nhập trước.",
-      });
-    }
-  }
-
   return (
     <div>
       <Header />
@@ -121,7 +138,14 @@ function Women() {
         <div className="page-loading">Loading...</div>
       ) : (
         <div className="page-products">
-          <h2 className="title">Sản phẩm nữ</h2>
+          <h2 className="title">Sản phẩm nam</h2>
+
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={lengthData}
+            paginate={paginateFn}
+          />
+
           <Container fluid>
             <Row>{result}</Row>
           </Container>

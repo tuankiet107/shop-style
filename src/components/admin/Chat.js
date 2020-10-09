@@ -8,6 +8,7 @@ function Chat() {
   const [chat, setChat] = useState();
   const [userFriend, setUserfriend] = useState();
   const [selected, setSelected] = useState();
+  const [active, setActiveIndex] = useState(0);
 
   let listUser, viewChat;
   let userAdmin = localStorage.getItem("user");
@@ -39,6 +40,7 @@ function Chat() {
   function selectedChat(user, index) {
     setSelected(index);
     setUserfriend(user);
+    setActiveIndex(index);
   }
 
   function sendMessage(e) {
@@ -70,7 +72,9 @@ function Chat() {
       return (
         <div
           key={index}
-          className="view-user"
+          className={
+            active === index ? "view-user active-selected" : "view-user"
+          }
           onClick={() => selectedChat(user, index)}
         >
           {user}

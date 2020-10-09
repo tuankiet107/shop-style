@@ -1,59 +1,64 @@
 import firebase from "firebase";
-import React, { Component } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  ProgressBar,
+  Row,
+} from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
 import MenuLeft from "./MenuLeft";
 import Swal from "sweetalert2";
 
-class AddProduct extends Component {
-  constructor(props) {
-    super();
-    this.state = {
-      id: "",
-      name: "",
-      sex: "",
-      image: "",
-      price: "",
-      quantity: "",
-      nameStorage: "",
-      date: "",
-    };
-  }
+function AddProduct() {
+  const [data, setData] = useState({
+    id: "",
+    name: "",
+    sex: "",
+    image: "",
+    price: "",
+    quantity: "",
+    nameStorage: "",
+    date: "",
+  });
+  const [now, setNow] = useState(0);
+  const history = useHistory();
 
-  handleChange = async (type, e) => {
+  const handleChange = async (type, e) => {
     switch (type) {
       case "image":
-        await this.setState({
+        await setData({
+          ...data,
           image: e.target.files[0],
           nameStorage: e.target.files[0].name,
           date: new Date(),
         });
         break;
       case "id":
-        await this.setState({ id: e.target.value });
+        await setData({ ...data, id: e.target.value });
         break;
       case "name":
-        await this.setState({ name: e.target.value });
+        await setData({ ...data, name: e.target.value });
         break;
       case "sex":
-        await this.setState({ sex: e.target.value });
+        await setData({ ...data, sex: e.target.value });
         break;
       case "quantity":
-        await this.setState({ quantity: parseInt(e.target.value) });
+        await setData({ ...data, quantity: parseInt(e.target.value) });
         break;
       case "price":
-        await this.setState({ price: parseInt(e.target.value) });
+        await setData({ ...data, price: parseInt(e.target.value) });
         break;
       default:
         break;
     }
   };
 
-  handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { history } = this.props;
-    let { id, image, nameStorage } = this.state;
-    let obj = this.state;
+    let { id, image, nameStorage } = data;
     let url;
 
     let storageRef = firebase.storage().ref("images/" + nameStorage);
@@ -65,6 +70,7 @@ class AddProduct extends Component {
       function (snapshot) {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Upload is " + progress + " % done");
+        setNow(progress);
       },
       function (err) {
         console.log(err.message);
@@ -77,7 +83,7 @@ class AddProduct extends Component {
             .collection("products")
             .doc("veTsDR2nMSiv3ldp7J0F")
             .update({
-              [`products.${id}`]: { ...obj, image: url },
+              [`products.${id}`]: { ...data, image: url },
             })
             .then(
               () => {
@@ -102,130 +108,83 @@ class AddProduct extends Component {
     );
   };
 
-  render() {
-    return (
-      <Row>
-        <MenuLeft />
+  return (
+    <Row>
+      <MenuLeft />
+      <Col xl={10} lg={10} md={10} sm={10} style={{ marginLeft: "auto" }}>
+        <Container className="add-product-page">
+          <h2>Thêm sản phẩm</h2>
+          <Form>
+            <Form.Row>
+              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
+                <Form.Label>Tên sản phẩm</Form.Label>
+                <Form.Control
+                  type="text"
+                  onChange={(e) => handleChange("name", e)}
+                />
+              </Col>
+              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
+                <Form.Label>Mã (Id)</Form.Label>
+                <Form.Control
+                  type="text"
+                  onChange={(e) => handleChange("id", e)}
+                />
+              </Col>
+              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
+                <Form.File
+                  className="position-relative"
+                  placeholder="Chọn ảnh"
+                  required
+                  name="file"
+                  label="Ảnh"
+                  onChange={(e) => handleChange("image", e)}
+                />
+              </Col>
+            </Form.Row>
 
-        <Col xl={10} lg={10} md={10} sm={10} style={{ marginLeft: "auto" }}>
-          <Container className="add-product-page">
-            <h2>Thêm sản phẩm</h2>
-            <Form>
-              <Form.Row>
-                <Col
-                  xl={4}
-                  lg={4}
-                  md={12}
-                  sm={12}
-                  xs={12}
-                  className="form-group"
-                >
-                  <Form.Label>Tên sản phẩm</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={(e) => this.handleChange("name", e)}
-                  />
-                </Col>
-                <Col
-                  xl={4}
-                  lg={4}
-                  md={12}
-                  sm={12}
-                  xs={12}
-                  className="form-group"
-                >
-                  <Form.Label>Mã (Id)</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={(e) => this.handleChange("id", e)}
-                  />
-                </Col>
-                <Col
-                  xl={4}
-                  lg={4}
-                  md={12}
-                  sm={12}
-                  xs={12}
-                  className="form-group"
-                >
-                  <Form.File
-                    className="position-relative"
-                    placeholder="Chọn ảnh"
-                    required
-                    name="file"
-                    label="Ảnh"
-                    onChange={(e) => this.handleChange("image", e)}
-                  />
-                </Col>
-              </Form.Row>
+            <Form.Row>
+              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
+                <Form.Label>Giá (vnd)</Form.Label>
+                <Form.Control
+                  type="text"
+                  onChange={(e) => handleChange("price", e)}
+                />
+              </Col>
 
-              <Form.Row>
-                <Col
-                  xl={4}
-                  lg={4}
-                  md={12}
-                  sm={12}
-                  xs={12}
-                  className="form-group"
-                >
-                  <Form.Label>Giá (vnd)</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={(e) => this.handleChange("price", e)}
-                  />
-                </Col>
+              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
+                <Form.Label>Số lượng</Form.Label>
+                <Form.Control
+                  type="text"
+                  onChange={(e) => handleChange("quantity", e)}
+                />
+              </Col>
 
-                <Col
-                  xl={4}
-                  lg={4}
-                  md={12}
-                  sm={12}
-                  xs={12}
-                  className="form-group"
+              <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
+                <Form.Label>Giới tính</Form.Label>
+                <Form.Control
+                  as="select"
+                  onChange={(e) => handleChange("sex", e)}
                 >
-                  <Form.Label>Số lượng</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={(e) => this.handleChange("quantity", e)}
-                  />
-                </Col>
+                  <option>Chọn...</option>
+                  <option value="men">Nam</option>
+                  <option value="women">Nữ</option>
+                </Form.Control>
+              </Col>
+            </Form.Row>
+            <Button variant="primary" type="button" onClick={handleSubmit}>
+              Thêm
+            </Button>
+          </Form>
 
-                <Col
-                  xl={4}
-                  lg={4}
-                  md={12}
-                  sm={12}
-                  xs={12}
-                  className="form-group"
-                >
-                  <Form.Label>Giới tính</Form.Label>
-                  <Form.Control
-                    as="select"
-                    onChange={(e) => this.handleChange("sex", e)}
-                  >
-                    <option>Chọn...</option>
-                    <option value="men">Nam</option>
-                    <option value="women">Nữ</option>
-                  </Form.Control>
-                </Col>
-              </Form.Row>
-              <Button
-                variant="primary"
-                type="button"
-                onClick={this.handleSubmit}
-              >
-                Thêm
-              </Button>
-            </Form>
+          <Link to="/list-product">
+            <i className="fas fa-chevron-left"></i> Quay về
+          </Link>
+        </Container>
 
-            <Link to="/list-product">
-              <i className="fas fa-chevron-left"></i> Quay về
-            </Link>
-          </Container>
-        </Col>
-      </Row>
-    );
-  }
+        <ProgressBar now={now} label={`${now}%`} />
+      </Col>
+    </Row>
+  );
 }
 
 export default AddProduct;

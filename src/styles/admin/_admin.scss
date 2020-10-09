@@ -11,6 +11,7 @@
 
 .list-product-page {
   margin-top: 30px;
+  margin-bottom: 40px;
   @media screen and (max-width: 768px) {
     width: 800px;
   }
@@ -37,10 +38,6 @@
           text-decoration: underline;
         }
       }
-      // .btn-prev {
-      // }
-      // .btn-next {
-      // }
     }
   }
   .table {
@@ -105,6 +102,11 @@
   }
 }
 
+.progress {
+  width: 80%;
+  margin: 40px auto;
+}
+
 .update-product-page {
   margin-top: 30px;
   form {
@@ -164,10 +166,16 @@
       border-right: 1px solid grey;
       height: 100vh;
       .view-user {
-        border: 1px solid rgb(230, 228, 228);
+        border-bottom: 1px solid #e6e4e48f;
         background-color: #fff;
-        padding: 8px 5px;
+        padding: 15px 8px;
         cursor: pointer;
+        &:hover {
+          background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+        }
+      }
+      .active-selected {
+        background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
       }
     }
   }
