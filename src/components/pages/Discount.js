@@ -2,7 +2,7 @@ import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
 import Footer from "../views/Footer";
@@ -15,6 +15,7 @@ function Discount() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
   const dispatch = useDispatch();
+  const history = useHistory();
   let products = [],
     result,
     lengthData;
@@ -78,7 +79,7 @@ function Discount() {
         lg={4}
         md={4}
         sm={6}
-        xs={12}
+        xs={6}
         key={product.id}
       >
         <span className="dis-percent">-{product.discount}%</span>
@@ -89,7 +90,7 @@ function Discount() {
           ""
         )}
         <div className="details">
-          <p>{product.name}</p>
+          <p onClick={() => moreProduct(product)}>{product.name}</p>
           <div className="info-price">
             {product.discount ? (
               <span>{ConvertPrice(product.priceDiscount)}</span>
@@ -131,11 +132,19 @@ function Discount() {
     }
   }
 
+  function moreProduct(product) {
+    history.push({
+      pathname: "/product",
+      search: `?id=${product.id}`,
+      state: product,
+    });
+  }
+
   return (
     <div>
       <Header />
 
-      {data === null ? (
+      {data === undefined ? (
         <div className="page-loading">Loading...</div>
       ) : (
         <div className="page-products">

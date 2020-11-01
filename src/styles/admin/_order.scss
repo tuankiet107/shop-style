@@ -1,4 +1,5 @@
 .admin-order {
+  text-align: center;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
@@ -22,6 +23,38 @@
             line-height: 38px;
             border-radius: 20px;
             background-image: linear-gradient(to top, #0fd850 0%, #f9f047 100%);
+          }
+          .wait-status {
+            color: #2c2c2c;
+            vertical-align: middle;
+            padding: 5px;
+            line-height: 38px;
+            border-radius: 20px;
+            background-color: rgb(204, 204, 204);
+          }
+        }
+        .btn-custom {
+          display: flex;
+          .dropdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            h4 {
+              text-transform: capitalize;
+              padding: 0 10px;
+            }
+          }
+          .dropdown-menu.show {
+            width: 500px;
+            left: -150px !important;
+            top: 0;
+            span {
+              font-size: 30px;
+              color: #313131;
+            }
+            .table {
+              text-align: center;
+            }
           }
         }
       }

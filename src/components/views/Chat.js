@@ -4,7 +4,6 @@ import firebase from "firebase";
 function Chat() {
   const [message, setMessage] = useState();
   const [chat, setChat] = useState();
-  const [refresh, setRefresh] = useState();
   const welcome = "Xin chào, bạn cần tư vấn gì ?";
   let result;
 
@@ -25,7 +24,7 @@ function Chat() {
     }
 
     getDataFromFB();
-  }, [refresh]);
+  }, []);
 
   function buildDockey(user) {
     return ["admin@gmail.com", user].sort().join(":");
@@ -52,7 +51,6 @@ function Chat() {
           }),
           users: ["admin@gmail.com", user],
         });
-      setRefresh(Math.random());
       setMessage("");
     } else {
       alert("Bạn chưa nhập tin nhắn.");
@@ -89,7 +87,7 @@ function Chat() {
     const docKey = buildDockey(user);
     if (chat) {
       document.querySelector(".form-chat").style.display = "flex";
-      document.querySelector(".btn-secondary").style.display = "none";
+      document.querySelector(".btn-to-chat").style.display = "none";
     } else {
       firebase
         .firestore()
@@ -101,7 +99,7 @@ function Chat() {
         });
     }
     document.querySelector(".form-chat").style.display = "flex !important";
-    document.querySelector(".btn-secondary").style.display = "none";
+    document.querySelector(".btn-to-chat").style.display = "none";
     document.querySelector(".show-chat").style.overflowY = "scroll";
   }
 
@@ -135,11 +133,11 @@ function Chat() {
         </div>
         <div className="list-chat">
           {localStorage.getItem("user") ? (
-            <button className="btn btn-secondary" onClick={onStartChatUser}>
+            <button className="btn-to-chat" onClick={onStartChatUser}>
               Tiếp tục với vai trò {localStorage.getItem("user").split("@")[0]}
             </button>
           ) : (
-            <button className="btn btn-secondary" onClick={onStartChatUser}>
+            <button className="btn-to-chat" onClick={onStartChatUser}>
               Tiếp tục với vai trò khách
             </button>
           )}

@@ -12,7 +12,7 @@ function Header() {
 
   const [user, setUser] = useState("");
   const [search, setSearch] = useState("");
-  const [refresh, setRefresh] = useState(0)
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     async function fetchDataFromForm() {
@@ -42,8 +42,8 @@ function Header() {
       type: RESET_BASKET,
     });
 
-    localStorage.removeItem("user");
-    sessionStorage.removeItem("user");
+    localStorage.clear();
+    sessionStorage.clear();
     setRefresh(Math.random());
     history.push("/");
   }

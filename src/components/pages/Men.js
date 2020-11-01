@@ -2,19 +2,20 @@ import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
-import Footer from "../views/Footer";
-import Header from "../views/Header";
 import ConvertPrice from "../../routes/ConvertPrice";
 import Pagination from "../admin/Pagination";
+import Footer from "../views/Footer";
+import Header from "../views/Header";
 
 function Men() {
   const [data, setData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
   const dispatch = useDispatch();
+  const history = useHistory();
   let products = [],
     result,
     lengthData;
@@ -74,6 +75,14 @@ function Men() {
     }
   }
 
+  function moreProduct(product) {
+    history.push({
+      pathname: "/product",
+      search: `?id=${product.id}`,
+      state: product,
+    });
+  }
+
   if (data) {
     data.forEach((item) => {
       if (item.sex === "men") {
@@ -91,7 +100,7 @@ function Men() {
 
   const curentPosts = products.slice(indexOfFirstPost, indexOfLastPost);
 
-  result = curentPosts.map((product) => {
+  result = curentPosts.map((product, index) => {
     return (
       <Col
         className="info-product"
@@ -99,9 +108,14 @@ function Men() {
         lg={4}
         md={4}
         sm={6}
-        xs={12}
-        key={product.id}
+        xs={6}
+        key={index}
       >
+        {product.discount ? (
+          <span className="dis-percent">-{product.discount}%</span>
+        ) : (
+          ""
+        )}
         <img alt="" src={product.image} />
         {product.quantity === 0 ? (
           <span className="over-qty">Hết hàng</span>
@@ -109,7 +123,7 @@ function Men() {
           ""
         )}
         <div className="details">
-          <p>{product.name}</p>
+          <p onClick={() => moreProduct(product)}>{product.name}</p>
           <div className="info-price">
             {product.discount ? (
               <span>{ConvertPrice(product.priceDiscount)}</span>
@@ -134,7 +148,7 @@ function Men() {
     <div>
       <Header />
 
-      {data === null ? (
+      {data === undefined ? (
         <div className="page-loading">Loading...</div>
       ) : (
         <div className="page-products">

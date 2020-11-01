@@ -2,7 +2,7 @@ import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
 import Footer from "../views/Footer";
@@ -15,6 +15,7 @@ function Women() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
   const dispatch = useDispatch();
+  const history = useHistory();
   let products = [],
     result,
     lengthData;
@@ -74,6 +75,14 @@ function Women() {
     }
   }
 
+  function moreProduct(product) {
+    history.push({
+      pathname: "/product",
+      search: `?id=${product.id}`,
+      state: product,
+    });
+  }
+
   if (data) {
     data.forEach((item) => {
       if (item.sex === "women") {
@@ -99,9 +108,14 @@ function Women() {
         lg={4}
         md={4}
         sm={6}
-        xs={12}
+        xs={6}
         key={product.id}
       >
+        {product.discount ? (
+          <span className="dis-percent">-{product.discount}%</span>
+        ) : (
+          ""
+        )}
         <img alt="" src={product.image} />
         {product.quantity === 0 ? (
           <span className="over-qty">Hết hàng</span>
@@ -109,7 +123,7 @@ function Women() {
           ""
         )}
         <div className="details">
-          <p>{product.name}</p>
+          <p onClick={() => moreProduct(product)}>{product.name}</p>
           <div className="info-price">
             {product.discount ? (
               <span>{ConvertPrice(product.priceDiscount)}</span>
@@ -134,11 +148,11 @@ function Women() {
     <div>
       <Header />
 
-      {data === null ? (
+      {data === undefined ? (
         <div className="page-loading">Loading...</div>
       ) : (
         <div className="page-products">
-          <h2 className="title">Sản phẩm nam</h2>
+          <h2 className="title">Sản phẩm nữ</h2>
 
           <Pagination
             postsPerPage={postsPerPage}

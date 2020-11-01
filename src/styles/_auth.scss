@@ -6,15 +6,16 @@ $background: #c7ecff;
   height: 100vh;
   @media screen and (max-width: 576px) {
     .sign-in {
-      width: 300px;
+      width: 100%;
       margin: auto;
     }
     .sign-up {
-      width: 300px;
+      width: 100%;
       margin: auto;
     }
   }
   .sign-in {
+    transition: 0.5s;
     .modal-dialog {
       margin: auto !important;
       padding-top: 40px;
@@ -30,6 +31,7 @@ $background: #c7ecff;
   }
 
   .sign-up {
+    transition: 0.5s;
     .modal-dialog {
       margin: auto !important;
       padding-top: 40px;

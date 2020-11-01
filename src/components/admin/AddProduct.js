@@ -58,6 +58,7 @@ function AddProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     let { id, image, nameStorage } = data;
     let url;
 
@@ -68,7 +69,9 @@ function AddProduct() {
     uploadTask.on(
       "state_changed",
       function (snapshot) {
-        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        let progress = Math.floor(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
         console.log("Upload is " + progress + " % done");
         setNow(progress);
       },
@@ -108,6 +111,10 @@ function AddProduct() {
     );
   };
 
+  if (data.id === "") {
+    setData({ ...data, id: Math.random().toString(36).substr(2, 9) });
+  }
+
   return (
     <Row>
       <MenuLeft />
@@ -124,7 +131,7 @@ function AddProduct() {
                 />
               </Col>
               <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">
-                <Form.Label>Mã (Id)</Form.Label>
+                <Form.Label>Mã (Id) (Có thể bỏ trống)</Form.Label>
                 <Form.Control
                   type="text"
                   onChange={(e) => handleChange("id", e)}

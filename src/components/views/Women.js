@@ -16,7 +16,7 @@ function Women() {
               xl={4}
               lg={4}
               data-aos="zoom-in"
-              data-aos-offset="600"
+              data-aos-offset="500"
             >
               <img alt="" src={img} />
             </Col>
@@ -28,7 +28,7 @@ function Women() {
               sm={12}
               xs={12}
               data-aos="zoom-in"
-              data-aos-offset="600"
+              data-aos-offset="500"
               data-aos-delay="500"
             >
               <div className="intro-product">

@@ -65,7 +65,9 @@ function UpdateProduct(props) {
     uploadTask.on(
       "state_changed",
       function (snapshot) {
-        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        let progress = Math.floor(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
         console.log("Update is " + progress + " % done");
         setNow(progress);
       },

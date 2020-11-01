@@ -1,19 +1,17 @@
+import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { Alert, Col, Form, Row } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-
-import firebase from "firebase";
-import { RESET_BASKET } from "../../actions/types";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
+import { RESET_BASKET } from "../../actions/types";
 
 function Checkout() {
   const history = useHistory();
   const basket = useSelector((state) => state.basketState);
   const dispatch = useDispatch();
-  let mail;
+  let idUser;
 
   const [info_checkout, setInfo_checkout] = useState({});
   const [data, setData_DB] = useState();
@@ -40,26 +38,28 @@ function Checkout() {
     let id = "";
     let characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let charactersLength = characters.length; // 62
-    for (let i = 0; i < 5; i++) {
+    let charactersLength = characters.length;
+    for (let i = 0; i < 10; i++) {
       id += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
 
-    if (localStorage.getItem("user")) {
-      mail = localStorage.getItem("user").split("@")[0];
+    if (localStorage.getItem("id")) {
+      idUser = localStorage.getItem("id");
       firebase
         .firestore()
-        .collection("cart")
-        .doc("cart")
+        .collection("orders")
+        .doc("orders")
         .update({
-          [id + mail]: {
+          [id]: {
             fullName: info_checkout.fullname,
+            id: idUser,
             phone: info_checkout.phone,
             address: info_checkout.address,
             products: basket.products,
             totals: basket.cartCost,
             orderDate: new Date(),
             note: info_checkout.note ? info_checkout.note : "",
+            status: false,
           },
         });
 

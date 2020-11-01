@@ -15,10 +15,6 @@ function Chat() {
 
   useEffect(() => {
     let email = localStorage.getItem("user");
-    window.onload = function () {
-      var objDiv = document.getElementsByClassName("view-chat");
-      objDiv.scrollTop = objDiv.scrollHeight;
-    };
     async function getListUserChat() {
       firebase
         .firestore()
@@ -46,7 +42,6 @@ function Chat() {
   function sendMessage(e) {
     e.preventDefault();
     const docKey = buildDockey(userFriend);
-
     firebase
       .firestore()
       .collection("chats")
@@ -58,7 +53,6 @@ function Chat() {
           timestamp: Date.now(),
         }),
       });
-
     document.getElementById("text-input").value = "";
   }
 
@@ -110,7 +104,9 @@ function Chat() {
               <div className="list-user">{listUser}</div>
             </Col>
             <Col xl={9} lg={9} md={9} sm={9} className="col-right">
-              <div className="view-chat">{viewChat}</div>
+              <div className="chat-scrollview">
+                <div className="view-chat">{viewChat}</div>
+              </div>
             </Col>
             <div className="send-message">
               <form onSubmit={sendMessage}>

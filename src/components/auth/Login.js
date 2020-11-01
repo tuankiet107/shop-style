@@ -9,7 +9,10 @@ import Header from "../views/Header";
 
 function Login() {
   const history = useHistory();
-  const [value, setValue] = useState({});
+  const [value, setValue] = useState({
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState("");
 
   const userTyping = (type, e) => {
@@ -27,20 +30,42 @@ function Login() {
 
   function handleLogin(e) {
     e.preventDefault();
-
     firebase
       .auth()
       .signInWithEmailAndPassword(value.email, value.password)
       .then(
-        async () => {
+        () => {
           if (value.email === "admin@gmail.com") {
             localStorage.setItem("user", value.email);
             sessionStorage.removeItem("user");
             history.push("/list-product");
           } else {
-            await localStorage.setItem("user", value.email);
-            sessionStorage.removeItem("user");
-            history.push("/");
+            firebase
+              .firestore()
+              .collection("users")
+              .doc("7inkEUK5Q6FdvMEw2K5j")
+              .get()
+              .then((doc) => {
+                let temp = doc.data();
+                Object.keys(temp).filter(async (item) => {
+                  if (
+                    temp[item].email === value.email &&
+                    temp[item].status === false
+                  ) {
+                    console.log(temp[item].email);
+                    alert("Tài khoản bị vô hiệu hóa.");
+                    return;
+                  } else if (
+                    temp[item].status === true &&
+                    temp[item].email === value.email
+                  ) {
+                    await localStorage.setItem("user", value.email);
+                    await localStorage.setItem("id", temp[item].id);
+                    sessionStorage.removeItem("user");
+                    history.push("/");
+                  }
+                });
+              });
           }
         },
         (err) => {

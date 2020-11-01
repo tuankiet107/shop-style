@@ -77,7 +77,7 @@ function Discount() {
     return b.date - a.date;
   });
 
-  let result = products.map((product, index) => {
+  let result = products.slice(0, 8).map((product, index) => {
     return (
       <div className="box" key={index}>
         <div className="image">

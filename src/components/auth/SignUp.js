@@ -9,8 +9,10 @@ function SignUp() {
   const [user, setUser] = useState({
     email: "",
     name: "",
+    phone: "",
     password: "",
     passwordConfirm: "",
+    emailExist: null,
   });
   const { handleSubmit, register, errors } = useForm();
   const history = useHistory();
@@ -22,6 +24,9 @@ function SignUp() {
         break;
       case "name":
         setUser({ ...user, name: e.target.value });
+        break;
+      case "phone":
+        setUser({ ...user, phone: e.target.value });
         break;
       case "password":
         setUser({ ...user, password: e.target.value });
@@ -40,6 +45,14 @@ function SignUp() {
       return;
     }
 
+    let id = "";
+    let characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let charactersLength = characters.length;
+    for (let i = 0; i < 10; i++) {
+      id += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(user.email, user.password)
@@ -48,21 +61,23 @@ function SignUp() {
           firebase
             .firestore()
             .collection("users")
-            .doc(user.email)
-            .set({
-              email: authUser.user.email,
-              name: user.name,
-              phone: user.phone,
+            .doc("7inkEUK5Q6FdvMEw2K5j")
+            .update({
+              [id]: {
+                email: authUser.user.email,
+                name: user.name,
+                id: id,
+                phone: user.phone,
+                password: user.password,
+                date: new Date(),
+                status: true,
+              },
             })
             .then(
               async () => {
-                if (user.email === "admin@gmail.com") {
-                  await localStorage.setItem("user", user.email);
-                  history.push("/list-product");
-                } else {
-                  await localStorage.setItem("user", user.email);
-                  history.push("/");
-                }
+                await localStorage.setItem("user", user.email);
+                await localStorage.setItem("user", user.id);
+                history.push("/");
               },
               (err) => {
                 console.log(err);
@@ -74,8 +89,18 @@ function SignUp() {
             );
         },
         (authErr) => {
-          console.log(authErr);
-          setUser({ ...user, errEmail: "* Ví dụ: example@gmail.com!" });
+          let errCode = authErr.code.split("/")[1];
+          if (errCode === "email-already-in-use") {
+            setUser({
+              ...user,
+              emailExist: "Email đã tồn tại.",
+            });
+          } else {
+            setUser({
+              ...user,
+              errEmail: "* Ví dụ: example@gmail.com",
+            });
+          }
         }
       );
   }
@@ -92,6 +117,11 @@ function SignUp() {
 
           <Modal.Body>
             <Form>
+              {user.emailExist !== null ? (
+                <span style={{ color: "red" }}>{user.emailExist}</span>
+              ) : (
+                ""
+              )}
               <Form.Group>
                 <Form.Label>
                   Họ và tên
@@ -104,6 +134,21 @@ function SignUp() {
                   type="text"
                   ref={register({ required: true })}
                   onChange={(e) => userTyping("name", e)}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label>
+                  Phone
+                  {errors.phone && (
+                    <span style={{ color: "red" }}>* Bắt buộc</span>
+                  )}
+                </Form.Label>
+                <Form.Control
+                  name="phone"
+                  type="text"
+                  ref={register({ required: true })}
+                  onChange={(e) => userTyping("phone", e)}
                 />
               </Form.Group>
 

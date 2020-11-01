@@ -112,9 +112,10 @@ function ListProduct() {
 
     const curentPosts = products.slice(indexOfFirstPost, indexOfLastPost);
 
-    result = curentPosts.map((product) => {
+    result = curentPosts.map((product, index) => {
       return (
         <tr key={product.id}>
+          <td>{index + 1}</td>
           <td className="image">
             <img src={product.image} alt="" />
             {product.discount ? (
@@ -124,7 +125,7 @@ function ListProduct() {
             )}
             <span className="id">Mã: {product.id}</span>
           </td>
-          <td>{product.name}</td>
+          <td className="name-product">{product.name}</td>
           <td>
             {product.priceDiscount ? (
               <p>{ConvertPrice(Math.ceil(product.priceDiscount))}</p>
@@ -189,6 +190,7 @@ function ListProduct() {
               <Table style={{ textAlign: "center" }}>
                 <thead>
                   <tr>
+                    <th>STT</th>
                     <th>Ảnh</th>
                     <th>Tên sản phẩm</th>
                     <th>Giá</th>

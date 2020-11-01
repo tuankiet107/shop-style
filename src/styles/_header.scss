@@ -72,7 +72,12 @@ header {
         }
         @media screen and (max-width: 568px) {
           flex-direction: column;
-          float: none;
+          align-items: baseline;
+          form {
+            input {
+              width: 220px;
+            }
+          }
         }
 
         form {
@@ -119,7 +124,7 @@ header {
         }
         .shopping-card {
           position: relative;
-
+          margin: 10px 0;
           a {
             padding: 10px 20px;
             i {
@@ -149,7 +154,6 @@ header {
         .btn {
           color: #fff;
           background-color: rgb(1, 141, 255);
-          // padding: 12px 25px !important;
           width: 110px;
           height: 56px;
           border-radius: 30px;

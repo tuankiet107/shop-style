@@ -10,7 +10,7 @@ import Men from "./components/pages/Men";
 import Checkout from "./components/pages/Checkout";
 import Search from "./components/pages/Search";
 
-// import Details from './components/pages/Details';
+import Product from "./components/pages/Product";
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
 
@@ -35,7 +35,7 @@ function App() {
           <Route path="/women" component={Women} />
           <Route path="/men" component={Men} />
           <Route path="/search" component={Search} />
-          {/* <Route path="/:detail" component={Details} /> */}
+          <Route path="/product" component={Product} />
 
           <PrivateRoutes path="/list-product" component={ListProduct} />
           <PrivateRoutes path="/add-product" component={AddProduct} />

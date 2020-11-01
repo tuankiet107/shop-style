@@ -1,0 +1,42 @@
+.admin-users {
+  margin-top: 20px;
+  .table {
+    text-align: center;
+    tr {
+      td {
+        .btn-delete-user {
+          color: rgb(250, 32, 32);
+          cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        .disabled {
+          cursor: pointer;
+          color: rgb(151, 151, 151);
+        }
+        .watch-history-ord {
+          cursor: pointer;
+          color: blue;
+        }
+      }
+    }
+  }
+  .list-order {
+    position: relative;
+    top: 50%;
+    left: 70%;
+    table {
+      tbody {
+        tr {
+          td {
+            img {
+              width: 60px;
+              height: 60px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

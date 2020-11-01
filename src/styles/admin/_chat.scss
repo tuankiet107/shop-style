@@ -1,0 +1,80 @@
+.admin-chat-page {
+  margin-left: 254px !important;
+  padding: 0;
+  position: relative;
+  .col-left {
+    padding: 0;
+    width: 25%;
+    position: fixed;
+    .list-user {
+      border-right: 1px solid rgb(177, 175, 175);
+      height: 100vh;
+      .view-user {
+        border-bottom: 1px solid #e6e4e48f;
+        background-color: #fff;
+        padding: 15px 8px;
+        cursor: pointer;
+        &:hover {
+          background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+        }
+      }
+      .active-selected {
+        background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+      }
+    }
+  }
+  .col-right {
+    padding: 0;
+    position: absolute;
+    left: 30%;
+    width: 70%;
+    .chat-scrollview {
+      .view-chat {
+        width: 100%;
+        margin-bottom: 60px;
+        .user-admin {
+          max-width: 350px;
+          padding: 8px 10px;
+          border-radius: 20px;
+          overflow-wrap: break-word;
+          inline-size: fit-content;
+          margin: 6px 4px 6px auto;
+          max-inline-size: 350px;
+          color: white;
+          background-color: #3498db;
+        }
+        .user-friend {
+          max-width: 350px;
+          padding: 8px 10px;
+          border-radius: 20px;
+          overflow-wrap: break-word;
+          inline-size: fit-content;
+          margin: 6px auto 6px 4px;
+          max-inline-size: 350px;
+          color: #313131;
+          background-color: #dddddd;
+        }
+      }
+    }
+  }
+  .send-message {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 41%;
+    width: 59%;
+    form {
+      display: flex;
+      input {
+        height: 48px;
+      }
+      .btn {
+        color: white;
+        background-color: rgb(7, 79, 233);
+        &:hover {
+          background-color: rgb(13, 156, 252);
+        }
+      }
+    }
+  }
+}

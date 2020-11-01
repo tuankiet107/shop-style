@@ -2,7 +2,7 @@ import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
 import Footer from "../views/Footer";
@@ -11,9 +11,10 @@ import ConvertPrice from "../../routes/ConvertPrice";
 
 function Search() {
   const location = useLocation();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState();
   const [products, setProducts] = useState({});
   const dispatch = useDispatch();
+  const history = useHistory();
 
   let listResult = [],
     result;
@@ -58,6 +59,14 @@ function Search() {
         text: "Bạn phải đăng nhập trước.",
       });
     }
+  }
+
+  function moreProduct(product) {
+    history.push({
+      pathname: "/product",
+      search: `?id=${product.id}`,
+      state: product,
+    });
   }
 
   function removeVietnameseTones(str) {
@@ -110,7 +119,7 @@ function Search() {
             ""
           )}
           <div className="details">
-            <p>{product.name}</p>
+            <p onClick={() => moreProduct(product)}>{product.name}</p>
             <div className="info-price">
               {product.discount ? (
                 <span>{ConvertPrice(product.priceDiscount)}</span>
@@ -136,7 +145,7 @@ function Search() {
     <div>
       <Header />
 
-      {search === null ? (
+      {search === undefined ? (
         <div className="page-loading">Loading...</div>
       ) : (
         <div className="page-products">

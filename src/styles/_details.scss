@@ -1,0 +1,94 @@
+.detail-page {
+  height: 100vh;
+  .product-detail-wrapper {
+    padding-top: 50px;
+    @media screen and (max-width: 768px) {
+      #image-product {
+        img {
+          width: 220px !important;
+          height: 300px !important;
+        }
+      }
+      #detail-product {
+        .product-title {
+          h1 {
+            font-size: 24px;
+          }
+          span {
+            font-size: 18px;
+          }
+        }
+        .product-price {
+          font-size: 20px !important;
+        }
+        .btn-add-cart {
+          width: 150px !important;
+          height: 60px;
+          font-size: 16px !important;
+        }
+      }
+    }
+    #image-product {
+      img {
+        width: 80%;
+        height: 100%;
+      }
+    }
+    #detail-product {
+      .product-title {
+        h1 {
+          font-family: "Font Awesome 5 Brands", sans-serif;
+          text-transform: capitalize;
+        }
+        span {
+          color: grey;
+          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+      }
+      .product-price {
+        font-size: 28px;
+        font-weight: bold;
+        .price-discount {
+          text-decoration: line-through;
+          color: #ff003c;
+        }
+      }
+      .btn-add-cart {
+        position: relative;
+        margin: 40px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        width: 300px;
+        height: 60px;
+        background-color: #018dff;
+        text-transform: uppercase;
+        color: white;
+        font-size: 28px;
+        text-align: center;
+        vertical-align: middle;
+        z-index: 1;
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 0;
+          height: 100%;
+          background-color: rgb(26, 179, 250);
+          z-index: -1;
+          transition: 0.5s;
+        }
+        &:hover {
+          &::before {
+            width: 100%;
+          }
+        }
+      }
+    }
+    .intro {
+      margin-top: 40px;
+    }
+  }
+}
