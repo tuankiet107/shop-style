@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import firebase from "firebase";
 
 function Chat() {
@@ -6,6 +6,16 @@ function Chat() {
   const [chat, setChat] = useState();
   const welcome = "Xin chào, bạn cần tư vấn gì ?";
   let result;
+  const messageEl = useRef(null);
+
+  useEffect(() => {
+    if (messageEl) {
+      messageEl.current.addEventListener("DOMNodeInserted", (event) => {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: "smooth" });
+      });
+    }
+  }, []);
 
   useEffect(() => {
     async function getDataFromFB() {
@@ -49,6 +59,7 @@ function Chat() {
             sender: user,
             timestamp: Date.now(),
           }),
+          receiverHasRead: false,
           users: ["admin@gmail.com", user],
         });
       setMessage("");
@@ -100,7 +111,6 @@ function Chat() {
     }
     document.querySelector(".form-chat").style.display = "flex !important";
     document.querySelector(".btn-to-chat").style.display = "none";
-    document.querySelector(".show-chat").style.overflowY = "scroll";
   }
 
   let userCurrent = localStorage.getItem("user");
@@ -142,7 +152,7 @@ function Chat() {
             </button>
           )}
 
-          <div className="view-chat" id="view-list-chat">
+          <div className="view-chat" id="view-list-chat" ref={messageEl}>
             {result}
           </div>
         </div>

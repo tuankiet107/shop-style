@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import firebase from "firebase";
 import MenuLeft from "./MenuLeft";
 import { Col, Form, Row } from "react-bootstrap";
@@ -12,6 +12,7 @@ function Chat() {
 
   let listUser, viewChat;
   let userAdmin = localStorage.getItem("user");
+  const messageEl = useRef(null);
 
   useEffect(() => {
     let email = localStorage.getItem("user");
@@ -21,12 +22,21 @@ function Chat() {
         .collection("chats")
         .where("users", "array-contains", email)
         .onSnapshot(async (snapshot) => {
-          const chats = await snapshot.docs.map((doc) => doc.data());
+          const chats = snapshot.docs.map((doc) => doc.data());
           setChat(chats);
         });
     }
 
     getListUserChat();
+  }, []);
+
+  useEffect(() => {
+    if (messageEl) {
+      messageEl.current.addEventListener("DOMNodeInserted", (event) => {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: "smooth" });
+      });
+    }
   }, []);
 
   function buildDockey(user) {
@@ -37,6 +47,7 @@ function Chat() {
     setSelected(index);
     setUserfriend(user);
     setActiveIndex(index);
+    messageRead(index);
   }
 
   function sendMessage(e) {
@@ -52,16 +63,40 @@ function Chat() {
           sender: userAdmin,
           timestamp: Date.now(),
         }),
+        receiverHasRead: false,
       });
     document.getElementById("text-input").value = "";
   }
 
+  const messageRead = (index) => {
+    const docKey = buildDockey(
+      chat[index].users.filter((_usr) => _usr !== userAdmin)[0]
+    );
+    if (clickedChatWhereNotSender(index)) {
+      firebase.firestore().collection("chats").doc(docKey).update({
+        receiverHasRead: true,
+      });
+    } else {
+      console.log("clicked message where not sender");
+    }
+  };
+
+  const clickedChatWhereNotSender = (chatIndex) =>
+    chat[chatIndex].messages[chat[chatIndex].messages.length - 1].sender !==
+    userAdmin;
+
+  const userIsSender = (chat) =>
+    chat.messages[chat.messages.length - 1].sender === userFriend;
+
   if (chat) {
+    let objChat;
     let tempUser = chat.map((info) => {
+      objChat = info;
       return info.users.filter((_usr) => {
         return _usr !== userAdmin;
       })[0];
     });
+
     listUser = tempUser.map((user, index) => {
       return (
         <div
@@ -72,25 +107,30 @@ function Chat() {
           onClick={() => selectedChat(user, index)}
         >
           {user}
+          {objChat.receiverHasRead === false && buildDockey(user) ? (
+            <i className="fas fa-bell"></i>
+          ) : (
+            ""
+          )}
         </div>
       );
     });
 
-    viewChat = chat.map((info, index1) => {
-      return info.messages.map((msg, index2) => {
-        if (index1 === selected) {
-          return (
-            <div key={index2}>
-              {msg.sender === userAdmin ? (
-                <div className="user-admin">{msg.message}</div>
-              ) : (
-                <div className="user-friend">{msg.message}</div>
-              )}
-            </div>
-          );
-        }
-      });
-    });
+    viewChat = chat.map((info, index1) =>
+      info.messages.map((msg, index2) =>
+        index1 === selected ? (
+          <div key={index2}>
+            {msg.sender === userAdmin ? (
+              <div className="user-admin">{msg.message}</div>
+            ) : (
+              <div className="user-friend">{msg.message}</div>
+            )}
+          </div>
+        ) : (
+          ""
+        )
+      )
+    );
   }
 
   return (
@@ -104,7 +144,7 @@ function Chat() {
               <div className="list-user">{listUser}</div>
             </Col>
             <Col xl={9} lg={9} md={9} sm={9} className="col-right">
-              <div className="chat-scrollview">
+              <div className="chat-scrollview" ref={messageEl}>
                 <div className="view-chat">{viewChat}</div>
               </div>
             </Col>
