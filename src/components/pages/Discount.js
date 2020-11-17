@@ -14,6 +14,8 @@ function Discount() {
   const [data, setData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
+  const [size, setSize] = useState("S");
+  let sizes = ["S", "M", "L", "XL"];
   const dispatch = useDispatch();
   const history = useHistory();
   let products = [],
@@ -107,6 +109,20 @@ function Discount() {
         <div onClick={() => onAddToCart(product)} className="button">
           <span> Thêm vào giỏ </span>
         </div>
+        <div className="sizes">
+          {sizes.map((sz, index) => {
+            return (
+              <button
+                className="btn-size"
+                key={index}
+                value={sz}
+                onClick={(e) => setSize(e.target.value)}
+              >
+                {sz}
+              </button>
+            );
+          })}
+        </div>
       </Col>
     );
   });
@@ -123,10 +139,10 @@ function Discount() {
         icon: "success",
         title: "Đã thêm vào giỏ hàng.",
       });
-      dispatch({ type: ADD_PRODUCT_BASKET, payload: product });
+      dispatch({ type: ADD_PRODUCT_BASKET, payload: product, size: size });
     } else {
       Swal.fire({
-        icon: "warning",
+        title: "warning",
         text: "Bạn phải đăng nhập trước.",
       });
     }

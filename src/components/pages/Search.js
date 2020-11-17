@@ -13,6 +13,8 @@ function Search() {
   const location = useLocation();
   const [search, setSearch] = useState();
   const [products, setProducts] = useState({});
+  const [size, setSize] = useState("S");
+  let sizes = ["S", "M", "L", "XL"];
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -52,7 +54,7 @@ function Search() {
         icon: "success",
         title: "Đã thêm vào giỏ hàng.",
       });
-      dispatch({ type: ADD_PRODUCT_BASKET, payload: product });
+      dispatch({ type: ADD_PRODUCT_BASKET, payload: product, size: size });
     } else {
       Swal.fire({
         title: "warning",
@@ -135,6 +137,20 @@ function Search() {
           </div>
           <div onClick={() => onAddToCart(product)} className="button">
             <span> Thêm vào giỏ </span>
+          </div>
+          <div className="sizes">
+            {sizes.map((sz, index) => {
+              return (
+                <button
+                  className="btn-size"
+                  key={index}
+                  value={sz}
+                  onClick={(e) => setSize(e.target.value)}
+                >
+                  {sz}
+                </button>
+              );
+            })}
           </div>
         </Col>
       );
