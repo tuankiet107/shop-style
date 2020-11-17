@@ -44,14 +44,20 @@ export default (state = initialState, action) => {
             ...state,
             basketNumbers: state.basketNumbers + 1,
             cartCost: state.cartCost + action.payload.priceDiscount,
-            products: [...state.products, { ...action.payload, quantity }],
+            products: [
+              ...state.products,
+              { ...action.payload, quantity, size: action.size },
+            ],
           };
         } else {
           return {
             ...state,
             basketNumbers: state.basketNumbers + 1,
             cartCost: state.cartCost + action.payload.price,
-            products: [...state.products, { ...action.payload, quantity }],
+            products: [
+              ...state.products,
+              { ...action.payload, quantity, size: action.size },
+            ],
           };
         }
       }

@@ -1,6 +1,6 @@
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -14,6 +14,8 @@ function Men() {
   const [data, setData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
+  const [size, setSize] = useState("S");
+  let sizes = ["S", "M", "L", "XL"];
   const dispatch = useDispatch();
   const history = useHistory();
   let products = [],
@@ -66,7 +68,7 @@ function Men() {
         icon: "success",
         title: "Đã thêm vào giỏ hàng.",
       });
-      dispatch({ type: ADD_PRODUCT_BASKET, payload: product });
+      dispatch({ type: ADD_PRODUCT_BASKET, payload: product, size: size });
     } else {
       Swal.fire({
         title: "warning",
@@ -137,8 +139,22 @@ function Men() {
             )}
           </div>
         </div>
-        <div onClick={() => onAddToCart(product)} className="button">
-          <span> Thêm vào giỏ </span>
+        <div className="button">
+          <span onClick={() => onAddToCart(product)}> Thêm vào giỏ </span>
+        </div>
+        <div className="sizes">
+          {sizes.map((sz, index) => {
+            return (
+              <button
+                className="btn-size"
+                key={index}
+                value={sz}
+                onClick={(e) => setSize(e.target.value)}
+              >
+                {sz}
+              </button>
+            );
+          })}
         </div>
       </Col>
     );
@@ -149,7 +165,7 @@ function Men() {
       <Header />
 
       {data === undefined ? (
-        <div className="page-loading">Loading...</div>
+        <div className="page-loading">Đang tải...</div>
       ) : (
         <div className="page-products">
           <h2 className="title">Sản phẩm nam</h2>

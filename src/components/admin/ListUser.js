@@ -85,6 +85,7 @@ function ListUser() {
           if (listKey[item].id === idUser) {
             temp.push(listKey[item]);
           }
+          return temp;
         });
         setListOrd(temp);
       });
@@ -123,60 +124,62 @@ function ListUser() {
             <tbody>{result}</tbody>
           </Table>
 
-          {listOrd.map((item, index) => {
-            let dateObj = new Date(item.orderDate.seconds * 1000);
-            let month = dateObj.getMonth() + 1;
-            let year = dateObj.getFullYear();
-            let day = dateObj.getDate();
-            let hour = dateObj.getHours();
-            let minutes = dateObj.getMinutes();
-            let seconds = dateObj.getSeconds();
-            return (
-              <Dropdown key={index} className="list-order">
-                <Dropdown.Toggle id="dropdown-basic">
-                  Đơn hàng {index + 1}
-                </Dropdown.Toggle>
+          <div className="list-order">
+            {listOrd.map((item, index) => {
+              let dateObj = new Date(item.orderDate.seconds * 1000);
+              let month = dateObj.getMonth() + 1;
+              let year = dateObj.getFullYear();
+              let day = dateObj.getDate();
+              let hour = dateObj.getHours();
+              let minutes = dateObj.getMinutes();
+              let seconds = dateObj.getSeconds();
+              return (
+                <Dropdown key={index}>
+                  <Dropdown.Toggle id="dropdown-basic">
+                    Đơn hàng {index + 1}
+                  </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>Tên khách hàng</th>
-                        <th>Địa chỉ</th>
-                        <th>Ngày đặt</th>
-                        <th>Ghi chú</th>
-                        <th>Sđt</th>
-                        <th>Sản phẩm</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{item.fullName}</td>
-                        <td>{item.address}</td>
-                        <td>
-                          {year}/{day}/{month} {hour}:{minutes}:{seconds}
-                        </td>
-                        <td>{item.note}</td>
-                        <td>{item.phone}</td>
-                        <td>
-                          {item.products.map((item2, index2) => {
-                            return (
-                              <ListGroup key={index2}>
-                                <ListGroup.Item>
-                                  <img src={item2.image} alt="" />
-                                  <span>Mã: {item2.id}</span>
-                                </ListGroup.Item>
-                              </ListGroup>
-                            );
-                          })}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Dropdown.Menu>
-              </Dropdown>
-            );
-          })}
+                  <Dropdown.Menu>
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>Tên khách hàng</th>
+                          <th>Địa chỉ</th>
+                          <th>Ngày đặt</th>
+                          <th>Ghi chú</th>
+                          <th>Sđt</th>
+                          <th>Sản phẩm</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{item.fullName}</td>
+                          <td>{item.address}</td>
+                          <td>
+                            {year}/{day}/{month} {hour}:{minutes}:{seconds}
+                          </td>
+                          <td>{item.note}</td>
+                          <td>{item.phone}</td>
+                          <td>
+                            {item.products.map((item2, index2) => {
+                              return (
+                                <ListGroup key={index2}>
+                                  <ListGroup.Item>
+                                    <img src={item2.image} alt="" />
+                                    <span>Mã: {item2.id}</span>
+                                  </ListGroup.Item>
+                                </ListGroup>
+                              );
+                            })}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </Dropdown.Menu>
+                </Dropdown>
+              );
+            })}
+          </div>
         </div>
       </Col>
     </Row>

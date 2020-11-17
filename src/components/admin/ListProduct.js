@@ -143,7 +143,9 @@ function ListProduct() {
           {product.quantity <= 0 ? (
             <td style={{ color: "red" }}>Hết</td>
           ) : (
-            <td>{product.quantity}</td>
+            <td>
+              <span>{product.quantity}</span>
+            </td>
           )}
           <td>
             <span className="btn-update" onClick={() => onUpdate(product)}>

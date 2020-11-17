@@ -1,6 +1,8 @@
 .admin-users {
-  margin-top: 20px;
+  margin-top: 30px;
+  text-align: center;
   .table {
+    margin-top: 20px;
     text-align: center;
     tr {
       td {
@@ -23,16 +25,23 @@
     }
   }
   .list-order {
-    position: relative;
-    top: 50%;
+    display: flex;
+    position: fixed;
+    top: 30px;
     left: 70%;
-    table {
-      tbody {
-        tr {
-          td {
-            img {
-              width: 60px;
-              height: 60px;
+    .dropdown {
+      .dropdown-menu {
+        transform: translate(-800px, 40px) !important;
+        table {
+          width: 1000px;
+          tbody {
+            tr {
+              td {
+                img {
+                  width: 60px;
+                  height: 60px;
+                }
+              }
             }
           }
         }

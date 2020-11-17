@@ -1,11 +1,14 @@
-import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
 import ConvertPrice from "../../routes/ConvertPrice";
 import Header from "../views/Header";
 
 function Details({ location }) {
+  const [size, setSize] = useState("S");
+  let sizes = ["S", "M", "L", "XL"];
+  let select, options;
   const dispatch = useDispatch();
   const product = location.state;
 
@@ -36,13 +39,39 @@ function Details({ location }) {
                 <span>{ConvertPrice(product.price)}</span>
               )}
             </div>
+
+            <div className="size">
+              <span className="title-size">Chọn size</span>
+              <Form.Group
+                className="list-size"
+                defaultValue={size}
+                onChange={(e) => setSize(e.target.value)}
+              >
+                <Form.Control as="select" size="lg">
+                  {
+                    (options = sizes.map((size, index) => {
+                      return (
+                        <option key={index} value={size}>
+                          {size}
+                        </option>
+                      );
+                    }))
+                  }
+                </Form.Control>
+              </Form.Group>
+            </div>
+
             <div
               onClick={() =>
-                dispatch({ type: ADD_PRODUCT_BASKET, payload: product })
+                dispatch({
+                  type: ADD_PRODUCT_BASKET,
+                  payload: product,
+                  size: size,
+                })
               }
               className="btn-add-cart"
             >
-              Add to cart
+              Thêm vào giỏ
             </div>
           </Col>
           <div className="intro">

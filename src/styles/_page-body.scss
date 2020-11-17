@@ -75,7 +75,6 @@
           width: 250px;
           height: 300px;
           margin-bottom: 20px;
-          cursor: pointer;
           border: 1px solid rgb(231, 230, 230);
         }
         &:hover {
@@ -83,9 +82,29 @@
             top: 170px;
             opacity: 1;
           }
+          .sizes {
+            top: 240px;
+            opacity: 1;
+          }
+        }
+        .sizes {
+          position: absolute;
+          top: 70%;
+          left: 40%;
+          transform: translate(-35%, -30%);
+          opacity: 0;
+          transition: 0.35s ease;
+          z-index: 1;
+          display: flex;
+          .btn-size {
+            color: red;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ccc;
+            margin: 0 10px;
+          }
         }
         .button {
-          cursor: pointer;
           position: absolute;
           width: 100%;
           top: 50%;
@@ -94,6 +113,7 @@
           opacity: 0;
           transition: 0.35s ease;
           span {
+            cursor: pointer;
             width: 130px;
             padding: 12px 15px;
             color: #3384fd;

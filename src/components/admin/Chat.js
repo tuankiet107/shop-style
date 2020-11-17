@@ -47,7 +47,7 @@ function Chat() {
     setSelected(index);
     setUserfriend(user);
     setActiveIndex(index);
-    messageRead(index);
+    // messageRead(index);
   }
 
   function sendMessage(e) {
@@ -68,25 +68,25 @@ function Chat() {
     document.getElementById("text-input").value = "";
   }
 
-  const messageRead = (index) => {
-    const docKey = buildDockey(
-      chat[index].users.filter((_usr) => _usr !== userAdmin)[0]
-    );
-    if (clickedChatWhereNotSender(index)) {
-      firebase.firestore().collection("chats").doc(docKey).update({
-        receiverHasRead: true,
-      });
-    } else {
-      console.log("clicked message where not sender");
-    }
-  };
+  // const messageRead = (index) => {
+  //   const docKey = buildDockey(
+  //     chat[index].users.filter((_usr) => _usr !== userAdmin)[0]
+  //   );
+  //   if (clickedChatWhereNotSender(index)) {
+  //     firebase.firestore().collection("chats").doc(docKey).update({
+  //       receiverHasRead: true,
+  //     });
+  //   } else {
+  //     console.log("clicked message where not sender");
+  //   }
+  // };
 
-  const clickedChatWhereNotSender = (chatIndex) =>
-    chat[chatIndex].messages[chat[chatIndex].messages.length - 1].sender !==
-    userAdmin;
+  // const clickedChatWhereNotSender = (chatIndex) =>
+  //   chat[chatIndex].messages[chat[chatIndex].messages.length - 1].sender !==
+  //   userAdmin;
 
-  const userIsSender = (chat) =>
-    chat.messages[chat.messages.length - 1].sender === userFriend;
+  // const userIsSender = (chat) =>
+  //   chat.messages[chat.messages.length - 1].sender === userFriend;
 
   if (chat) {
     let objChat;
@@ -107,11 +107,11 @@ function Chat() {
           onClick={() => selectedChat(user, index)}
         >
           {user}
-          {objChat.receiverHasRead === false && buildDockey(user) ? (
+          {/* {objChat.receiverHasRead === false && buildDockey(user) ? (
             <i className="fas fa-bell"></i>
           ) : (
             ""
-          )}
+          )} */}
         </div>
       );
     });

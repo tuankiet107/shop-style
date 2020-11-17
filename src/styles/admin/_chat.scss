@@ -1,5 +1,5 @@
 .admin-chat-page {
-  margin-left: 254px !important;
+  margin-left: 250px !important;
   padding: 0;
   position: relative;
   .col-left {
@@ -36,11 +36,10 @@
     left: 30%;
     width: 70%;
     .chat-scrollview {
-      height: 100vh;
+      height: 93vh;
       overflow-y: auto;
       .view-chat {
         width: 100%;
-        margin-bottom: 60px;
         .user-admin {
           max-width: 350px;
           padding: 8px 10px;

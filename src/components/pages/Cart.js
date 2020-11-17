@@ -31,7 +31,10 @@ function Cart() {
         </td>
 
         <td className="item">
-          <h3>{product.name}</h3>
+          <div className="header-item">
+            <h3>{product.name}</h3>
+            <div className="size"> size: {product.size}</div>
+          </div>
           {product.priceDiscount ? (
             <p>{ConvertPrice(product.priceDiscount)}</p>
           ) : (

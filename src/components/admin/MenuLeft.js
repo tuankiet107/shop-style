@@ -36,7 +36,7 @@ function MenuLeft() {
   }
 
   return (
-    <Col xl={2} lg={2} md={2} sm={2} className="left">
+    <div className="left">
       <div className="main-header">
         <div className="menu-left">
           <h3>KStore</h3>
@@ -78,7 +78,7 @@ function MenuLeft() {
           )}
         </div>
       </div>
-    </Col>
+    </div>
   );
 }
 
