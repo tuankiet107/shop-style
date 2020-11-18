@@ -91,13 +91,20 @@
   }
 }
 
-.go-top-btn {
+#backToTop {
+  display: none;
+  cursor: pointer;
   position: fixed;
-  bottom: 50px;
+  bottom: 100px;
   right: 30px;
   padding: 12px;
   font-size: 42px;
-  color: #2980b9;
+  color: #2f92d3;
+  border: none;
+  transition: 0.5s all;
+  &:hover {
+    color: #313131;
+  }
 }
 
 .add-product-page {

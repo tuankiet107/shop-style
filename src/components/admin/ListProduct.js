@@ -43,6 +43,29 @@ function ListProduct() {
     });
   }
 
+  window.onscroll = function () {
+    scrollFunction();
+  };
+
+  function scrollFunction() {
+    if (document.getElementById("backToTop")) {
+      if (
+        document.body.scrollTop > 100 ||
+        document.documentElement.scrollTop > 100
+      ) {
+        document.getElementById("backToTop").style.display = "block";
+      } else {
+        document.getElementById("backToTop").style.display = "none";
+      }
+    }
+  }
+
+  // When the user clicks on the button, scroll to the top of the document
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
   function onDelete(value) {
     let storageRef = firebase
       .storage()
@@ -167,7 +190,7 @@ function ListProduct() {
 
         <Col xl={10} lg={10} md={10} sm={10} style={{ marginLeft: "auto" }}>
           {data === null ? (
-            <div className="page-loading">Page is loading...</div>
+            <div className="page-loading">Đang tải...</div>
           ) : (
             <Container fluid className="list-product-page">
               <div className="custome">
@@ -213,9 +236,9 @@ function ListProduct() {
         </Col>
       </Row>
 
-      <a className="go-top-btn" href="#top">
+      <div onClick={topFunction} id="backToTop">
         <i className="fas fa-arrow-up"></i>
-      </a>
+      </div>
     </div>
   );
 }

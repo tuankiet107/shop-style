@@ -162,7 +162,7 @@ function Search() {
       <Header />
 
       {search === undefined ? (
-        <div className="page-loading">Loading...</div>
+        <div className="page-loading">Đang tải...</div>
       ) : (
         <div className="page-products">
           <h2 className="title">

@@ -161,7 +161,7 @@ function Discount() {
       <Header />
 
       {data === undefined ? (
-        <div className="page-loading">Loading...</div>
+        <div className="page-loading">Đang tải...</div>
       ) : (
         <div className="page-products">
           <h2 className="title">Sản phẩm giảm giá</h2>
