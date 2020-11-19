@@ -6,10 +6,14 @@ import removeVietnameseTones from "../features/rmVietnameseTones";
 import MenuLeft from "./MenuLeft";
 
 function ListUser() {
-  let result, history, listSearch;
+  let result,
+    history,
+    listSearch,
+    lists = [];
   const [users, setUsers] = useState([]);
   const [listOrd, setListOrd] = useState([]);
   const [search, setSearch] = useState("");
+  const [type, setType] = useState("all");
 
   useEffect(() => {
     async function getUserFromDB() {
@@ -30,11 +34,6 @@ function ListUser() {
     getUserFromDB();
   }, []);
 
-  function onClickFindOne(e) {
-    e.preventDefault();
-    setSearch("");
-  }
-
   if (users.length > 0) {
     let list = users.filter((info) => {
       return info.email !== "admin@gmail.com";
@@ -54,7 +53,27 @@ function ListUser() {
       }
     });
 
-    result = listSearch.map((user, index) => {
+    listSearch.forEach((item) => {
+      switch (type) {
+        case "all":
+          lists.push(item);
+          break;
+        case "not locked":
+          if (item.status === true) {
+            lists.push(item);
+          }
+          break;
+        case "locked":
+          if (item.status === false) {
+            lists.push(item);
+          }
+          break;
+        default:
+          break;
+      }
+    });
+
+    result = lists.map((user, index) => {
       return (
         <tr key={index}>
           <td>{index + 1}</td>
@@ -120,8 +139,6 @@ function ListUser() {
       });
   }
 
-  console.log("render");
-
   return (
     <Row>
       <MenuLeft />
@@ -130,16 +147,33 @@ function ListUser() {
         <div className="admin-users">
           <h3>Quản lí người dùng</h3>
 
-          <Form onSubmit={onClickFindOne} className="form-search">
-            <Form.Control
-              type="text"
-              value={search}
-              placeholder="Tìm ai đó"
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <Button variant="outline-primary" onClick={onClickFindOne}>
-              Tìm
-            </Button>
+          <Form className="form-action">
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>Tìm ai đó</Form.Label>
+                <Form.Control
+                  className="form-search"
+                  type="text"
+                  value={search}
+                  placeholder="Tìm theo tên"
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group as={Col}>
+                <Form.Label>Sắp xếp</Form.Label>
+                <Form.Control
+                  className="form-sort"
+                  as="select"
+                  defaultValue="all"
+                  onChange={(e) => setType(e.target.value)}
+                >
+                  <option value="all">Tất cả</option>
+                  <option value="not locked">Chưa khóa</option>
+                  <option value="locked">Bị khóa</option>
+                </Form.Control>
+              </Form.Group>
+            </Form.Row>
           </Form>
 
           <Table striped bordered hover>
