@@ -52,6 +52,12 @@ function Header() {
     history.push("/login");
   }
 
+  // When the user clicks on the button, scroll to the bottom of the document
+  function topFunction() {
+    document.body.scrollTo(0, 3000);
+    document.documentElement.scrollTo(0, 3000);
+  }
+
   return (
     <header>
       <Container
@@ -97,10 +103,8 @@ function Header() {
                       Nam
                     </Link>
                   </Nav.Item>
-                  <Nav.Item>
-                    <a href="#contact" className="nav-link">
-                      Liên hệ
-                    </a>
+                  <Nav.Item onClick={topFunction}>
+                    <a className="nav-link contact">Liên hệ</a>
                   </Nav.Item>
                 </Nav>
               </div>
