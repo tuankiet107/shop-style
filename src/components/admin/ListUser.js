@@ -1,12 +1,15 @@
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
-import { Col, Dropdown, ListGroup, Row, Table } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Col, Dropdown, Form, ListGroup, Row, Table } from "react-bootstrap";
+import removeVietnameseTones from "../features/rmVietnameseTones";
 import MenuLeft from "./MenuLeft";
 
 function ListUser() {
-  let result, history;
+  let result, history, listSearch;
   const [users, setUsers] = useState([]);
   const [listOrd, setListOrd] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     async function getUserFromDB() {
@@ -27,6 +30,11 @@ function ListUser() {
     getUserFromDB();
   }, []);
 
+  function onClickFindOne(e) {
+    e.preventDefault();
+    setSearch("");
+  }
+
   if (users.length > 0) {
     let list = users.filter((info) => {
       return info.email !== "admin@gmail.com";
@@ -36,7 +44,17 @@ function ListUser() {
       return b.date - a.date;
     });
 
-    result = list.map((user, index) => {
+    listSearch = list.filter((item) => {
+      if (
+        removeVietnameseTones(item.name.toLowerCase()).includes(
+          removeVietnameseTones(search.toLowerCase())
+        )
+      ) {
+        return item;
+      }
+    });
+
+    result = listSearch.map((user, index) => {
       return (
         <tr key={index}>
           <td>{index + 1}</td>
@@ -102,6 +120,8 @@ function ListUser() {
       });
   }
 
+  console.log("render");
+
   return (
     <Row>
       <MenuLeft />
@@ -109,6 +129,19 @@ function ListUser() {
       <Col xl={11} lg={11} md={11} sm={11} style={{ marginLeft: "auto" }}>
         <div className="admin-users">
           <h3>Quản lí người dùng</h3>
+
+          <Form onSubmit={onClickFindOne} className="form-search">
+            <Form.Control
+              type="text"
+              value={search}
+              placeholder="Tìm ai đó"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <Button variant="outline-primary" onClick={onClickFindOne}>
+              Tìm
+            </Button>
+          </Form>
+
           <Table striped bordered hover>
             <thead>
               <tr>
