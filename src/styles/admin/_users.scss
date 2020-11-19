@@ -3,7 +3,6 @@
   text-align: center;
   .table {
     margin-top: 20px;
-    text-align: center;
     tr {
       td {
         .btn-delete-user {
@@ -25,21 +24,30 @@
     }
   }
   .list-order {
+    width: 400px;
     display: flex;
     position: fixed;
+    flex-wrap: wrap;
     top: 30px;
-    left: 70%;
+    left: 15%;
     .dropdown {
       .dropdown-menu {
-        transform: translate(-800px, 40px) !important;
         table {
           width: 1000px;
+          thead {
+            text-align: center;
+          }
           tbody {
             tr {
               td {
-                img {
-                  width: 60px;
-                  height: 60px;
+                .list-group {
+                  .list-group-item {
+                    flex-grow: 1;
+                    img {
+                      width: 60px;
+                      height: 60px;
+                    }
+                  }
                 }
               }
             }

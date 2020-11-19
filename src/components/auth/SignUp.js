@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase";
@@ -7,15 +7,21 @@ import { useForm } from "react-hook-form";
 
 function SignUp() {
   const [user, setUser] = useState({
-    email: "",
-    name: "",
-    phone: "",
+    email: sessionStorage.getItem("email") || "",
+    name: sessionStorage.getItem("name") || "",
+    phone: sessionStorage.getItem("phone") || "",
     password: "",
     passwordConfirm: "",
     emailExist: null,
   });
   const { handleSubmit, register, errors } = useForm();
   const history = useHistory();
+
+  useEffect(() => {
+    sessionStorage.setItem("email", user.email);
+    sessionStorage.setItem("name", user.name);
+    sessionStorage.setItem("phone", user.phone);
+  }, [user]);
 
   function userTyping(type, e) {
     switch (type) {
@@ -78,6 +84,7 @@ function SignUp() {
                 await localStorage.setItem("user", user.email);
                 await localStorage.setItem("user", user.id);
                 history.push("/");
+                sessionStorage.clear();
               },
               (err) => {
                 console.log(err);
@@ -131,6 +138,7 @@ function SignUp() {
                 </Form.Label>
                 <Form.Control
                   name="name"
+                  value={user.name}
                   type="text"
                   ref={register({ required: true })}
                   onChange={(e) => userTyping("name", e)}
@@ -146,6 +154,7 @@ function SignUp() {
                 </Form.Label>
                 <Form.Control
                   name="phone"
+                  value={user.phone}
                   type="text"
                   ref={register({ required: true })}
                   onChange={(e) => userTyping("phone", e)}
@@ -164,6 +173,7 @@ function SignUp() {
                 </Form.Label>
                 <Form.Control
                   name="email"
+                  value={user.email}
                   type="email"
                   ref={register({
                     required: true,

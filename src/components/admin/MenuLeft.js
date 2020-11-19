@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { RESET_BASKET } from "../../actions/types";

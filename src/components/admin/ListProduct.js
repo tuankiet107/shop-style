@@ -20,7 +20,7 @@ function ListProduct() {
   const [postsPerPage] = useState(8);
 
   useEffect(() => {
-    async function fetchDataFromDB() {
+    function fetchDataFromDB() {
       firebase
         .firestore()
         .collection("products")

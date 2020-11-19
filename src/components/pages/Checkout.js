@@ -13,7 +13,12 @@ function Checkout() {
   const dispatch = useDispatch();
   let idUser;
 
-  const [info_checkout, setInfo_checkout] = useState({});
+  const [info_checkout, setInfo_checkout] = useState({
+    fullName: sessionStorage.getItem("fullName") || "",
+    phone: sessionStorage.getItem("phone") || "",
+    address: sessionStorage.getItem("address") || "",
+    note: sessionStorage.getItem("note") || "",
+  });
   const [data, setData_DB] = useState();
   const { register, handleSubmit, errors } = useForm();
 
@@ -34,6 +39,13 @@ function Checkout() {
     fetDataFromDB();
   }, []);
 
+  useEffect(() => {
+    sessionStorage.setItem("fullName", info_checkout.fullName);
+    sessionStorage.setItem("phone", info_checkout.phone);
+    sessionStorage.setItem("address", info_checkout.address);
+    sessionStorage.setItem("note", info_checkout.note);
+  }, [info_checkout]);
+
   async function onClickSubmit() {
     let id = "";
     let characters =
@@ -51,7 +63,7 @@ function Checkout() {
         .doc("orders")
         .update({
           [id]: {
-            fullName: info_checkout.fullname,
+            fullName: info_checkout.fullName,
             id: idUser,
             phone: info_checkout.phone,
             address: info_checkout.address,
@@ -78,6 +90,8 @@ function Checkout() {
       dispatch({
         type: RESET_BASKET,
       });
+
+      sessionStorage.clear();
     }
   }
 
@@ -96,7 +110,7 @@ function Checkout() {
             .doc("veTsDR2nMSiv3ldp7J0F")
             .update({
               [`products.${item3.id}`]: {
-                ...item3,
+                ...data[item4],
                 quantity: data[item4].quantity - item3.quantity,
               },
             });
@@ -116,18 +130,19 @@ function Checkout() {
         <Form>
           <Row>
             <Col>
-              {errors.fullname && (
+              {errors.fullName && (
                 <span style={{ color: "red" }}>* Bắt buộc</span>
               )}
               <Form.Control
                 type="text"
                 placeholder="Họ và tên"
-                name="fullname"
+                name="fullName"
+                value={info_checkout.fullName}
                 ref={register({ required: true })}
                 onChange={(e) =>
                   setInfo_checkout({
                     ...info_checkout,
-                    fullname: e.target.value,
+                    fullName: e.target.value,
                   })
                 }
               />
@@ -139,6 +154,7 @@ function Checkout() {
               <Form.Control
                 type="text"
                 name="phone"
+                value={info_checkout.phone}
                 placeholder="Số điện thoại"
                 ref={register({ required: true })}
                 onChange={(e) =>
@@ -156,6 +172,7 @@ function Checkout() {
                 type="text"
                 placeholder="Địa chỉ"
                 name="address"
+                value={info_checkout.address}
                 ref={register({ required: true })}
                 onChange={(e) =>
                   setInfo_checkout({
@@ -173,6 +190,7 @@ function Checkout() {
                 type="text"
                 rows={3}
                 name="note"
+                value={info_checkout.note}
                 placeholder="Ghi chú"
                 onChange={(e) =>
                   setInfo_checkout({

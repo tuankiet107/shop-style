@@ -89,9 +89,9 @@ function Chat() {
   //   chat.messages[chat.messages.length - 1].sender === userFriend;
 
   if (chat) {
-    let objChat;
+    // let objChat;
     let tempUser = chat.map((info) => {
-      objChat = info;
+      // objChat = info;
       return info.users.filter((_usr) => {
         return _usr !== userAdmin;
       })[0];

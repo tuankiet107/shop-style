@@ -52,7 +52,6 @@ function Login() {
                     temp[item].email === value.email &&
                     temp[item].status === false
                   ) {
-                    console.log(temp[item].email);
                     alert("Tài khoản bị vô hiệu hóa.");
                     return;
                   } else if (

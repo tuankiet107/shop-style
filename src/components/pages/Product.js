@@ -8,7 +8,6 @@ import Header from "../views/Header";
 function Details({ location }) {
   const [size, setSize] = useState("S");
   let sizes = ["S", "M", "L", "XL"];
-  let select, options;
   const dispatch = useDispatch();
   const product = location.state;
 
@@ -48,15 +47,13 @@ function Details({ location }) {
                 onChange={(e) => setSize(e.target.value)}
               >
                 <Form.Control as="select" size="lg">
-                  {
-                    (options = sizes.map((size, index) => {
-                      return (
-                        <option key={index} value={size}>
-                          {size}
-                        </option>
-                      );
-                    }))
-                  }
+                  {sizes.map((size, index) => {
+                    return (
+                      <option key={index} value={size}>
+                        {size}
+                      </option>
+                    );
+                  })}
                 </Form.Control>
               </Form.Group>
             </div>

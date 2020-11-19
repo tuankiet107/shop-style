@@ -1,6 +1,6 @@
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";

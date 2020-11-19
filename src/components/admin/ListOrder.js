@@ -122,6 +122,7 @@ function ListOrder() {
                     <tr>
                       <th>STT</th>
                       <th>Hình ảnh</th>
+                      <th>Size</th>
                       <th>Tên sản phẩm</th>
                       <th>Số lượng</th>
                       <th>Giá</th>
@@ -139,6 +140,7 @@ function ListOrder() {
                               style={{ width: "60px", height: "60px" }}
                             />
                           </td>
+                          <td>{item2.size}</td>
                           <td>{item2.name}</td>
                           <td>{item2.quantity}</td>
                           <td>{ConvertPrice(item2.price * item2.quantity)}</td>
