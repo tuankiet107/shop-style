@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Dropdown, Form, Row, Table } from "react-bootstrap";
 import MenuLeft from "./MenuLeft";
 import ConvertPrice from "../../routes/ConvertPrice";
+import ConvertDate from "../features/ConvertDate";
 
 function ListOrder() {
   const [order, setOrder] = useState();
@@ -82,14 +83,7 @@ function ListOrder() {
     });
 
     result = listOrder.map((item, index) => {
-      let dateObj = new Date(item.orderDate.seconds * 1000);
-      let month = dateObj.getMonth() + 1;
-      let year = dateObj.getFullYear();
-      let day = dateObj.getDate();
-      let hour = dateObj.getHours();
-      let minutes = dateObj.getMinutes();
-      let seconds = dateObj.getSeconds();
-
+      let obj = ConvertDate(item);
       return (
         <tr key={index}>
           <td>{index + 1}</td>
@@ -98,7 +92,8 @@ function ListOrder() {
           <td>{item.address}</td>
           <td>{item.phone}</td>
           <td>
-            {year}/{day}/{month} {hour}:{minutes}:{seconds}
+            {obj.year}/{obj.day}/{obj.month} {obj.hour}:{obj.minutes}:
+            {obj.seconds}
           </td>
           <td>{ConvertPrice(item.totals)}</td>
           <td>{item.note}</td>

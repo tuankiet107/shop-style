@@ -43,7 +43,7 @@ function Search() {
     getProductsFromDB();
   }, []);
 
-  function onAddToCart(product) {
+  async function onAddToCart(product) {
     if (localStorage.getItem("user")) {
       const Toast = Swal.mixin({
         toast: true,
@@ -57,10 +57,11 @@ function Search() {
       });
       dispatch({ type: ADD_PRODUCT_BASKET, payload: product, size: size });
     } else {
-      Swal.fire({
+      await Swal.fire({
         title: "warning",
         text: "Bạn phải đăng nhập trước.",
       });
+      history.push("/login");
     }
   }
 

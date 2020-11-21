@@ -1,7 +1,7 @@
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import { Col, Dropdown, Form, ListGroup, Row, Table } from "react-bootstrap";
+import ConvertDate from "../features/ConvertDate";
 import removeVietnameseTones from "../features/rmVietnameseTones";
 import MenuLeft from "./MenuLeft";
 
@@ -74,6 +74,7 @@ function ListUser() {
     });
 
     result = lists.map((user, index) => {
+      let item = ConvertDate(user);
       return (
         <tr key={index}>
           <td>{index + 1}</td>
@@ -81,6 +82,10 @@ function ListUser() {
           <td>{user.id}</td>
           <td>{user.email}</td>
           <td>{user.password}</td>
+          <td>
+            {item.year}/{item.day}/{item.month} {item.hour}:{item.minutes}:
+            {item.seconds}
+          </td>
           <td>
             <span
               className="watch-history-ord"
@@ -143,7 +148,7 @@ function ListUser() {
     <Row>
       <MenuLeft />
 
-      <Col xl={11} lg={11} md={11} sm={11} style={{ marginLeft: "auto" }}>
+      <Col xl={12} lg={12} md={12} sm={12} style={{ marginLeft: "auto" }}>
         <div className="admin-users">
           <h3>Quản lí người dùng</h3>
 
@@ -184,6 +189,7 @@ function ListUser() {
                 <th>Id</th>
                 <th>Email</th>
                 <th>Mật khẩu</th>
+                <th>Ngày tạo</th>
                 <th>Lịch sử mua hàng</th>
                 <th>Thao tác</th>
               </tr>
