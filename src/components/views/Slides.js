@@ -10,7 +10,7 @@ function Slides() {
           <Row>
             <Col
               data-aos="fade-out"
-              className="hero_img"
+              className="hero_img col-6"
               xl={6}
               lg={6}
               md={6}
@@ -19,11 +19,11 @@ function Slides() {
               <img src={girl} alt="" />
             </Col>
             <Col
-              className="hero_caption"
-              xl={5}
-              lg={5}
-              md={5}
-              sm={5}
+              className="hero_caption col-6"
+              xl={6}
+              lg={6}
+              md={6}
+              sm={6}
               data-aos="fade-up"
               data-aos-offset="100"
               data-aos-delay="500"

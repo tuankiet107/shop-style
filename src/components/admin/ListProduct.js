@@ -127,7 +127,7 @@ function ListProduct() {
           }
           break;
         default:
-          break;
+          return;
       }
     });
     lengthData = products.length;

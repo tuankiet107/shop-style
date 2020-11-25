@@ -123,6 +123,8 @@ function Search() {
           return a.date - b.date;
         });
         break;
+      default:
+        return products;
     }
 
     result = listResult.map((product) => {

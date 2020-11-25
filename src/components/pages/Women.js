@@ -136,6 +136,8 @@ function Women() {
           return a.date - b.date;
         });
         break;
+      default:
+        return products;
     }
   }
 

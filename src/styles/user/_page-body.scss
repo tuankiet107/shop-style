@@ -60,6 +60,22 @@
   }
   .filter-sort {
     align-items: center;
+    @media screen and (max-width: 768px) {
+      .title {
+        font-size: 20px !important;
+      }
+      .sort-by {
+        padding: 0 !important;
+        .form-group {
+          display: block !important;
+          padding-left: 0 !important;
+          .form-control {
+            min-width: 100px !important;
+            padding: 0 !important;
+          }
+        }
+      }
+    }
     .title {
       font-family: "initial", monospace;
       width: 100%;

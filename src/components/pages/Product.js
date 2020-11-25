@@ -95,15 +95,17 @@ function Details({ location }) {
             </div>
           </Col>
           <div className="intro">
-            <h3>Giới thiệu</h3>
+            <h3>Thông tin sản phẩm</h3>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged.
+              <span className="name">{product.name}</span> có chất thun nỉ dày
+              dặn chống nắng hiệu quả và sở hữu túi trong tiện lợi.
             </p>
+            <ul>
+              <li>Chất liệu: Nỉ</li>
+              <li>Form: Basic</li>
+              <li>Màu sắc: Xám, xanh, đỏ, đen</li>
+              <li>Sản xuất: Việt Nam</li>
+            </ul>
           </div>
         </Row>
       </Container>

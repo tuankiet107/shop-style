@@ -11,6 +11,9 @@
       background-color: #c7ecff;
       width: 100%;
       height: 650px;
+      @media screen and (max-width: 768px) {
+        height: 460px;
+      }
       .container {
         height: 100%;
         .row {
@@ -29,6 +32,7 @@
             }
           }
           .hero_caption {
+            margin-bottom: 60px;
             span {
               font-family: "Yellowtail", cursive;
               color: #2577fd;
@@ -90,17 +94,39 @@
               }
             }
           }
-          @media screen and (max-width: 778px) {
+          @media screen and (max-width: 768px) {
             .hero_img {
-              display: none;
+              img {
+                width: 350px;
+                height: 350px;
+              }
             }
             .hero_caption {
-              text-align: center;
               span {
                 font-size: 30px;
               }
               h1 {
                 font-size: 70px;
+              }
+              p {
+                font-size: 18px;
+              }
+            }
+          }
+          @media screen and (max-width: 556px) {
+            .hero_img {
+              img {
+                width: 260px;
+                height: 260px;
+              }
+            }
+            .hero_caption {
+              margin-bottom: 0;
+              span {
+                font-size: 24px;
+              }
+              h1 {
+                font-size: 40px;
               }
               p {
                 font-size: 18px;
@@ -114,7 +140,7 @@
 
   /* DISCOUNT */
   .discount {
-    margin: 100px 0 50px 0;
+    margin: 100px 0 -40px 0;
     .title {
       font: inherit;
       margin-left: 30px;
@@ -153,6 +179,27 @@
           justify-content: center;
           align-items: center;
           outline: none;
+          @media screen and (max-width: 768px) {
+            height: 400px;
+            .image {
+              width: 90% !important;
+              height: 360px;
+              img {
+                height: 360px !important;
+              }
+            }
+            .details {
+              width: 230px !important;
+              flex-direction: column;
+              height: 60px !important;
+              .name {
+                font-size: 18px !important;
+              }
+              .price {
+                font-size: 18px !important;
+              }
+            }
+          }
 
           .image {
             width: 320px;
@@ -163,23 +210,14 @@
 
             img {
               width: 100%;
-              height: 460px !important;
+              height: 460px;
               transition: all 1s ease;
-
-              @media (max-width: 720px) {
-                height: 400px;
-              }
             }
 
             &:hover {
               img {
                 transform: scale(1.08);
               }
-            }
-
-            @media (max-width: 720px) {
-              width: 75% !important;
-              height: 450px;
             }
           }
 
@@ -191,7 +229,7 @@
             align-items: center;
             .name {
               font-size: 24px;
-              text-transform: uppercase;
+              text-transform: capitalize;
             }
             .price {
               font-size: 18px;
@@ -229,30 +267,25 @@
       background-color: rgb(236, 233, 233);
       overflow: hidden;
       @media screen and (max-width: 992px) {
+        height: 400px;
         .row {
           position: relative;
           .col-img {
-            display: none;
+            padding-left: 0;
+            img {
+              height: 380px;
+            }
           }
           .col-intro {
-            position: absolute;
             .intro-product {
-              margin: auto;
-              width: 60% !important;
               h1 {
-                font-size: 45px;
+                font-size: 24px;
               }
               p {
-                font-size: 17px;
+                font-size: 18px !important;
               }
             }
           }
-        }
-      }
-      @media screen and (max-width: 552px) {
-        height: 400px;
-        .col-intro {
-          top: 0;
         }
       }
       .row {

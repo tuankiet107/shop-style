@@ -9,7 +9,7 @@ import ConvertPrice from "../features/ConvertPrice";
 function Discount() {
   let settings = {
     dots: true,
-    autoplay: true,
+    // autoplay: true,
     autoplaySpeed: 3000,
     infinite: true,
     speed: 1000,
@@ -39,7 +39,7 @@ function Discount() {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
           initialSlide: 0,
         },

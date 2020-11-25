@@ -26,6 +26,13 @@
           .item {
             vertical-align: middle;
             padding-left: 20px;
+            @media screen and (max-width: 768px) {
+              .header-item {
+                h3 {
+                  font-size: 20px !important;
+                }
+              }
+            }
             .header-item {
               display: flex;
               h3 {

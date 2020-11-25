@@ -69,7 +69,7 @@ function Checkout() {
             address: info_checkout.address,
             products: basket.products,
             totals: basket.cartCost,
-            orderDate: new Date(),
+            date: new Date(),
             note: info_checkout.note ? info_checkout.note : "",
             status: false,
           },

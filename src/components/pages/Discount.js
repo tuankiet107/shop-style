@@ -90,6 +90,8 @@ function Discount() {
           return a.date - b.date;
         });
         break;
+      default:
+        return products;
     }
   }
 

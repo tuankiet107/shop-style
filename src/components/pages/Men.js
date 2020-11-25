@@ -13,7 +13,7 @@ import Header from "../views/Header";
 function Men() {
   const [data, setData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(12);
+  const [postsPerPage] = useState(8);
   const [size, setSize] = useState("S");
   const [sortBy, setSortBy] = useState("new");
   let sizes = ["S", "M", "L", "XL"];
@@ -136,6 +136,8 @@ function Men() {
           return a.date - b.date;
         });
         break;
+      default:
+        return products;
     }
   }
 
