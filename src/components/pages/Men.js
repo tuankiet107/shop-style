@@ -1,6 +1,6 @@
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -13,8 +13,9 @@ import Header from "../views/Header";
 function Men() {
   const [data, setData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(8);
+  const [postsPerPage] = useState(12);
   const [size, setSize] = useState("S");
+  const [sortBy, setSortBy] = useState("new");
   let sizes = ["S", "M", "L", "XL"];
   const dispatch = useDispatch();
   const history = useHistory();
@@ -93,13 +94,53 @@ function Men() {
       }
     });
     lengthData = products.length;
+
+    products.sort(function (a, b) {
+      return b.date - a.date;
+    });
+
+    switch (sortBy) {
+      case "plus":
+        products.sort(function (a, b) {
+          if (a.priceDiscount) {
+            return a.priceDiscount - b.price;
+          } else if (b.priceDiscount) {
+            return a.price - b.priceDiscount;
+          } else if (a.priceDiscount && b.priceDiscount) {
+            return a.priceDiscount - b.priceDiscount;
+          } else {
+            return a.price - b.price;
+          }
+        });
+        break;
+      case "minus":
+        products.sort(function (a, b) {
+          if (a.priceDiscount && b.priceDiscount) {
+            return b.priceDiscount - a.priceDiscount;
+          } else if (a.priceDiscount && !b.priceDiscount) {
+            return b.price - a.priceDiscount;
+          } else if (!a.priceDiscount && b.priceDiscount) {
+            return b.priceDiscount - a.price;
+          } else {
+            return b.price - a.price;
+          }
+        });
+        break;
+      case "new":
+        products.sort(function (a, b) {
+          return b.date - a.date;
+        });
+        break;
+      case "old":
+        products.sort(function (a, b) {
+          return a.date - b.date;
+        });
+        break;
+    }
   }
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  products.sort(function (a, b) {
-    return b.date - a.date;
-  });
 
   const curentPosts = products.slice(indexOfFirstPost, indexOfLastPost);
 
@@ -169,7 +210,25 @@ function Men() {
         <div className="page-loading">Đang tải...</div>
       ) : (
         <div className="page-products">
-          <h2 className="title">Sản phẩm nam</h2>
+          <div className="filter-sort d-flex justify-content-between">
+            <h2 className="title">Sản phẩm nam ({lengthData})</h2>
+
+            <div className="sort-by">
+              <Form.Group>
+                <Form.Label>Bộ lọc</Form.Label>
+                <Form.Control
+                  as="select"
+                  defaultValue="new"
+                  onChange={(e) => setSortBy(e.target.value)}
+                >
+                  <option value="new">Mới nhất</option>
+                  <option value="old">Cũ nhất</option>
+                  <option value="plus">Giá: Tăng dần</option>
+                  <option value="minus">Giá: Giảm dần</option>
+                </Form.Control>
+              </Form.Group>
+            </div>
+          </div>
 
           <Pagination
             postsPerPage={postsPerPage}

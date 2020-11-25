@@ -84,18 +84,7 @@ function Details({ location }) {
               </Form.Group>
             </div>
 
-            <div
-              onClick={
-                () => onAddToCart(product)
-                // () =>
-                // dispatch({
-                //   type: ADD_PRODUCT_BASKET,
-                //   payload: product,
-                //   size: size,
-                // })
-              }
-              className="btn-add-cart"
-            >
+            <div onClick={() => onAddToCart(product)} className="btn-add-cart">
               Thêm vào giỏ
             </div>
             <div className="product-item-box">

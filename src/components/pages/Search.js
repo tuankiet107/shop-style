@@ -1,6 +1,6 @@
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -15,6 +15,7 @@ function Search() {
   const [search, setSearch] = useState();
   const [products, setProducts] = useState({});
   const [size, setSize] = useState("S");
+  const [sortBy, setSortBy] = useState("new");
   let sizes = ["S", "M", "L", "XL"];
   const dispatch = useDispatch();
   const history = useHistory();
@@ -81,6 +82,49 @@ function Search() {
       return listResult;
     });
 
+    listResult.sort(function (a, b) {
+      return b.date - a.date;
+    });
+
+    switch (sortBy) {
+      case "plus":
+        listResult.sort(function (a, b) {
+          if (a.priceDiscount) {
+            return a.priceDiscount - b.price;
+          } else if (b.priceDiscount) {
+            return a.price - b.priceDiscount;
+          } else if (a.priceDiscount && b.priceDiscount) {
+            return a.priceDiscount - b.priceDiscount;
+          } else {
+            return a.price - b.price;
+          }
+        });
+        break;
+      case "minus":
+        listResult.sort(function (a, b) {
+          if (a.priceDiscount && b.priceDiscount) {
+            return b.priceDiscount - a.priceDiscount;
+          } else if (a.priceDiscount && !b.priceDiscount) {
+            return b.price - a.priceDiscount;
+          } else if (!a.priceDiscount && b.priceDiscount) {
+            return b.priceDiscount - a.price;
+          } else {
+            return b.price - a.price;
+          }
+        });
+        break;
+      case "new":
+        listResult.sort(function (a, b) {
+          return b.date - a.date;
+        });
+        break;
+      case "old":
+        listResult.sort(function (a, b) {
+          return a.date - b.date;
+        });
+        break;
+    }
+
     result = listResult.map((product) => {
       return (
         <Col
@@ -143,9 +187,29 @@ function Search() {
         <div className="page-loading">Đang tải...</div>
       ) : (
         <div className="page-products">
-          <h2 className="title">
-            Kết quả tìm kiếm cho "<span>{location.state.search}"</span>
-          </h2>
+          <div className="filter-sort d-flex justify-content-between">
+            <h2 className="title">
+              Kết quả tìm kiếm cho "<span>{location.state.search}"</span> (
+              {listResult.length})
+            </h2>
+
+            <div className="sort-by">
+              <Form.Group>
+                <Form.Label>Bộ lọc</Form.Label>
+                <Form.Control
+                  as="select"
+                  defaultValue="new"
+                  onChange={(e) => setSortBy(e.target.value)}
+                >
+                  <option value="new">Mới nhất</option>
+                  <option value="old">Cũ nhất</option>
+                  <option value="plus">Giá: Tăng dần</option>
+                  <option value="minus">Giá: Giảm dần</option>
+                </Form.Control>
+              </Form.Group>
+            </div>
+          </div>
+
           <Container fluid>
             <Row>{result}</Row>
           </Container>
