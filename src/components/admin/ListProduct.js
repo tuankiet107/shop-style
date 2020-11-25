@@ -121,6 +121,11 @@ function ListProduct() {
         case item.sex:
           products.push(item);
           break;
+        case "overQty":
+          if (item.quantity === 0) {
+            products.push(item);
+          }
+          break;
         default:
           break;
       }
@@ -198,7 +203,7 @@ function ListProduct() {
                   <i className="fas fa-plus"> Thêm sản phẩm</i>
                 </Link>
                 <Form>
-                  <span>Sắp xếp</span>
+                  <span>Bộ lọc</span>
                   <Form.Control
                     as="select"
                     defaultValue="all"
@@ -208,6 +213,7 @@ function ListProduct() {
                     <option value="men">Nam</option>
                     <option value="women">Nữ</option>
                     <option value="discount">Giảm giá</option>
+                    <option value="overQty">Hết số lượng</option>
                   </Form.Control>
                 </Form>
               </div>
