@@ -2,7 +2,7 @@ import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Dropdown, Form, Row, Table } from "react-bootstrap";
 import MenuLeft from "./MenuLeft";
-import ConvertPrice from "../../routes/ConvertPrice";
+import ConvertPrice from "../features/ConvertPrice";
 import ConvertDate from "../features/ConvertDate";
 
 function ListOrder() {

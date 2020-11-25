@@ -4,7 +4,7 @@ import firebase from "firebase";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import ConvertPrice from "../../routes/ConvertPrice";
+import ConvertPrice from "../features/ConvertPrice";
 
 function Discount() {
   let settings = {

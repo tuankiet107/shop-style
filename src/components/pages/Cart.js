@@ -8,7 +8,7 @@ import {
 } from "../../actions/types";
 import Header from "../views/Header";
 import Footer from "../views/Footer";
-import ConvertPrice from "../../routes/ConvertPrice";
+import ConvertPrice from "../features/ConvertPrice";
 
 function Cart() {
   let productsInCart = [];

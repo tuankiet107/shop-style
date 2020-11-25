@@ -20,7 +20,7 @@ import UpdateProduct from "./components/admin/UpdateProduct";
 import ListOrder from "./components/admin/ListOrder";
 import ListUser from "./components/admin/ListUser";
 import Chat from "./components/admin/Chat";
-import PrivateRoutes from "./routes/PrivateRoute";
+import PrivateRoutes from "./components/features/PrivateRoute";
 
 function App() {
   return (

@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
 import Footer from "../views/Footer";
 import Header from "../views/Header";
-import ConvertPrice from "../../routes/ConvertPrice";
+import ConvertPrice from "../features/ConvertPrice";
 import removeVietnameseTones from "../features/rmVietnameseTones";
 
 function Search() {

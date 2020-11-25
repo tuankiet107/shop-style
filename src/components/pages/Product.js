@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
-import ConvertPrice from "../../routes/ConvertPrice";
+import ConvertPrice from "../features/ConvertPrice";
 import Header from "../views/Header";
 import Footer from "../views/Footer";
 import Swal from "sweetalert2";

@@ -13,7 +13,7 @@ import { Link, useHistory } from "react-router-dom";
 import MenuLeft from "./MenuLeft";
 import Swal from "sweetalert2";
 
-import ConvertPrice from "../../routes/ConvertPrice";
+import ConvertPrice from "../features/ConvertPrice";
 
 function UpdateProduct(props) {
   const history = useHistory();

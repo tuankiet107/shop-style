@@ -6,7 +6,7 @@ import firebase from "firebase";
 import MenuLeft from "./MenuLeft";
 import Swal from "sweetalert2";
 
-import ConvertPrice from "../../routes/ConvertPrice";
+import ConvertPrice from "../features/ConvertPrice";
 import Pagination from "./Pagination";
 
 function ListProduct() {

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
-import ConvertPrice from "../../routes/ConvertPrice";
+import ConvertPrice from "../features/ConvertPrice";
 import Pagination from "../admin/Pagination";
 import Footer from "../views/Footer";
 import Header from "../views/Header";
