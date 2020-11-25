@@ -199,13 +199,7 @@ function ListUser() {
 
           <div className="list-order">
             {listOrd.map((item, index) => {
-              let dateObj = new Date(item.orderDate.seconds * 1000);
-              let month = dateObj.getMonth() + 1;
-              let year = dateObj.getFullYear();
-              let day = dateObj.getDate();
-              let hour = dateObj.getHours();
-              let minutes = dateObj.getMinutes();
-              let seconds = dateObj.getSeconds();
+              let dateObj = ConvertDate(item);
               return (
                 <Dropdown key={index}>
                   <Dropdown.Toggle id="dropdown-basic">
@@ -229,7 +223,8 @@ function ListUser() {
                           <td>{item.fullName}</td>
                           <td>{item.address}</td>
                           <td>
-                            {year}/{day}/{month} {hour}:{minutes}:{seconds}
+                            {dateObj.year}/{dateObj.day}/{dateObj.month}
+                            {dateObj.hour}:{dateObj.minutes}:{dateObj.seconds}
                           </td>
                           <td>{item.note}</td>
                           <td>{item.phone}</td>

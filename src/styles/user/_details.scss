@@ -106,6 +106,20 @@
           }
         }
       }
+      .product-item-box {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        .icon-box-item {
+          display: flex;
+          align-items: center;
+          text-align: center;
+          width: 50%;
+          margin-right: 10px;
+          padding: 12px;
+          background-color: rgba(231, 230, 228, 0.65);
+        }
+      }
     }
     .intro {
       margin-top: 40px;

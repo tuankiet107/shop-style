@@ -2,9 +2,15 @@
   @media screen and (max-width: 576px) {
     .wrapper-chat {
       width: 260px !important;
+      .header-chat {
+        width: 260px !important;
+      }
       .list-chat {
         width: 100%;
         max-width: 260px !important;
+      }
+      .form-chat {
+        width: 260px;
       }
     }
   }
@@ -121,6 +127,7 @@
       left: 0;
       z-index: 99999;
       display: flex;
+      box-shadow: 0px 6px 17px -1px rgba(0, 0, 0, 0.48);
       input {
         width: 100%;
         outline: none;

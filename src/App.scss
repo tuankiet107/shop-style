@@ -1,16 +1,16 @@
-@import "styles/header";
-@import "styles/auth";
-@import "styles/body";
-@import "styles/cartInner";
-@import "styles/footer";
-@import "styles/page-body";
-@import "styles/chat";
+@import "styles/user/header";
+@import "styles/user/auth";
+@import "styles/user/body";
+@import "styles/user/cartInner";
+@import "styles/user/footer";
+@import "styles/user/page-body";
+@import "styles/user/chat";
+@import "styles/user/checkout";
+@import "styles/user/details";
 @import "styles/admin/admin";
 @import "styles/admin/menuLeft";
 @import "styles/admin/order";
-@import "styles/checkout";
 @import "styles/admin/pagination";
-@import "styles/details";
 @import "styles/admin/users";
 @import "styles/admin/chat";
 
@@ -32,6 +32,7 @@ body {
 }
 html {
   scroll-behavior: smooth;
+  -webkit-scroll-behavior: smooth;
 }
 
 ul {

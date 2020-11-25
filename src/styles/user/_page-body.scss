@@ -32,6 +32,30 @@
           font-size: 24px !important;
           left: 12% !important;
         }
+        .sizes {
+          width: 160px;
+          top: 200px !important;
+          left: 38% !important;
+          .btn-size {
+            width: 30px;
+            height: 10px;
+            font-size: 16px;
+            margin: 0 !important;
+          }
+        }
+        .button {
+          top: 150px !important;
+        }
+        &:hover {
+          .button {
+            top: 100px !important;
+            opacity: 1;
+          }
+          .sizes {
+            top: 180px !important;
+            opacity: 1;
+          }
+        }
       }
     }
   }
@@ -93,7 +117,8 @@
           left: 40%;
           transform: translate(-35%, -30%);
           opacity: 0;
-          transition: 0.35s ease;
+          transition: 0.35s ease ease-in-out;
+          -webkit-transition: 0.35s ease ease-in-out;
           z-index: 1;
           display: flex;
           .btn-size {

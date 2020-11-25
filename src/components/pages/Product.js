@@ -4,12 +4,38 @@ import { useDispatch } from "react-redux";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
 import ConvertPrice from "../../routes/ConvertPrice";
 import Header from "../views/Header";
+import Footer from "../views/Footer";
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
 
 function Details({ location }) {
   const [size, setSize] = useState("S");
   let sizes = ["S", "M", "L", "XL"];
   const dispatch = useDispatch();
+  const history = useHistory();
   const product = location.state;
+
+  async function onAddToCart(product) {
+    if (localStorage.getItem("user")) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "center",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Đã thêm vào giỏ hàng.",
+      });
+      dispatch({ type: ADD_PRODUCT_BASKET, payload: product, size: size });
+    } else {
+      await Swal.fire({
+        title: "warning",
+        text: "Bạn phải đăng nhập trước.",
+      });
+      history.push("/login");
+    }
+  }
 
   return (
     <div className="detail-page">
@@ -59,16 +85,24 @@ function Details({ location }) {
             </div>
 
             <div
-              onClick={() =>
-                dispatch({
-                  type: ADD_PRODUCT_BASKET,
-                  payload: product,
-                  size: size,
-                })
+              onClick={
+                () => onAddToCart(product)
+                // () =>
+                // dispatch({
+                //   type: ADD_PRODUCT_BASKET,
+                //   payload: product,
+                //   size: size,
+                // })
               }
               className="btn-add-cart"
             >
               Thêm vào giỏ
+            </div>
+            <div className="product-item-box">
+              <div className="icon-box-item">Bảo hành trong vòng 3 tháng.</div>
+              <div className="icon-box-item">
+                Đổi trả trong 1 tháng với sản phẩm nguyên giá.
+              </div>
             </div>
           </Col>
           <div className="intro">
@@ -84,6 +118,8 @@ function Details({ location }) {
           </div>
         </Row>
       </Container>
+
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   CLEAR_PRODUCT,
   DECREASE_QUANTITY,
@@ -14,10 +14,19 @@ function Cart() {
   let productsInCart = [];
   const basketProps = useSelector((state) => state.basketState);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   basketProps.products.forEach(function (item) {
     productsInCart.push(item);
   });
+
+  function onCheckoutFn() {
+    if (basketProps.products.length >= 1) {
+      history.push("/checkouts");
+    } else {
+      alert("Vui lòng chọn sản phẩm trước khi thanh toán.");
+    }
+  }
 
   productsInCart = productsInCart.map((product, index) => {
     return (
@@ -108,9 +117,9 @@ function Cart() {
             <span>{ConvertPrice(basketProps.cartCost)}</span>
           </div>
 
-          <Link to="/checkouts" className="btn btn-checkout">
+          <button onClick={onCheckoutFn} className="btn btn-checkout">
             Thanh toán
-          </Link>
+          </button>
         </div>
       </div>
 
