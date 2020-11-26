@@ -4,9 +4,11 @@ import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase";
 import Header from "../views/Header";
 import { useForm } from "react-hook-form";
+import RandomId from "../features/RandomId";
 
 function SignUp() {
   const [user, setUser] = useState({
+    id: RandomId() || "",
     email: sessionStorage.getItem("email") || "",
     name: sessionStorage.getItem("name") || "",
     phone: sessionStorage.getItem("phone") || "",
@@ -51,14 +53,6 @@ function SignUp() {
       return;
     }
 
-    let id = "";
-    let characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let charactersLength = characters.length;
-    for (let i = 0; i < 10; i++) {
-      id += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-
     firebase
       .auth()
       .createUserWithEmailAndPassword(user.email, user.password)
@@ -69,14 +63,15 @@ function SignUp() {
             .collection("users")
             .doc("7inkEUK5Q6FdvMEw2K5j")
             .update({
-              [id]: {
+              [user.id]: {
                 email: authUser.user.email,
                 name: user.name,
-                id: id,
+                id: user.id,
                 phone: user.phone,
                 password: user.password,
                 date: new Date(),
                 status: true,
+                role: "guest",
               },
             })
             .then(

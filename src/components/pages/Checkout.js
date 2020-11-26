@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import { RESET_BASKET } from "../../actions/types";
+import RandomId from "../features/RandomId";
 
 function Checkout() {
   const history = useHistory();
@@ -47,13 +48,7 @@ function Checkout() {
   }, [info_checkout]);
 
   async function onClickSubmit() {
-    let id = "";
-    let characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let charactersLength = characters.length;
-    for (let i = 0; i < 10; i++) {
-      id += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
+    let id = RandomId();
 
     if (localStorage.getItem("id")) {
       idUser = localStorage.getItem("id");

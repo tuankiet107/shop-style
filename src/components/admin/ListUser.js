@@ -1,6 +1,7 @@
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { Col, Dropdown, Form, ListGroup, Row, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import ConvertDate from "../features/ConvertDate";
 import removeVietnameseTones from "../features/rmVietnameseTones";
 import MenuLeft from "./MenuLeft";
@@ -68,6 +69,16 @@ function ListUser() {
             lists.push(item);
           }
           break;
+        case "employee":
+          if (item.role === "employee") {
+            lists.push(item);
+          }
+          break;
+        case "guest":
+          if (item.role === "guest") {
+            lists.push(item);
+          }
+          break;
         default:
           break;
       }
@@ -86,6 +97,7 @@ function ListUser() {
             {item.year}/{item.day}/{item.month} {item.hour}:{item.minutes}:
             {item.seconds}
           </td>
+          <td>{user.role === "guest" ? "Khách hàng" : "Nhân viên"}</td>
           <td>
             <span
               className="watch-history-ord"
@@ -148,38 +160,46 @@ function ListUser() {
     <Row>
       <MenuLeft />
 
-      <Col xl={12} lg={12} md={12} sm={12} style={{ marginLeft: "auto" }}>
+      <Col xl={12} lg={12} md={12} sm={12}>
         <div className="admin-users">
           <h3>Quản lí người dùng</h3>
 
-          <Form className="form-action">
-            <Form.Row>
-              <Form.Group as={Col}>
-                <Form.Label>Tìm ai đó</Form.Label>
-                <Form.Control
-                  className="form-search"
-                  type="text"
-                  value={search}
-                  placeholder="Tìm theo tên"
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-              </Form.Group>
+          <div className="custom">
+            <Link to="/add-user" className="btn-add-user">
+              <i className="fas fa-plus"> Thêm tài khoản</i>
+            </Link>
 
-              <Form.Group as={Col}>
-                <Form.Label>Sắp xếp</Form.Label>
-                <Form.Control
-                  className="form-sort"
-                  as="select"
-                  defaultValue="all"
-                  onChange={(e) => setType(e.target.value)}
-                >
-                  <option value="all">Tất cả</option>
-                  <option value="not locked">Chưa khóa</option>
-                  <option value="locked">Bị khóa</option>
-                </Form.Control>
-              </Form.Group>
-            </Form.Row>
-          </Form>
+            <Form className="form-action">
+              <Form.Row>
+                <Form.Group as={Col}>
+                  <Form.Label>Tìm ai đó</Form.Label>
+                  <Form.Control
+                    className="form-search"
+                    type="text"
+                    value={search}
+                    placeholder="Tìm theo tên"
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col}>
+                  <Form.Label>Sắp xếp</Form.Label>
+                  <Form.Control
+                    className="form-sort"
+                    as="select"
+                    defaultValue="all"
+                    onChange={(e) => setType(e.target.value)}
+                  >
+                    <option value="all">Tất cả</option>
+                    <option value="employee">Nhân viên</option>
+                    <option value="guest">Khách hàng</option>
+                    <option value="not locked">Chưa khóa</option>
+                    <option value="locked">Bị khóa</option>
+                  </Form.Control>
+                </Form.Group>
+              </Form.Row>
+            </Form>
+          </div>
 
           <Table striped bordered hover>
             <thead>
@@ -190,6 +210,7 @@ function ListUser() {
                 <th>Email</th>
                 <th>Mật khẩu</th>
                 <th>Ngày tạo</th>
+                <th>Vai trò</th>
                 <th>Lịch sử mua hàng</th>
                 <th>Thao tác</th>
               </tr>
@@ -202,9 +223,7 @@ function ListUser() {
               let dateObj = ConvertDate(item);
               return (
                 <Dropdown key={index}>
-                  <Dropdown.Toggle id="dropdown-basic">
-                    Đơn hàng {index + 1}
-                  </Dropdown.Toggle>
+                  <Dropdown.Toggle>Đơn hàng {index + 1}</Dropdown.Toggle>
 
                   <Dropdown.Menu>
                     <Table striped bordered hover>
