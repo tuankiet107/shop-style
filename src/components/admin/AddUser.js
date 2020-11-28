@@ -77,7 +77,8 @@ function AddUser() {
         } else {
           setUser({
             ...user,
-            createError: "* Ví dụ: example@gmail.com",
+            createError:
+              "Tạo tài khoản không thành công. Vui lòng nhập đầy đủ thông tin",
           });
         }
       });

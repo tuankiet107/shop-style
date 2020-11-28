@@ -20,7 +20,7 @@ function MenuLeft() {
     dispatch({
       type: RESET_BASKET,
     });
-    localStorage.removeItem("user");
+    localStorage.clear();
     history.push("/");
   }
 
@@ -52,6 +52,14 @@ function MenuLeft() {
               <i className="fas fa-pen"></i>
               <li>Đơn hàng</li>
             </Link>
+            {localStorage.getItem("role") === "admin" ? (
+              <Link to="/bar-chart">
+                <i className="fas fa-chart-bar"></i>
+                <li>Thống kê </li>
+              </Link>
+            ) : (
+              ""
+            )}
             <Link to="/list-user">
               <i className="fas fa-users"></i>
               <li>Người dùng</li>
@@ -75,6 +83,10 @@ function MenuLeft() {
           ) : (
             <i className="fas fa-chevron-circle-right"></i>
           )}
+        </div>
+
+        <div className="user-avatar">
+          Xin chào, {localStorage.getItem("user").split("@")[0]}
         </div>
       </div>
     </div>

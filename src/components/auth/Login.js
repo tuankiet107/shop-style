@@ -14,6 +14,7 @@ function Login() {
     password: "",
   });
   const [error, setError] = useState("");
+  const users = [];
 
   const userTyping = (type, e) => {
     switch (type) {
@@ -37,6 +38,7 @@ function Login() {
         () => {
           if (value.email === "admin@gmail.com") {
             localStorage.setItem("user", value.email);
+            localStorage.setItem("role", "admin");
             sessionStorage.removeItem("user");
             history.push("/list-product");
           } else {
@@ -58,10 +60,19 @@ function Login() {
                     temp[item].status === true &&
                     temp[item].email === value.email
                   ) {
-                    await localStorage.setItem("user", value.email);
-                    await localStorage.setItem("id", temp[item].id);
-                    sessionStorage.removeItem("user");
-                    history.push("/");
+                    if (temp[item].role === "employee") {
+                      await localStorage.setItem("user", value.email);
+                      await localStorage.setItem("id", temp[item].id);
+                      await localStorage.setItem("role", temp[item].role);
+                      sessionStorage.removeItem("user");
+                      history.push("/list-product");
+                    } else {
+                      await localStorage.setItem("user", value.email);
+                      await localStorage.setItem("id", temp[item].id);
+                      await localStorage.setItem("role", temp[item].role);
+                      sessionStorage.removeItem("user");
+                      history.push("/");
+                    }
                   }
                 });
               });

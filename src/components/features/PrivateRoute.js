@@ -12,10 +12,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-const admin = "admin@gmail.com";
+// const admin = "admin@gmail.com";
 const isLogin = () => {
   if (localStorage.getItem("user")) {
-    if (localStorage.getItem("user") === admin) {
+    if (
+      localStorage.getItem("role") === "admin" ||
+      localStorage.getItem("role") === "employee"
+    ) {
       return true;
     }
   }

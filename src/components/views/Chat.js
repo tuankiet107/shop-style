@@ -4,6 +4,7 @@ import firebase from "firebase";
 function Chat() {
   const [message, setMessage] = useState();
   const [chat, setChat] = useState();
+  const [employees, setEmployees] = useState([]);
   const welcome = "Xin chào, bạn cần tư vấn gì ?";
   let result;
   const messageEl = useRef(null);
@@ -36,7 +37,28 @@ function Chat() {
     getDataFromFB();
   }, []);
 
+  // useEffect(() => {
+  //   firebase
+  //     .firestore()
+  //     .collection("users")
+  //     .doc("7inkEUK5Q6FdvMEw2K5j")
+  //     .get()
+  //     .then((doc) => {
+  //       let temp = doc.data();
+  //       let list = [];
+  //       Object.keys(temp).forEach((item) => {
+  //         if (temp[item].role === "employee") {
+  //           list.push(temp[item]);
+  //         }
+  //       });
+  //       setEmployees(list);
+  //     });
+  // }, []);
+
   function buildDockey(user) {
+    // const employee = Math.floor(Math.random() * employees.length);
+    // console.log(employees[employee]);
+    // return [employees[employee], user].sort().join(":");
     return ["admin@gmail.com", user].sort().join(":");
   }
 

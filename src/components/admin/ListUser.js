@@ -24,11 +24,11 @@ function ListUser() {
         .doc("7inkEUK5Q6FdvMEw2K5j")
         .onSnapshot(async (doc) => {
           const temp = await doc.data();
-          let lists = [];
+          let listsTemp = [];
           Object.keys(temp).forEach((item) => {
-            lists.push(temp[item]);
+            listsTemp.push(temp[item]);
           });
-          setUsers(lists);
+          setUsers(listsTemp);
         });
     }
 
@@ -36,9 +36,16 @@ function ListUser() {
   }, []);
 
   if (users.length > 0) {
-    let list = users.filter((info) => {
-      return info.email !== "admin@gmail.com";
-    });
+    let list;
+    if (localStorage.getItem("role") === "admin") {
+      list = users.filter((info) => {
+        return info.role !== "admin";
+      });
+    } else if (localStorage.getItem("role") === "employee") {
+      list = users.filter((info) => {
+        return info.role === "guest";
+      });
+    }
 
     list.sort(function (a, b) {
       return b.date - a.date;
@@ -191,8 +198,16 @@ function ListUser() {
                     onChange={(e) => setType(e.target.value)}
                   >
                     <option value="all">Tất cả</option>
-                    <option value="employee">Nhân viên</option>
-                    <option value="guest">Khách hàng</option>
+                    {localStorage.getItem("role") === "employee" ? (
+                      ""
+                    ) : (
+                      <option value="employee">Nhân viên</option>
+                    )}
+                    {localStorage.getItem("role") === "employee" ? (
+                      ""
+                    ) : (
+                      <option value="guest">Khách hàng</option>
+                    )}
                     <option value="not locked">Chưa khóa</option>
                     <option value="locked">Bị khóa</option>
                   </Form.Control>

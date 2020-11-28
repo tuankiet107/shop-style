@@ -40,7 +40,7 @@ function Chat() {
   }, []);
 
   function buildDockey(user) {
-    return ["admin@gmail.com", user].sort().join(":");
+    return [userAdmin, user].sort().join(":");
   }
 
   function selectedChat(user, index) {

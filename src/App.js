@@ -21,6 +21,7 @@ import ListOrder from "./components/admin/ListOrder";
 import ListUser from "./components/admin/ListUser";
 import AddUser from "./components/admin/AddUser";
 import Chat from "./components/admin/Chat";
+import BarChart from "./components/admin/BarChart";
 import PrivateRoutes from "./components/features/PrivateRoute";
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <PrivateRoutes path="/list-user" component={ListUser} />
           <PrivateRoutes path="/list-chat" component={Chat} />
           <PrivateRoutes path="/add-user" component={AddUser} />
+          <PrivateRoutes path="/bar-chart" component={BarChart} />
 
           <Route path="/checkouts" component={Checkout} />
 

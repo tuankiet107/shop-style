@@ -1,0 +1,26 @@
+.page-chart {
+  margin-top: 40px;
+  h3 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .bar-chart {
+    margin-bottom: 40px;
+  }
+  .table-products {
+    text-align: center;
+    tbody {
+      tr {
+        td {
+          vertical-align: middle;
+          img {
+            width: 80px;
+          }
+        }
+        .name {
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+}

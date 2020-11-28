@@ -55,7 +55,7 @@ function Checkout() {
       firebase
         .firestore()
         .collection("orders")
-        .doc("orders")
+        .doc("HoHkP9DFHkPdW04iewmG")
         .update({
           [id]: {
             fullName: info_checkout.fullName,

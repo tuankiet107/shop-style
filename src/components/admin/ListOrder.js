@@ -16,7 +16,7 @@ function ListOrder() {
       firebase
         .firestore()
         .collection("orders")
-        .doc("orders")
+        .doc("HoHkP9DFHkPdW04iewmG")
         .onSnapshot((doc) => {
           setOrder(doc.data());
         });
@@ -31,7 +31,7 @@ function ListOrder() {
           firebase
             .firestore()
             .collection("orders")
-            .doc("orders")
+            .doc("HoHkP9DFHkPdW04iewmG")
             .update({
               [key]: firebase.firestore.FieldValue.delete(),
             });
@@ -48,7 +48,7 @@ function ListOrder() {
           firebase
             .firestore()
             .collection("orders")
-            .doc("orders")
+            .doc("HoHkP9DFHkPdW04iewmG")
             .update({
               [`${itemKey}.status`]: true,
             });

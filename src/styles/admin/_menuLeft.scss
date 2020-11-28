@@ -97,5 +97,11 @@
         }
       }
     }
+    .user-avatar {
+      position: fixed;
+      top: 20px;
+      right: 10px;
+      border-bottom: 1px solid gray;
+    }
   }
 }
