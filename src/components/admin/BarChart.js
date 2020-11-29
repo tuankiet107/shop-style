@@ -12,6 +12,7 @@ function BarChart() {
   let data,
     numbers = [],
     names = [];
+  let date = new Date();
 
   useEffect(() => {
     async function getTopFiveProducts() {
@@ -34,22 +35,13 @@ function BarChart() {
   }, []);
 
   if (products.length > 0) {
-    let month = new Date();
-    let arr = [],
-      listGetQty = [];
+    let arr = [];
     products.forEach((item) => {
-      let obj = ConvertDate(item);
-      if (obj.month === month.getMonth() + 1) {
+      let objDate = ConvertDate(item);
+      if (objDate.month === date.getMonth() + 1) {
         arr.push(...item.products);
       }
     });
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].id) {
-        let totalQty = 0;
-        totalQty += arr[i].quantity;
-        listGetQty.push({ name: arr[i].name, id: arr[i].id, qty: totalQty });
-      }
-    }
 
     function groupBy(objectArray, property) {
       return objectArray.reduce(function (acc, obj) {
@@ -85,7 +77,10 @@ function BarChart() {
       <MenuLeft />
       <Col xl={10} lg={10} md={10} sm={10} style={{ marginLeft: "auto" }}>
         <Container className="page-chart">
-          <h3>Thống kê top 5 sản phẩm bán được nhiều nhất</h3>
+          <h3>
+            Thống kê top 5 sản phẩm bán được nhiều nhất trong tháng
+            {date.getMonth() + 1 + "/" + date.getFullYear()}
+          </h3>
 
           <div className="bar-chart">
             <Bar
@@ -113,6 +108,7 @@ function BarChart() {
             <Table striped bordered hover>
               <thead>
                 <tr>
+                  <th>STT</th>
                   <th>Ảnh</th>
                   <th>Tên sản phẩm</th>
                   <th>Mã</th>
@@ -125,6 +121,7 @@ function BarChart() {
                   ? data.map((product, index) => {
                       return (
                         <tr key={index}>
+                          <td>{index + 1}</td>
                           <td>
                             <img src={product.image} alt="" />
                           </td>

@@ -44,14 +44,24 @@ function MenuLeft() {
               <i className="fas fa-home"></i>
               <li>Cửa hàng</li>
             </Link>
-            <Link to="/list-product">
-              <i className="fas fa-table"></i>
-              <li>Sản phẩm</li>
-            </Link>
-            <Link to="/list-order">
-              <i className="fas fa-pen"></i>
-              <li>Đơn hàng</li>
-            </Link>
+            {localStorage.getItem("role") === "employee1" ||
+            localStorage.getItem("role") === "admin" ? (
+              <Link to="/list-product">
+                <i className="fas fa-table"></i>
+                <li>Sản phẩm</li>
+              </Link>
+            ) : (
+              ""
+            )}
+            {localStorage.getItem("role") === "employee1" ||
+            localStorage.getItem("role") === "admin" ? (
+              <Link to="/list-order">
+                <i className="fas fa-pen"></i>
+                <li>Đơn hàng</li>
+              </Link>
+            ) : (
+              ""
+            )}
             {localStorage.getItem("role") === "admin" ? (
               <Link to="/bar-chart">
                 <i className="fas fa-chart-bar"></i>
@@ -60,14 +70,23 @@ function MenuLeft() {
             ) : (
               ""
             )}
-            <Link to="/list-user">
-              <i className="fas fa-users"></i>
-              <li>Người dùng</li>
-            </Link>
-            <Link to="/list-chat">
-              <i className="fas fa-comment"></i>
-              <li>Tin nhắn</li>
-            </Link>
+            {localStorage.getItem("role") === "employee2" ||
+            localStorage.getItem("role") === "admin" ? (
+              <Link to="/list-user">
+                <i className="fas fa-users"></i>
+                <li>Người dùng</li>
+              </Link>
+            ) : (
+              ""
+            )}
+            {localStorage.getItem("role") === "employee2" ? (
+              <Link to="/list-chat">
+                <i className="fas fa-comment"></i>
+                <li>Tin nhắn</li>
+              </Link>
+            ) : (
+              ""
+            )}
           </ul>
 
           {user ? (

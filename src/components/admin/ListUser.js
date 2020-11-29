@@ -41,7 +41,8 @@ function ListUser() {
       list = users.filter((info) => {
         return info.role !== "admin";
       });
-    } else if (localStorage.getItem("role") === "employee") {
+    }
+    if (localStorage.getItem("role") === "employee2") {
       list = users.filter((info) => {
         return info.role === "guest";
       });
@@ -77,7 +78,7 @@ function ListUser() {
           }
           break;
         case "employee":
-          if (item.role === "employee") {
+          if (item.role === "employee1" || item.role === "employee2") {
             lists.push(item);
           }
           break;
@@ -198,12 +199,12 @@ function ListUser() {
                     onChange={(e) => setType(e.target.value)}
                   >
                     <option value="all">Tất cả</option>
-                    {localStorage.getItem("role") === "employee" ? (
+                    {localStorage.getItem("role") === "employee2" ? (
                       ""
                     ) : (
                       <option value="employee">Nhân viên</option>
                     )}
-                    {localStorage.getItem("role") === "employee" ? (
+                    {localStorage.getItem("role") === "employee2" ? (
                       ""
                     ) : (
                       <option value="guest">Khách hàng</option>

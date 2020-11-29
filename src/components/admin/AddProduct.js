@@ -120,7 +120,7 @@ function AddProduct() {
       <MenuLeft />
       <Col xl={10} lg={10} md={10} sm={10} style={{ marginLeft: "auto" }}>
         <Container className="add-product-page">
-          <h2>Thêm sản phẩm</h2>
+          <h3>Thêm sản phẩm</h3>
           <Form>
             <Form.Row>
               <Col xl={4} lg={4} md={12} sm={12} xs={12} className="form-group">

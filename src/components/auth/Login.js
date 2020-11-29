@@ -13,7 +13,10 @@ function Login() {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState({
+    errEmail: "",
+    errPassword: "",
+  });
   const users = [];
 
   const userTyping = (type, e) => {
@@ -60,12 +63,18 @@ function Login() {
                     temp[item].status === true &&
                     temp[item].email === value.email
                   ) {
-                    if (temp[item].role === "employee") {
+                    if (temp[item].role === "employee1") {
                       await localStorage.setItem("user", value.email);
                       await localStorage.setItem("id", temp[item].id);
                       await localStorage.setItem("role", temp[item].role);
                       sessionStorage.removeItem("user");
                       history.push("/list-product");
+                    } else if (temp[item].role === "employee2") {
+                      await localStorage.setItem("user", value.email);
+                      await localStorage.setItem("id", temp[item].id);
+                      await localStorage.setItem("role", temp[item].role);
+                      sessionStorage.removeItem("user");
+                      history.push("/list-user");
                     } else {
                       await localStorage.setItem("user", value.email);
                       await localStorage.setItem("id", temp[item].id);
@@ -80,7 +89,18 @@ function Login() {
         },
         (err) => {
           console.log(err);
-          setError("Đăng nhập không thành công!");
+          let errCode = err.code.split("/")[1];
+          if (errCode === "user-not-found") {
+            setError({
+              ...error,
+              errEmail: "Email không tìm thấy.",
+            });
+          } else {
+            setError({
+              ...error,
+              errPassword: "Mật khẩu không đúng.",
+            });
+          }
         }
       );
   }
@@ -116,7 +136,16 @@ function Login() {
               </Button>
             </Form>
           </Modal.Body>
-          {error ? <Alert variant="danger">{error}</Alert> : ""}
+          {error.errEmail ? (
+            <Alert variant="danger">{error.errEmail}</Alert>
+          ) : (
+            ""
+          )}
+          {error.errPassword ? (
+            <Alert variant="danger">{error.errPassword}</Alert>
+          ) : (
+            ""
+          )}
           <Modal.Footer>
             <Form.Text className="text-muted">
               Bạn chưa có tài khoản ?

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Form, Button } from "react-bootstrap";
+import { Modal, Form, Button, Alert } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase";
 import Header from "../views/Header";
@@ -15,6 +15,7 @@ function SignUp() {
     password: "",
     passwordConfirm: "",
     emailExist: null,
+    errPassword: null,
   });
   const { handleSubmit, register, errors } = useForm();
   const history = useHistory();
@@ -49,7 +50,7 @@ function SignUp() {
 
   function handleSignup() {
     if (user.password !== user.passwordConfirm) {
-      setUser({ ...user, signupError: "Mật khẩu không trùng khớp!" });
+      setUser({ ...user, errPassword: "Mật khẩu không trùng khớp!" });
       return;
     }
 
@@ -206,6 +207,9 @@ function SignUp() {
                   onChange={(e) => userTyping("passwordConfirm", e)}
                 />
               </Form.Group>
+              {user.errPassword ? (
+                <Alert variant="danger">Mật khẩu không trùng khớp</Alert>
+              ) : null}
 
               <Button variant="primary" onClick={handleSubmit(handleSignup)}>
                 Đăng ký

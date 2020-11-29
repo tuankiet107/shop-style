@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
@@ -9,15 +9,21 @@ import Swal from "sweetalert2";
 
 function AddUser() {
   const [user, setUser] = useState({
-    name: "",
+    name: sessionStorage.getItem("name") || "",
     id: RandomId(),
-    email: "",
+    email: sessionStorage.getItem("email") || "",
     password: "",
-    phone: "",
+    phone: sessionStorage.getItem("phone") || "",
     role: "employee",
     createError: "",
   });
   const history = useHistory();
+
+  useEffect(() => {
+    sessionStorage.setItem("email", user.email);
+    sessionStorage.setItem("name", user.name);
+    sessionStorage.setItem("phone", user.phone);
+  }, [user]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -56,6 +62,7 @@ function AddUser() {
               });
 
               history.push("/list-user");
+              sessionStorage.clear();
               return;
             },
             (err) => {
@@ -97,6 +104,7 @@ function AddUser() {
               <Form.Control
                 type="text"
                 name="name"
+                value={user.name}
                 onChange={(e) => setUser({ ...user, name: e.target.value })}
               />
             </Form.Group>
@@ -106,6 +114,7 @@ function AddUser() {
               <Form.Control
                 type="email"
                 name="email"
+                value={user.email}
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
               />
             </Form.Group>
@@ -124,6 +133,7 @@ function AddUser() {
               <Form.Control
                 type="text"
                 name="phone"
+                value={user.phone}
                 onChange={(e) => setUser({ ...user, phone: e.target.value })}
               />
             </Form.Group>
@@ -135,7 +145,12 @@ function AddUser() {
                 defaultValue={user.role}
                 onChange={(e) => setUser({ ...user, role: e.target.value })}
               >
-                <option value="employee">Nhân viên</option>
+                {localStorage.getItem("role") === "admin" ? (
+                  <option value="employee1">Quản lý kho</option>
+                ) : null}
+                {localStorage.getItem("role") === "admin" ? (
+                  <option value="employee2">Quản lý khách hàng</option>
+                ) : null}
                 <option value="guest">Khách hàng</option>
               </Form.Control>
             </Form.Group>

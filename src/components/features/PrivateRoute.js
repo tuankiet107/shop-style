@@ -17,7 +17,8 @@ const isLogin = () => {
   if (localStorage.getItem("user")) {
     if (
       localStorage.getItem("role") === "admin" ||
-      localStorage.getItem("role") === "employee"
+      localStorage.getItem("role") === "employee1" ||
+      localStorage.getItem("role") === "employee2"
     ) {
       return true;
     }

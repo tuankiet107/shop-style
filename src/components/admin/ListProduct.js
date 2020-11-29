@@ -13,11 +13,13 @@ function ListProduct() {
   const history = useHistory();
   let products = [],
     result,
-    lengthData;
+    lengthData,
+    searchResult;
   const [type, setType] = useState("all");
   const [data, setData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     function fetchDataFromDB() {
@@ -108,7 +110,13 @@ function ListProduct() {
   }
 
   if (data) {
-    data.forEach((item) => {
+    searchResult = data.filter((item) => {
+      if (item.id.toLowerCase().includes(search.toLowerCase())) {
+        return item;
+      }
+    });
+
+    searchResult.forEach((item) => {
       switch (type) {
         case "all":
           products.push(item);
@@ -122,7 +130,7 @@ function ListProduct() {
           products.push(item);
           break;
         case "overQty":
-          if (item.quantity === 0) {
+          if (item.quantity <= 0) {
             products.push(item);
           }
           break;
@@ -202,19 +210,30 @@ function ListProduct() {
                 <Link to="/add-product" className="btn-plus-product">
                   <i className="fas fa-plus"> Thêm sản phẩm</i>
                 </Link>
-                <Form>
-                  <span>Bộ lọc</span>
-                  <Form.Control
-                    as="select"
-                    defaultValue="all"
-                    onChange={selectType}
-                  >
-                    <option value="all">Tất cả</option>
-                    <option value="men">Nam</option>
-                    <option value="women">Nữ</option>
-                    <option value="discount">Giảm giá</option>
-                    <option value="overQty">Hết số lượng</option>
-                  </Form.Control>
+                <Form className="form-action">
+                  <Form.Group as={Col}>
+                    <Form.Label>Tìm sản phẩm</Form.Label>
+                    <Form.Control
+                      className="form-search"
+                      type="text"
+                      placeholder="Tìm theo mã"
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                    <Form.Label>Bộ lọc</Form.Label>
+                    <Form.Control
+                      as="select"
+                      defaultValue="all"
+                      onChange={selectType}
+                    >
+                      <option value="all">Tất cả</option>
+                      <option value="men">Nam</option>
+                      <option value="women">Nữ</option>
+                      <option value="discount">Giảm giá</option>
+                      <option value="overQty">Hết số lượng</option>
+                    </Form.Control>
+                  </Form.Group>
                 </Form>
               </div>
 

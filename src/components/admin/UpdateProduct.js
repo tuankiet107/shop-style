@@ -129,7 +129,7 @@ function UpdateProduct(props) {
 
       <Col xl={10} lg={10} md={10} sm={10} style={{ marginLeft: "auto" }}>
         <Container className="update-product-page">
-          <h1>Sản phẩm đang cập nhật</h1>
+          <h3>Cập nhật sản phẩm</h3>
           <Table bordered style={{ textAlign: "center" }}>
             <thead>
               <tr>

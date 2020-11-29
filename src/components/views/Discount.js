@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import firebase from "firebase";
 
 import "slick-carousel/slick/slick.css";
@@ -48,6 +49,7 @@ function Discount() {
   };
 
   const [data, setData] = useState();
+  const history = useHistory();
   let products = [];
 
   useEffect(() => {
@@ -64,6 +66,14 @@ function Discount() {
 
     getDataFromDB();
   }, []);
+
+  function moreProductFn(product) {
+    history.push({
+      pathname: "/product",
+      search: `?id=${product.id}`,
+      state: product,
+    });
+  }
 
   if (data) {
     Object.keys(data.products).forEach((product) => {
@@ -84,7 +94,9 @@ function Discount() {
           <img alt="" src={product.image} />
         </div>
         <div className="details">
-          <span className="name">{product.name}</span>
+          <span onClick={() => moreProductFn(product)} className="name">
+            {product.name}
+          </span>
           <span className="price">{ConvertPrice(product.price)}</span>
         </div>
       </div>
@@ -94,7 +106,7 @@ function Discount() {
   return (
     <div className="discount">
       <div className="title">
-        <h2>Giảm giá</h2>
+        <h2>Giảm giá mới nhất</h2>
       </div>
       <Slider {...settings}>{result}</Slider>
     </div>

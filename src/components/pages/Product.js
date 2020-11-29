@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
@@ -14,6 +14,12 @@ function Details({ location }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const product = location.state;
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+  }, []);
 
   async function onAddToCart(product) {
     if (localStorage.getItem("user")) {
