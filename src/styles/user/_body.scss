@@ -141,6 +141,13 @@
   /* DISCOUNT */
   .discount {
     margin: 100px 0 -40px 0;
+    @media screen and (max-width: 768px) {
+      .title {
+        h2 {
+          font-size: 24px !important;
+        }
+      }
+    }
     .title {
       font: inherit;
       margin-left: 30px;
@@ -193,10 +200,10 @@
               flex-direction: column;
               height: 60px !important;
               .name {
-                font-size: 18px !important;
+                font-size: 16px !important;
               }
               .price {
-                font-size: 18px !important;
+                font-size: 16px !important;
               }
             }
           }

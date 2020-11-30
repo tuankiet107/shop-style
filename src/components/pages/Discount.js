@@ -113,7 +113,7 @@ function Discount() {
       >
         <span className="dis-percent">-{product.discount}%</span>
         <img alt="" src={product.image} />
-        {product.quantity === 0 ? (
+        {product.quantity <= 0 ? (
           <span className="over-qty">Hết hàng</span>
         ) : (
           ""

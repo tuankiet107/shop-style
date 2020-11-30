@@ -104,6 +104,18 @@
       }
     }
   }
+  .btn-pagination {
+    @media screen and (max-width: 768px) {
+      span {
+        font-size: 18px;
+      }
+      .nav-tabs {
+        .nav-link {
+          padding: 0.3rem 0.8rem !important;
+        }
+      }
+    }
+  }
   .container-fluid {
     text-align: center;
     .row {

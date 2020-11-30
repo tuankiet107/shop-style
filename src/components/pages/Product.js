@@ -61,7 +61,7 @@ function Details({ location }) {
             <div className="product-price">
               {product.priceDiscount ? (
                 <div>
-                  <span>Giá: {ConvertPrice(product.priceDiscount)} </span>
+                  <span>{ConvertPrice(product.priceDiscount)} </span>
                   <span className="price-discount">
                     {ConvertPrice(product.price)}
                   </span>
@@ -72,7 +72,7 @@ function Details({ location }) {
             </div>
 
             <div className="size">
-              <span className="title-size">Chọn size</span>
+              <span className="title-size">Kích thước</span>
               <Form.Group
                 className="list-size"
                 defaultValue={size}

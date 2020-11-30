@@ -191,7 +191,7 @@ function ListUser() {
                 </Form.Group>
 
                 <Form.Group as={Col}>
-                  <Form.Label>Sắp xếp</Form.Label>
+                  <Form.Label>Bộ lọc</Form.Label>
                   <Form.Control
                     className="form-sort"
                     as="select"

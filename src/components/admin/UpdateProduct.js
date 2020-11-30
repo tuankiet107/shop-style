@@ -155,7 +155,7 @@ function UpdateProduct(props) {
                 <td>{productSelected.id}</td>
                 <td>{ConvertPrice(productSelected.price)}</td>
                 <td>{productSelected.quantity}</td>
-                <td>{productSelected.sex}</td>
+                <td>{productSelected.sex === "men" ? "nam" : "nữ"}</td>
                 {productSelected.discount ? (
                   <td>{productSelected.discount} %</td>
                 ) : (

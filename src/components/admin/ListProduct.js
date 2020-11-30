@@ -69,36 +69,38 @@ function ListProduct() {
   }
 
   function onDelete(value) {
-    let storageRef = firebase
-      .storage()
-      .ref()
-      .child("images/" + value.nameStorage);
-    storageRef
-      .delete()
-      .then(async function () {
-        firebase
-          .firestore()
-          .collection("products")
-          .doc("veTsDR2nMSiv3ldp7J0F")
-          .update({
-            [`products.${value.id}`]: firebase.firestore.FieldValue.delete(),
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        let storageRef = firebase
+          .storage()
+          .ref()
+          .child("images/" + value.nameStorage);
+        storageRef
+          .delete()
+          .then(async function () {
+            await firebase
+              .firestore()
+              .collection("products")
+              .doc("veTsDR2nMSiv3ldp7J0F")
+              .update({
+                [`products.${value.id}`]: firebase.firestore.FieldValue.delete(),
+              });
+            window.location.reload(false);
+          })
+          .catch(function (err) {
+            console.log(err);
           });
-
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-        });
-
-        Toast.fire({
-          icon: "success",
-          title: "Đã xóa sản phẩm",
-        });
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
+      }
+    });
   }
 
   function selectType(e) {

@@ -11,6 +11,12 @@
       display: block;
       margin: 20px auto;
     }
+    @media screen and (max-width: 768px) {
+      margin-top: 80px;
+      h1 {
+        font-size: 28px;
+      }
+    }
   }
   .cart_inner {
     table {
@@ -92,6 +98,9 @@
       span {
         color: #506172;
         font-size: 40px;
+        @media screen and (max-width: 768px) {
+          font-size: 24px;
+        }
       }
 
       h3 {
