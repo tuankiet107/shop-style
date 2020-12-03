@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ADD_PRODUCT_BASKET } from "../../actions/types";
 import ConvertPrice from "../features/ConvertPrice";
 import Header from "../views/Header";
@@ -12,6 +12,7 @@ import firebase from "firebase";
 function Details({ location }) {
   const [size, setSize] = useState("S");
   let sizes = ["S", "M", "L", "XL"];
+  const productsBasket = useSelector((state) => state.basketState.products);
   const dispatch = useDispatch();
   const history = useHistory();
   const product = location.state;
@@ -21,25 +22,6 @@ function Details({ location }) {
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 100);
-
-    // async function getQtyStillDB() {
-    //   firebase
-    //     .firestore()
-    //     .collection("products")
-    //     .doc("veTsDR2nMSiv3ldp7J0F")
-    //     .get()
-    //     .then((doc) => {
-    //       let temp = doc.data().products;
-    //       let qty = Object.keys(temp).find((item) => {
-    //         if (temp[item].id === product.id) {
-    //           return temp[item].qty;
-    //         }
-    //       });
-    //       console.log(qty);
-    //     });
-    // }
-
-    // getQtyStillDB();
   }, []);
 
   async function onAddToCart(product) {
@@ -55,6 +37,25 @@ function Details({ location }) {
         title: "Đã thêm vào giỏ hàng.",
       });
       dispatch({ type: ADD_PRODUCT_BASKET, payload: product, size: size });
+      firebase
+        .firestore()
+        .collection("products")
+        .doc("veTsDR2nMSiv3ldp7J0F")
+        .get()
+        .then((doc) => {
+          let temp = doc.data().products;
+          productsBasket.forEach((sp1) => {
+            if (sp1.id === product.id) {
+              Object.keys(temp).forEach((item) => {
+                if (sp1.id === item) {
+                  if (sp1.quantity > temp[item].quantity) {
+                    alert(`Sản phẩm ${product.name} không đủ tồn kho!`);
+                  }
+                }
+              });
+            }
+          });
+        });
     } else {
       await Swal.fire({
         title: "warning",
@@ -77,9 +78,6 @@ function Details({ location }) {
           <Col lg="5" md="5" sm="5" xs="5" id="detail-product">
             <div className="product-title">
               <h1> {product.name} </h1>
-              {/* <div className="qty-still">
-                Số lượng còn lại: {product.quantity}{" "}
-              </div> */}
               <span>Mã sản phẩm: {product.id} </span>
             </div>
             <div className="product-price">

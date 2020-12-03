@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
@@ -30,6 +31,26 @@ function Cart() {
     }
   }
 
+  function onPlusQtyFn(product) {
+    dispatch({ type: INCREASE_QUANTITY, payload: product });
+
+    firebase
+      .firestore()
+      .collection("products")
+      .doc("veTsDR2nMSiv3ldp7J0F")
+      .get()
+      .then((doc) => {
+        let temp = doc.data().products;
+        Object.keys(temp).forEach((item) => {
+          if (product.id === item) {
+            if (product.quantity > temp[item].quantity) {
+              alert(`Sản phẩm ${product.name} không đủ tồn kho!`);
+            }
+          }
+        });
+      });
+  }
+
   function onMinusQtyFn(product) {
     if (product.quantity <= 1) {
       dispatch({ type: CLEAR_PRODUCT, payload: product });
@@ -47,11 +68,7 @@ function Cart() {
     return (
       <tr key={index}>
         <td className="image">
-          <img
-            src={product.image}
-            style={{ width: "100px", height: "100px" }}
-            alt=""
-          />
+          <img src={product.image} style={{ width: "100px" }} alt="" />
         </td>
 
         <td className="item">
@@ -73,9 +90,7 @@ function Cart() {
             <div className="btn-qty">
               <span
                 className="fas fa-plus"
-                onClick={() =>
-                  dispatch({ type: INCREASE_QUANTITY, payload: product })
-                }
+                onClick={() => onPlusQtyFn(product)}
               ></span>
               <span
                 className="fas fa-minus"

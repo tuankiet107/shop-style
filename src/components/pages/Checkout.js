@@ -7,6 +7,7 @@ import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import { RESET_BASKET } from "../../actions/types";
 import RandomId from "../features/RandomId";
+import ConvertPrice from "../features/ConvertPrice";
 
 function Checkout() {
   const history = useHistory();
@@ -22,23 +23,6 @@ function Checkout() {
   });
   const [data, setData_DB] = useState();
   const { register, handleSubmit, errors } = useForm();
-
-  // useEffect(() => {
-  //   async function fetDataFromDB() {
-  //     firebase
-  //       .firestore()
-  //       .collection("products")
-  //       .doc("veTsDR2nMSiv3ldp7J0F")
-  //       .get()
-  //       .then((doc) => {
-  //         setData_DB(doc.data().products);
-  //       })
-  //       .catch(function (error) {
-  //         console.log("Error getting document:", error);
-  //       });
-  //   }
-  //   fetDataFromDB();
-  // }, []);
 
   useEffect(() => {
     sessionStorage.setItem("fullName", info_checkout.fullName);
@@ -97,8 +81,6 @@ function Checkout() {
         timer: 1500,
       });
 
-      // minusQtyProductBought();
-
       history.push("/");
 
       dispatch({
@@ -109,37 +91,20 @@ function Checkout() {
     }
   }
 
-  // function minusQtyProductBought() {
-  //   const products = basket.products.filter((item) => {
-  //     return Object.keys(data).map((item1) => {
-  //       return item.id === data[item1].id;
-  //     });
-  //   });
-  //   products.forEach((item3) => {
-  //     Object.keys(data).forEach((item4) => {
-  //       if (item3.id === data[item4].id) {
-  //         firebase
-  //           .firestore()
-  //           .collection("products")
-  //           .doc("veTsDR2nMSiv3ldp7J0F")
-  //           .update({
-  //             [`products.${item3.id}`]: {
-  //               ...data[item4],
-  //               quantity: data[item4].quantity - item3.quantity,
-  //             },
-  //           });
-  //       }
-  //     });
-  //   });
-  // }
+  function onShowProductList() {
+    let sidebar = document.getElementById("sidebar-products");
+    sidebar.classList.toggle("show-sidebar");
+  }
 
   return (
-    <div>
+    <div className="wrap">
       <div className="checkouts">
-        {errors && (
-          <Alert variant="danger">Bạn phải nhập đầy đủ thông tin</Alert>
-        )}
         <h3>KStore</h3>
+        <div className="show-cart-mini" onClick={onShowProductList}>
+          <i class="fas fa-shopping-cart">
+            <span class="badge">Hiển thị thông tin đơn hàng </span>
+          </i>
+        </div>
         <h5>Thông tin đơn hàng</h5>
         <Form>
           <Row>
@@ -198,6 +163,9 @@ function Checkout() {
               />
             </Col>
           </Row>
+          {errors && (
+            <Alert variant="danger">Bạn phải nhập đầy đủ thông tin</Alert>
+          )}
           <Row>
             <Col>
               <button onClick={handleSubmit(onClickSubmit)}>
@@ -210,6 +178,43 @@ function Checkout() {
         <Link to="/cart" className="btn-back">
           <i className="fas fa-chevron-left"></i>Giỏ hàng
         </Link>
+      </div>
+
+      <div className="sidebar" id="sidebar-products">
+        <div className="sidebar-content">
+          <div className="order-summary-sections">
+            <div className="order-summary-section-product-list">
+              <table>
+                <thead></thead>
+                <tbody>
+                  {basket.products.map((product, index) => {
+                    return (
+                      <tr key={index}>
+                        <td className="product-image">
+                          <img src={product.image} alt="" />
+                          <span>{product.quantity}</span>
+                        </td>
+                        <td className="product-description">
+                          <span>{product.name}</span>
+                          <span className="size-small">
+                            Size: {product.size}
+                          </span>
+                        </td>
+                        <td className="product-price">
+                          {ConvertPrice(product.price)}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <div className="order-summary-section-total-lines">
+              <span>Tổng cộng: </span>
+              <span>{ConvertPrice(basket.cartCost)}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
