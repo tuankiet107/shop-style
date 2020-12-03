@@ -78,7 +78,9 @@ function SignUp() {
             .then(
               async () => {
                 await localStorage.setItem("user", user.email);
+                await localStorage.setItem("user", user.name);
                 await localStorage.setItem("user", user.id);
+                await localStorage.setItem("role", "guest");
                 history.push("/");
                 sessionStorage.clear();
               },

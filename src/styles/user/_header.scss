@@ -37,6 +37,11 @@ header {
       }
       .main-menu {
         float: right;
+        @media screen and (max-width: 1140px) {
+          .nav-link {
+            padding: 30px 14px;
+          }
+        }
         @media screen and (max-width: 992px) {
           float: none;
         }
@@ -70,16 +75,27 @@ header {
         display: flex;
         align-items: center;
         float: right;
+        button {
+          margin-right: 20px;
+        }
+        @media screen and (max-width: 1140px) {
+          form {
+            input {
+              width: 180px;
+            }
+          }
+        }
         @media screen and (max-width: 992px) {
           float: none;
-        }
-        @media screen and (max-width: 568px) {
           flex-direction: column;
           align-items: baseline;
           form {
             input {
               width: 220px;
             }
+          }
+          .name-account {
+            margin-left: 150px;
           }
         }
 

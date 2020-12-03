@@ -4,7 +4,6 @@ import firebase from "firebase";
 function Chat() {
   const [message, setMessage] = useState();
   const [chat, setChat] = useState();
-  const [employees, setEmployees] = useState([]);
   const welcome = "Xin chào, bạn cần tư vấn gì ?";
   let result;
   const messageEl = useRef(null);

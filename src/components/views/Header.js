@@ -13,6 +13,7 @@ function Header() {
   const [user, setUser] = useState("");
   const [search, setSearch] = useState("");
   const [refresh, setRefresh] = useState(0);
+  let name = localStorage.getItem("name");
 
   useEffect(() => {
     async function fetchDataFromForm() {
@@ -109,7 +110,7 @@ function Header() {
                 </Nav>
               </div>
 
-              <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div className="col-xl-7 col-lg-7 col-md-12 col-sm-12">
                 <div className="fix-card">
                   <form onSubmit={handleSubmitFromSearch}>
                     <input
@@ -141,6 +142,10 @@ function Header() {
                       LogIn
                     </button>
                   )}
+
+                  {name ? (
+                    <div className="name-account">Xin chào, {name}</div>
+                  ) : null}
                 </div>
               </div>
             </Navbar.Collapse>

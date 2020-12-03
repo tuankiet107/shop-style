@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
   CLEAR_PRODUCT,
   DECREASE_QUANTITY,
   INCREASE_QUANTITY,
+  WRITE_QUANTITY,
 } from "../../actions/types";
 import Header from "../views/Header";
 import Footer from "../views/Footer";
@@ -15,6 +16,7 @@ function Cart() {
   const basketProps = useSelector((state) => state.basketState);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [qtyInput, setQtyInput] = useState();
 
   basketProps.products.forEach(function (item) {
     productsInCart.push(item);
@@ -27,6 +29,19 @@ function Cart() {
       alert("Vui lòng chọn sản phẩm trước khi thanh toán.");
     }
   }
+
+  function onMinusQtyFn(product) {
+    if (product.quantity <= 1) {
+      dispatch({ type: CLEAR_PRODUCT, payload: product });
+    } else {
+      dispatch({ type: DECREASE_QUANTITY, payload: product });
+    }
+  }
+
+  // function handleChangeQty(e, product) {
+  //   setQtyInput(e.target.value);
+  //   dispatch({ type: WRITE_QUANTITY, payload: product, quantity: qtyInput });
+  // }
 
   productsInCart = productsInCart.map((product, index) => {
     return (
@@ -51,6 +66,10 @@ function Cart() {
           )}
           <div className="qty-parent">
             <span>{product.quantity}</span>
+            {/* <input
+              type="number"
+              onChange={(e) => handleChangeQty(e, product)}
+            /> */}
             <div className="btn-qty">
               <span
                 className="fas fa-plus"
@@ -60,9 +79,7 @@ function Cart() {
               ></span>
               <span
                 className="fas fa-minus"
-                onClick={() =>
-                  dispatch({ type: DECREASE_QUANTITY, payload: product })
-                }
+                onClick={() => onMinusQtyFn(product)}
               ></span>
             </div>
           </div>

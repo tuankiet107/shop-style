@@ -17,7 +17,6 @@ function Login() {
     errEmail: "",
     errPassword: "",
   });
-  const users = [];
 
   const userTyping = (type, e) => {
     switch (type) {
@@ -77,9 +76,10 @@ function Login() {
                       history.push("/list-user");
                     } else {
                       await localStorage.setItem("user", value.email);
+                      await localStorage.setItem("name", temp[item].name);
                       await localStorage.setItem("id", temp[item].id);
                       await localStorage.setItem("role", temp[item].role);
-                      sessionStorage.removeItem("user");
+                      sessionStorage.clear();
                       history.push("/");
                     }
                   }

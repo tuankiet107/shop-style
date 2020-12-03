@@ -8,6 +8,7 @@ import ConvertDate from "../features/ConvertDate";
 function ListOrder() {
   const [order, setOrder] = useState();
   const [type, setType] = useState("all");
+  const [data, setData_DB] = useState();
   let listOrder = [],
     result;
 
@@ -22,6 +23,23 @@ function ListOrder() {
         });
     }
     getUserFromDB();
+  }, []);
+
+  useEffect(() => {
+    async function getDataFromDB() {
+      firebase
+        .firestore()
+        .collection("products")
+        .doc("veTsDR2nMSiv3ldp7J0F")
+        .get()
+        .then((doc) => {
+          setData_DB(doc.data().products);
+        })
+        .catch(function (error) {
+          console.log("Error getting document:", error);
+        });
+    }
+    getDataFromDB();
   }, []);
 
   function deleteOrderFn(item) {
@@ -54,7 +72,32 @@ function ListOrder() {
             });
         }
       });
+      minusQtyProductBought(item);
     }
+  }
+
+  function minusQtyProductBought(item) {
+    const products = item.products.filter((product) => {
+      return Object.keys(data).map((item1) => {
+        return product.id === data[item1].id;
+      });
+    });
+    products.forEach((item3) => {
+      Object.keys(data).forEach((item4) => {
+        if (item3.id === data[item4].id) {
+          firebase
+            .firestore()
+            .collection("products")
+            .doc("veTsDR2nMSiv3ldp7J0F")
+            .update({
+              [`products.${item3.id}`]: {
+                ...data[item4],
+                quantity: data[item4].quantity - item3.quantity,
+              },
+            });
+        }
+      });
+    });
   }
 
   if (order) {

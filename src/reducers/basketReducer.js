@@ -4,6 +4,7 @@ import {
   DECREASE_QUANTITY,
   CLEAR_PRODUCT,
   RESET_BASKET,
+  WRITE_QUANTITY,
 } from "../actions/types";
 
 const initialState = {
@@ -134,6 +135,27 @@ export default (state = initialState, action) => {
           products: [...state.products],
         };
       }
+
+    // case WRITE_QUANTITY:
+    //   productSelected = state.products.find(
+    //     (product) => product.id === action.payload.id
+    //   );
+    //   productSelected.quantity = action.quantity;
+    //   if (productSelected.quantity === null) {
+    //     return {
+    //       ...state,
+    //       basketNumbers: state.basketNumbers,
+    //       cartCost: state.cartCost + action.quantity * productSelected.price,
+    //       products: [...state.products],
+    //     };
+    //   } else {
+    //     return {
+    //       ...state,
+    //       basketNumbers: state.basketNumbers + action.quantity,
+    //       cartCost: state.cartCost + action.quantity * productSelected.price,
+    //       products: [...state.products],
+    //     };
+    //   }
 
     case RESET_BASKET:
       return {

@@ -8,7 +8,6 @@ import ConvertPrice from "../features/ConvertPrice";
 
 function BarChart() {
   const [products, setProducts] = useState([]);
-  const [fiveProducts, setFiveProducts] = useState([]);
   let data,
     numbers = [],
     names = [];

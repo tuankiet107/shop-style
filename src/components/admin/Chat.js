@@ -43,9 +43,9 @@ function Chat() {
     return [userAdmin, user].sort().join(":");
   }
 
-  function selectedChat(user, index) {
-    setSelected(index);
-    setUserfriend(user);
+  async function selectedChat(user, index) {
+    await setSelected(index);
+    await setUserfriend(user);
     setActiveIndex(index);
     // messageRead(index);
   }
@@ -89,31 +89,10 @@ function Chat() {
   //   chat.messages[chat.messages.length - 1].sender === userFriend;
 
   if (chat) {
-    // let objChat;
     let tempUser = chat.map((info) => {
-      // objChat = info;
       return info.users.filter((_usr) => {
         return _usr !== userAdmin;
       })[0];
-    });
-
-    listUser = tempUser.map((user, index) => {
-      return (
-        <div
-          key={index}
-          className={
-            active === index ? "view-user active-selected" : "view-user"
-          }
-          onClick={() => selectedChat(user, index)}
-        >
-          {user}
-          {/* {objChat.receiverHasRead === false && buildDockey(user) ? (
-            <i className="fas fa-bell"></i>
-          ) : (
-            ""
-          )} */}
-        </div>
-      );
     });
 
     viewChat = chat.map((info, index1) =>
@@ -131,6 +110,25 @@ function Chat() {
         )
       )
     );
+
+    chat.forEach((_chat) => {
+      listUser = tempUser.map((user, index) => {
+        return (
+          <div
+            key={index}
+            className={
+              active === index ? "view-user active-selected" : "view-user"
+            }
+            onClick={() => selectedChat(user, index)}
+          >
+            {user}
+            {/* {_chat.receiverHasRead === false ? null : (
+              null
+            )} */}
+          </div>
+        );
+      });
+    });
   }
 
   return (

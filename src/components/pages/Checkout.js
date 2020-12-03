@@ -23,22 +23,22 @@ function Checkout() {
   const [data, setData_DB] = useState();
   const { register, handleSubmit, errors } = useForm();
 
-  useEffect(() => {
-    async function fetDataFromDB() {
-      firebase
-        .firestore()
-        .collection("products")
-        .doc("veTsDR2nMSiv3ldp7J0F")
-        .get()
-        .then((doc) => {
-          setData_DB(doc.data().products);
-        })
-        .catch(function (error) {
-          console.log("Error getting document:", error);
-        });
-    }
-    fetDataFromDB();
-  }, []);
+  // useEffect(() => {
+  //   async function fetDataFromDB() {
+  //     firebase
+  //       .firestore()
+  //       .collection("products")
+  //       .doc("veTsDR2nMSiv3ldp7J0F")
+  //       .get()
+  //       .then((doc) => {
+  //         setData_DB(doc.data().products);
+  //       })
+  //       .catch(function (error) {
+  //         console.log("Error getting document:", error);
+  //       });
+  //   }
+  //   fetDataFromDB();
+  // }, []);
 
   useEffect(() => {
     sessionStorage.setItem("fullName", info_checkout.fullName);
@@ -46,6 +46,25 @@ function Checkout() {
     sessionStorage.setItem("address", info_checkout.address);
     sessionStorage.setItem("note", info_checkout.note);
   }, [info_checkout]);
+
+  function handleTyping(type, e) {
+    switch (type) {
+      case "fullName":
+        setInfo_checkout({ ...info_checkout, fullName: e.target.value });
+        break;
+      case "phone":
+        setInfo_checkout({ ...info_checkout, phone: e.target.value });
+        break;
+      case "address":
+        setInfo_checkout({ ...info_checkout, address: e.target.value });
+        break;
+      case "note":
+        setInfo_checkout({ ...info_checkout, note: e.target.value });
+        break;
+      default:
+        break;
+    }
+  }
 
   async function onClickSubmit() {
     let id = RandomId();
@@ -78,7 +97,7 @@ function Checkout() {
         timer: 1500,
       });
 
-      minusQtyProductBought();
+      // minusQtyProductBought();
 
       history.push("/");
 
@@ -90,29 +109,29 @@ function Checkout() {
     }
   }
 
-  function minusQtyProductBought() {
-    const products = basket.products.filter((item) => {
-      return Object.keys(data).map((item1) => {
-        return item.id === data[item1].id;
-      });
-    });
-    products.forEach((item3) => {
-      Object.keys(data).forEach((item4) => {
-        if (item3.id === data[item4].id) {
-          firebase
-            .firestore()
-            .collection("products")
-            .doc("veTsDR2nMSiv3ldp7J0F")
-            .update({
-              [`products.${item3.id}`]: {
-                ...data[item4],
-                quantity: data[item4].quantity - item3.quantity,
-              },
-            });
-        }
-      });
-    });
-  }
+  // function minusQtyProductBought() {
+  //   const products = basket.products.filter((item) => {
+  //     return Object.keys(data).map((item1) => {
+  //       return item.id === data[item1].id;
+  //     });
+  //   });
+  //   products.forEach((item3) => {
+  //     Object.keys(data).forEach((item4) => {
+  //       if (item3.id === data[item4].id) {
+  //         firebase
+  //           .firestore()
+  //           .collection("products")
+  //           .doc("veTsDR2nMSiv3ldp7J0F")
+  //           .update({
+  //             [`products.${item3.id}`]: {
+  //               ...data[item4],
+  //               quantity: data[item4].quantity - item3.quantity,
+  //             },
+  //           });
+  //       }
+  //     });
+  //   });
+  // }
 
   return (
     <div>
@@ -134,12 +153,7 @@ function Checkout() {
                 name="fullName"
                 value={info_checkout.fullName}
                 ref={register({ required: true })}
-                onChange={(e) =>
-                  setInfo_checkout({
-                    ...info_checkout,
-                    fullName: e.target.value,
-                  })
-                }
+                onChange={(e) => handleTyping("fullName", e)}
               />
             </Col>
           </Row>
@@ -152,9 +166,7 @@ function Checkout() {
                 value={info_checkout.phone}
                 placeholder="Số điện thoại"
                 ref={register({ required: true })}
-                onChange={(e) =>
-                  setInfo_checkout({ ...info_checkout, phone: e.target.value })
-                }
+                onChange={(e) => handleTyping("phone", e)}
               />
             </Col>
           </Row>
@@ -169,12 +181,7 @@ function Checkout() {
                 name="address"
                 value={info_checkout.address}
                 ref={register({ required: true })}
-                onChange={(e) =>
-                  setInfo_checkout({
-                    ...info_checkout,
-                    address: e.target.value,
-                  })
-                }
+                onChange={(e) => handleTyping("address", e)}
               />
             </Col>
           </Row>
@@ -187,12 +194,7 @@ function Checkout() {
                 name="note"
                 value={info_checkout.note}
                 placeholder="Ghi chú"
-                onChange={(e) =>
-                  setInfo_checkout({
-                    ...info_checkout,
-                    note: e.target.value,
-                  })
-                }
+                onChange={(e) => handleTyping("note", e)}
               />
             </Col>
           </Row>

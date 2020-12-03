@@ -36,9 +36,16 @@
     }
     #detail-product {
       .product-title {
+        border-bottom: 1px solid #cfcfcf;
+        margin-bottom: 14px;
+        padding-bottom: 7px;
         h1 {
           font-family: "Font Awesome 5 Brands", sans-serif;
           text-transform: capitalize;
+        }
+        .qty-still {
+          color: red;
+          font-size: 25px;
         }
         span {
           color: grey;
@@ -46,11 +53,14 @@
         }
       }
       .product-price {
-        font-size: 28px;
+        font-size: 24px;
         font-weight: bold;
         .price-discount {
           text-decoration: line-through;
           color: #ff003c;
+        }
+        span {
+          color: #4a4a4a;
         }
       }
       .size {
@@ -85,7 +95,7 @@
         background-color: #018dff;
         text-transform: uppercase;
         color: white;
-        font-size: 28px;
+        font-size: 24px;
         text-align: center;
         vertical-align: middle;
         z-index: 1;

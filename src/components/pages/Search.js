@@ -44,6 +44,29 @@ function Search() {
     getProductsFromDB();
   }, []);
 
+  window.onscroll = function () {
+    scrollFunction();
+  };
+
+  function scrollFunction() {
+    if (document.getElementById("backToTop")) {
+      if (
+        document.body.scrollTop > 500 ||
+        document.documentElement.scrollTop > 500
+      ) {
+        document.getElementById("backToTop").style.display = "block";
+      } else {
+        document.getElementById("backToTop").style.display = "none";
+      }
+    }
+  }
+
+  // When the user clicks on the button, scroll to the top of the document
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
   async function onAddToCart(product) {
     if (localStorage.getItem("user")) {
       const Toast = Swal.mixin({
@@ -227,6 +250,9 @@ function Search() {
           </div>
         </div>
       )}
+      <div onClick={topFunction} id="backToTop">
+        <i className="fas fa-arrow-up"></i>
+      </div>
     </div>
   );
 }
