@@ -45,6 +45,7 @@ function Cart() {
           if (product.id === item) {
             if (product.quantity > temp[item].quantity) {
               alert(`Sản phẩm ${product.name} không đủ tồn kho!`);
+              dispatch({ type: DECREASE_QUANTITY, payload: product });
             }
           }
         });

@@ -24,7 +24,9 @@ function BarChart() {
           let temp = doc.data();
           let tempPro = [];
           Object.keys(temp).forEach((item) => {
-            tempPro.push(temp[item]);
+            if (temp[item].status === true) {
+              tempPro.push(temp[item]);
+            }
           });
           setProducts(tempPro);
         });

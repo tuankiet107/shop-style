@@ -14,7 +14,7 @@ function SignUp() {
     phone: sessionStorage.getItem("phone") || "",
     password: "",
     passwordConfirm: "",
-    emailExist: null,
+    errEmail: null,
     errPassword: null,
   });
   const { handleSubmit, register, errors } = useForm();
@@ -49,9 +49,10 @@ function SignUp() {
   }
 
   function handleSignup() {
-    if (user.password !== user.passwordConfirm) {
-      setUser({ ...user, errPassword: "Mật khẩu không trùng khớp!" });
-      return;
+    let x = document.forms["myForm"]["phone"].value;
+    if (isNaN(x)) {
+      alert("Phone phải là số");
+      return false;
     }
 
     firebase
@@ -94,16 +95,22 @@ function SignUp() {
             );
         },
         (authErr) => {
+          console.log(authErr);
           let errCode = authErr.code.split("/")[1];
           if (errCode === "email-already-in-use") {
             setUser({
               ...user,
-              emailExist: "Email đã tồn tại.",
+              errEmail: "Email đã tồn tại.",
             });
-          } else {
+          } else if (errCode === "invalid-email") {
             setUser({
               ...user,
               errEmail: "* Ví dụ: example@gmail.com",
+            });
+          } else if (errCode === "weak-password") {
+            setUser({
+              ...user,
+              errPassword: "Mật khẩu yếu.",
             });
           }
         }
@@ -121,12 +128,7 @@ function SignUp() {
           </Modal.Header>
 
           <Modal.Body>
-            <Form>
-              {user.emailExist !== null ? (
-                <span style={{ color: "red" }}>{user.emailExist}</span>
-              ) : (
-                ""
-              )}
+            <Form name="myForm">
               <Form.Group>
                 <Form.Label>
                   Họ và tên
@@ -142,7 +144,6 @@ function SignUp() {
                   onChange={(e) => userTyping("name", e)}
                 />
               </Form.Group>
-
               <Form.Group>
                 <Form.Label>
                   Phone
@@ -154,11 +155,12 @@ function SignUp() {
                   name="phone"
                   value={user.phone}
                   type="text"
+                  min="8"
+                  max="11"
                   ref={register({ required: true })}
                   onChange={(e) => userTyping("phone", e)}
                 />
               </Form.Group>
-
               <Form.Group>
                 <Form.Label>
                   Email
@@ -179,12 +181,14 @@ function SignUp() {
                   onChange={(e) => userTyping("email", e)}
                 />
               </Form.Group>
-
               <Form.Group>
                 <Form.Label>
                   Mật khẩu
                   {errors.password && (
                     <span style={{ color: "red" }}>* Bắt buộc</span>
+                  )}
+                  {user.errPassword && (
+                    <span style={{ color: "red" }}>{user.errPassword}</span>
                   )}
                 </Form.Label>
                 <Form.Control
@@ -194,25 +198,6 @@ function SignUp() {
                   onChange={(e) => userTyping("password", e)}
                 />
               </Form.Group>
-
-              <Form.Group>
-                <Form.Label>
-                  Xác nhận mật khẩu
-                  {errors.passwordConfirm && (
-                    <span style={{ color: "red" }}>* Bắt buộc</span>
-                  )}
-                </Form.Label>
-                <Form.Control
-                  name="passwordConfirm"
-                  type="password"
-                  ref={register({ required: true })}
-                  onChange={(e) => userTyping("passwordConfirm", e)}
-                />
-              </Form.Group>
-              {user.errPassword ? (
-                <Alert variant="danger">Mật khẩu không trùng khớp</Alert>
-              ) : null}
-
               <Button variant="primary" onClick={handleSubmit(handleSignup)}>
                 Đăng ký
               </Button>

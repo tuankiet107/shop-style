@@ -101,8 +101,8 @@ function Checkout() {
       <div className="checkouts">
         <h3>KStore</h3>
         <div className="show-cart-mini" onClick={onShowProductList}>
-          <i class="fas fa-shopping-cart">
-            <span class="badge">Hiển thị thông tin đơn hàng </span>
+          <i className="fas fa-shopping-cart">
+            <span className="badge">Hiển thị thông tin đơn hàng </span>
           </i>
         </div>
         <h5>Thông tin đơn hàng</h5>
@@ -201,7 +201,9 @@ function Checkout() {
                           </span>
                         </td>
                         <td className="product-price">
-                          {ConvertPrice(product.price)}
+                          {product.priceDiscount
+                            ? ConvertPrice(product.priceDiscount)
+                            : ConvertPrice(product.price)}
                         </td>
                       </tr>
                     );
