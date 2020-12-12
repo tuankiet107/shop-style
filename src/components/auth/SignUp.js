@@ -24,6 +24,7 @@ function SignUp() {
     sessionStorage.setItem("email", user.email);
     sessionStorage.setItem("name", user.name);
     sessionStorage.setItem("phone", user.phone);
+    console.log("useEffect");
   }, [user]);
 
   function userTyping(type, e) {
@@ -155,8 +156,6 @@ function SignUp() {
                   name="phone"
                   value={user.phone}
                   type="text"
-                  min="8"
-                  max="11"
                   ref={register({ required: true })}
                   onChange={(e) => userTyping("phone", e)}
                 />

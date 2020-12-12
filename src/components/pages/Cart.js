@@ -85,7 +85,8 @@ function Cart() {
           <div className="qty-parent">
             <span>{product.quantity}</span>
             {/* <input
-              type="number"
+              type="text"
+              value={product.quantity}
               onChange={(e) => handleChangeQty(e, product)}
             /> */}
             <div className="btn-qty">

@@ -71,11 +71,11 @@ function Details({ location }) {
 
       <Container>
         <Row className="product-detail-wrapper">
-          <Col lg="7" md="7" sm="7" xs="7" id="image-product">
+          <Col lg="7" md="12" sm="12" xs="12" id="image-product">
             <img src={product.image} alt="" />
           </Col>
 
-          <Col lg="5" md="5" sm="5" xs="5" id="detail-product">
+          <Col lg="5" md="12" sm="12" xs="12" id="detail-product">
             <div className="product-title">
               <h1> {product.name} </h1>
               <span>Mã sản phẩm: {product.id} </span>
@@ -94,7 +94,7 @@ function Details({ location }) {
             </div>
 
             <div className="size">
-              <span className="title-size">Kích thước</span>
+              <span className="title-size">Size</span>
               <Form.Group
                 className="list-size"
                 defaultValue={size}
@@ -115,13 +115,13 @@ function Details({ location }) {
             <div onClick={() => onAddToCart(product)} className="btn-add-cart">
               Thêm vào giỏ
             </div>
-            <div className="product-item-box">
-              <div className="icon-box-item">Bảo hành trong vòng 3 tháng.</div>
-              <div className="icon-box-item">
-                Đổi trả trong 1 tháng với sản phẩm nguyên giá.
-              </div>
-            </div>
           </Col>
+          <div className="product-item-box">
+            <div className="icon-box-item">Bảo hành trong vòng 3 tháng.</div>
+            <div className="icon-box-item">
+              Đổi trả trong 1 tháng với sản phẩm nguyên giá.
+            </div>
+          </div>
           <div className="intro">
             <h3>Thông tin sản phẩm</h3>
             <p>

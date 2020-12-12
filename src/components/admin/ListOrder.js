@@ -175,7 +175,7 @@ function ListOrder() {
                             <img
                               src={item2.image}
                               alt=""
-                              style={{ width: "60px", height: "60px" }}
+                              style={{ width: "60px" }}
                             />
                           </td>
                           <td>{item2.size}</td>

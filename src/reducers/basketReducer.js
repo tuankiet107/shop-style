@@ -140,12 +140,13 @@ export default (state = initialState, action) => {
     //   productSelected = state.products.find(
     //     (product) => product.id === action.payload.id
     //   );
-    //   productSelected.quantity = action.quantity;
+    //   console.log(action.quantity);
+    //   productSelected.quantity += action.quantity;
     //   if (productSelected.quantity === null) {
     //     return {
     //       ...state,
     //       basketNumbers: state.basketNumbers,
-    //       cartCost: state.cartCost + action.quantity * productSelected.price,
+    //       cartCost: state.cartCost,
     //       products: [...state.products],
     //     };
     //   } else {
