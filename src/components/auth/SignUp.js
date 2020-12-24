@@ -17,45 +17,93 @@ function SignUp() {
     errEmail: null,
     errPassword: null,
   });
-  const { handleSubmit, register, errors } = useForm();
+  const [errorName, setErrorName] = useState({
+    state: false,
+    message: '',
+  });
+  const [errPwd, setErrPwd] = useState({
+    errPwd: false,
+    message: '',
+  });
+  const [errCFPwd, setErrCFPwd] = useState({
+    state: false,
+    message: '',
+  });
+  const [errEmail, setErrEmail] = useState({
+    state: false,
+    message: '',
+  });
+  const [errPhone, setErrPhone] = useState({
+    state: false,
+    message: '',
+  });
   const history = useHistory();
 
-  useEffect(() => {
-    sessionStorage.setItem("email", user.email);
-    sessionStorage.setItem("name", user.name);
-    sessionStorage.setItem("phone", user.phone);
-    console.log("useEffect");
-  }, [user]);
+  // useEffect(() => {
+    // sessionStorage.setItem("email", user.email);
+    // sessionStorage.setItem("name", user.name);
+    // sessionStorage.setItem("phone", user.phone);
+    // console.log("useEffect");
+  // }, [user]);
+
+  // useEffect(() => {
+  //   setUser({
+  //     ...user,
+  //     email: sessionStorage.getItem("email"),
+  //     name: sessionStorage.getItem("name"),
+  //     phone: sessionStorage.getItem("phone"),
+  //   })
+  // })
 
   function userTyping(type, e) {
-    switch (type) {
-      case "email":
-        setUser({ ...user, email: e.target.value });
-        break;
-      case "name":
-        setUser({ ...user, name: e.target.value });
-        break;
-      case "phone":
-        setUser({ ...user, phone: e.target.value });
-        break;
-      case "password":
-        setUser({ ...user, password: e.target.value });
-        break;
-      case "passwordConfirm":
-        setUser({ ...user, passwordConfirm: e.target.value });
-        break;
-      default:
-        break;
+    setUser({
+      ...user,
+      [type]: e.target.value,
+    });
+    validation();
+  }
+  const setNullState = () => {
+    setErrorName({
+      state: false,
+      message: '',
+    });
+    setErrEmail({
+      state: false,
+      message: '',
+    });
+    setErrPwd({
+      state: false,
+      message: '',
+    });
+    setErrCFPwd({
+      state: false,
+      message: '',
+    });
+    setErrPhone({
+      state: false,
+      message: '',
+    });
+  }
+  const validation = () => {
+    setNullState();
+    const validateState = {
+      email: setErrEmail,
+      name: setErrorName,
+      phone: setErrPhone,
+      password: setErrPwd,
+      passwordConfirm: setErrCFPwd,
+    }
+    for (let field in user){
+      if(user[field] === ''){
+        validateState[field]({
+          state: true,
+          message: '* Bắt buộc'
+        })
+      }
     }
   }
-
   function handleSignup() {
-    let x = document.forms["myForm"]["phone"].value;
-    if (isNaN(x)) {
-      alert("Phone phải là số");
-      return false;
-    }
-
+    validation();
     firebase
       .auth()
       .createUserWithEmailAndPassword(user.email, user.password)
@@ -133,71 +181,59 @@ function SignUp() {
               <Form.Group>
                 <Form.Label>
                   Họ và tên
-                  {errors.name && (
-                    <span style={{ color: "red" }}>* Bắt buộc</span>
+                  {errorName.state && (
+                    <span style={{ color: "red" }}>{errorName.message}</span>
                   )}
                 </Form.Label>
                 <Form.Control
                   name="name"
                   value={user.name}
                   type="text"
-                  ref={register({ required: true })}
                   onChange={(e) => userTyping("name", e)}
                 />
               </Form.Group>
               <Form.Group>
                 <Form.Label>
                   Phone
-                  {errors.phone && (
-                    <span style={{ color: "red" }}>* Bắt buộc</span>
+                  {errPhone.state && (
+                    <span style={{ color: "red" }}>{errPhone.message}</span>
                   )}
                 </Form.Label>
                 <Form.Control
                   name="phone"
                   value={user.phone}
                   type="text"
-                  ref={register({ required: true })}
                   onChange={(e) => userTyping("phone", e)}
                 />
               </Form.Group>
               <Form.Group>
                 <Form.Label>
                   Email
-                  {errors.email && errors.email.type === "required" && (
-                    <span style={{ color: "red" }}>* Bắt buộc</span>
-                  )}
-                  {user && user.errEmail && (
-                    <span style={{ color: "red" }}>{user.errEmail}</span>
+                  {errEmail.state && (
+                    <span style={{ color: "red" }}>{errEmail.message}</span>
                   )}
                 </Form.Label>
                 <Form.Control
                   name="email"
                   value={user.email}
                   type="email"
-                  ref={register({
-                    required: true,
-                  })}
                   onChange={(e) => userTyping("email", e)}
                 />
               </Form.Group>
               <Form.Group>
                 <Form.Label>
                   Mật khẩu
-                  {errors.password && (
-                    <span style={{ color: "red" }}>* Bắt buộc</span>
-                  )}
-                  {user.errPassword && (
-                    <span style={{ color: "red" }}>{user.errPassword}</span>
+                  {errPwd.state && (
+                    <span style={{ color: "red" }}>{errPwd.message}</span>
                   )}
                 </Form.Label>
                 <Form.Control
                   name="password"
                   type="password"
-                  ref={register({ required: true })}
                   onChange={(e) => userTyping("password", e)}
                 />
               </Form.Group>
-              <Button variant="primary" onClick={handleSubmit(handleSignup)}>
+              <Button variant="primary" onClick={handleSignup}>
                 Đăng ký
               </Button>
             </Form>
