@@ -51,11 +51,11 @@ function Checkout() {
   }
 
   async function onClickSubmit() {
-    let x = document.forms["myForm"]["phone"].value;
-    if (isNaN(x)) {
-      alert("Phone phải là số");
-      return false;
-    }
+    // let x = document.forms["myForm"]["phone"].value;
+    // if (isNaN(x)) {
+    //   alert("Phone phải là số");
+    //   return false;
+    // }
 
     let id = RandomId();
 
