@@ -144,7 +144,9 @@ function Header() {
                   )}
 
                   {name ? (
-                    <div className="name-account">Xin chào, {name}</div>
+                    <div className="name-account">
+                      Xin chào, <div> {name} </div>{" "}
+                    </div>
                   ) : null}
                 </div>
               </div>

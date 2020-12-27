@@ -142,9 +142,10 @@ function Chat() {
           </div>
         </div>
         <div className="list-chat">
-          {localStorage.getItem("user") ? (
+          {localStorage.getItem("name") ? (
             <button className="btn-to-chat" onClick={onStartChatUser}>
-              Tiếp tục với vai trò {localStorage.getItem("user").split("@")[0]}
+              Tiếp tục với vai trò{" "}
+              <div> {localStorage.getItem("name").split("@")[0]} </div>
             </button>
           ) : (
             <button className="btn-to-chat" onClick={onStartChatUser}>

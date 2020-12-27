@@ -1,13 +1,14 @@
 import firebase from "firebase";
 import React, { useEffect, useState } from "react";
 import { Alert, Col, Form, Row } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import { RESET_BASKET } from "../../actions/types";
 import RandomId from "../features/RandomId";
 import ConvertPrice from "../features/ConvertPrice";
+import { Button } from "react-bootstrap";
 
 function Checkout() {
   const history = useHistory();
@@ -21,41 +22,94 @@ function Checkout() {
     address: sessionStorage.getItem("address") || "",
     note: sessionStorage.getItem("note") || "",
   });
-  const [data, setData_DB] = useState();
-  const { register, handleSubmit, errors } = useForm();
+  // const { register, handleSubmit, errors } = useForm();
+  const [errFullName, setErrFullName] = useState({
+    state: false,
+    message: "",
+  });
+  const [errPhone, setErrPhone] = useState({
+    state: false,
+    message: "",
+  });
+  const [errAddress, setErrAddress] = useState({
+    state: false,
+    message: "",
+  });
+  const [errNote, setErrNote] = useState({
+    state: false,
+    message: "",
+  });
 
   useEffect(() => {
     sessionStorage.setItem("fullName", info_checkout.fullName);
     sessionStorage.setItem("phone", info_checkout.phone);
     sessionStorage.setItem("address", info_checkout.address);
-    sessionStorage.setItem("note", info_checkout.note);
+    // sessionStorage.setItem("note", info_checkout.note);
   }, [info_checkout]);
 
   function handleTyping(type, e) {
-    switch (type) {
-      case "fullName":
-        setInfo_checkout({ ...info_checkout, fullName: e.target.value });
-        break;
-      case "phone":
-        setInfo_checkout({ ...info_checkout, phone: e.target.value });
-        break;
-      case "address":
-        setInfo_checkout({ ...info_checkout, address: e.target.value });
-        break;
-      case "note":
-        setInfo_checkout({ ...info_checkout, note: e.target.value });
-        break;
-      default:
-        break;
-    }
+    setInfo_checkout({
+      ...info_checkout,
+      [type]: e.target.value,
+    });
+    validation();
   }
+  const setNullState = () => {
+    setErrFullName({
+      state: false,
+      message: "",
+    });
+    setErrPhone({
+      state: false,
+      message: "",
+    });
+    setErrAddress({
+      state: false,
+      message: "",
+    });
+    setErrNote({
+      state: false,
+      message: "",
+    });
+  };
+  const validation = () => {
+    setNullState();
+    const validateState = {
+      fullName: setErrFullName,
+      phone: setErrPhone,
+      address: setErrAddress,
+      note: setErrNote,
+    };
+    for (let field in info_checkout) {
+      if (info_checkout[field] === "") {
+        validateState[field]({
+          state: true,
+          message: "* Bắt buộc",
+        });
+      }
+    }
+  };
 
   async function onClickSubmit() {
+    validation();
     // let x = document.forms["myForm"]["phone"].value;
     // if (isNaN(x)) {
     //   alert("Phone phải là số");
     //   return false;
     // }
+
+    if (info_checkout.fullName === "") {
+      alert("Vui lòng nhập đầy đủ thông tin");
+      return;
+    }
+    if (info_checkout.phone === "") {
+      alert("Vui lòng nhập đầy đủ thông tin");
+      return;
+    }
+    if (info_checkout.address === "") {
+      alert("Vui lòng nhập đầy đủ thông tin");
+      return;
+    }
 
     let id = RandomId();
 
@@ -93,7 +147,7 @@ function Checkout() {
         type: RESET_BASKET,
       });
 
-      sessionStorage.clear();
+      // sessionStorage.clear();
     }
   }
 
@@ -115,7 +169,7 @@ function Checkout() {
         <Form>
           <Row>
             <Col>
-              {errors.fullName && (
+              {errFullName.state && (
                 <span style={{ color: "red" }}>* Bắt buộc</span>
               )}
               <Form.Control
@@ -123,27 +177,27 @@ function Checkout() {
                 placeholder="Họ và tên"
                 name="fullName"
                 value={info_checkout.fullName}
-                ref={register({ required: true })}
                 onChange={(e) => handleTyping("fullName", e)}
               />
             </Col>
           </Row>
           <Row>
             <Col>
-              {errors.phone && <span style={{ color: "red" }}>* Bắt buộc</span>}
+              {errPhone.state && (
+                <span style={{ color: "red" }}>* Bắt buộc</span>
+              )}
               <Form.Control
                 type="text"
                 name="phone"
                 value={info_checkout.phone}
                 placeholder="Số điện thoại"
-                ref={register({ required: true })}
                 onChange={(e) => handleTyping("phone", e)}
               />
             </Col>
           </Row>
           <Row>
             <Col>
-              {errors.address && (
+              {errAddress.state && (
                 <span style={{ color: "red" }}>* Bắt buộc</span>
               )}
               <Form.Control
@@ -151,7 +205,6 @@ function Checkout() {
                 placeholder="Địa chỉ"
                 name="address"
                 value={info_checkout.address}
-                ref={register({ required: true })}
                 onChange={(e) => handleTyping("address", e)}
               />
             </Col>
@@ -169,14 +222,12 @@ function Checkout() {
               />
             </Col>
           </Row>
-          {errors && (
+          {/* { && (
             <Alert variant="danger">Bạn phải nhập đầy đủ thông tin</Alert>
-          )}
+          )} */}
           <Row>
             <Col>
-              <button onClick={handleSubmit(onClickSubmit)}>
-                Hoàn tất đơn hàng
-              </button>
+              <Button onClick={onClickSubmit}>Hoàn tất đơn hàng</Button>
             </Col>
           </Row>
         </Form>

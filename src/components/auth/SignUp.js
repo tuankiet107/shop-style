@@ -3,7 +3,7 @@ import { Modal, Form, Button, Alert } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase";
 import Header from "../views/Header";
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 import RandomId from "../features/RandomId";
 
 function SignUp() {
@@ -13,38 +13,38 @@ function SignUp() {
     name: sessionStorage.getItem("name") || "",
     phone: sessionStorage.getItem("phone") || "",
     password: "",
-    passwordConfirm: "",
-    errEmail: null,
-    errPassword: null,
+    // passwordConfirm: "",
+    // errEmail: null,
+    // errPassword: null,
   });
   const [errorName, setErrorName] = useState({
     state: false,
-    message: '',
+    message: "",
   });
   const [errPwd, setErrPwd] = useState({
     errPwd: false,
-    message: '',
+    message: "",
   });
-  const [errCFPwd, setErrCFPwd] = useState({
-    state: false,
-    message: '',
-  });
+  // const [errCFPwd, setErrCFPwd] = useState({
+  //   state: false,
+  //   message: "",
+  // });
   const [errEmail, setErrEmail] = useState({
     state: false,
-    message: '',
+    message: "",
   });
   const [errPhone, setErrPhone] = useState({
     state: false,
-    message: '',
+    message: "",
   });
   const history = useHistory();
 
-  // useEffect(() => {
-    // sessionStorage.setItem("email", user.email);
-    // sessionStorage.setItem("name", user.name);
-    // sessionStorage.setItem("phone", user.phone);
-    // console.log("useEffect");
-  // }, [user]);
+  useEffect(() => {
+    sessionStorage.setItem("email", user.email);
+    sessionStorage.setItem("name", user.name);
+    sessionStorage.setItem("phone", user.phone);
+    console.log("useEffect");
+  }, [user]);
 
   // useEffect(() => {
   //   setUser({
@@ -65,25 +65,25 @@ function SignUp() {
   const setNullState = () => {
     setErrorName({
       state: false,
-      message: '',
+      message: "",
     });
     setErrEmail({
       state: false,
-      message: '',
+      message: "",
     });
     setErrPwd({
       state: false,
-      message: '',
+      message: "",
     });
-    setErrCFPwd({
-      state: false,
-      message: '',
-    });
+    // setErrCFPwd({
+    //   state: false,
+    //   message: "",
+    // });
     setErrPhone({
       state: false,
-      message: '',
+      message: "",
     });
-  }
+  };
   const validation = () => {
     setNullState();
     const validateState = {
@@ -91,17 +91,17 @@ function SignUp() {
       name: setErrorName,
       phone: setErrPhone,
       password: setErrPwd,
-      passwordConfirm: setErrCFPwd,
-    }
-    for (let field in user){
-      if(user[field] === ''){
+      // passwordConfirm: setErrCFPwd,
+    };
+    for (let field in user) {
+      if (user[field] === "") {
         validateState[field]({
           state: true,
-          message: '* Bắt buộc'
-        })
+          message: "* Bắt buộc",
+        });
       }
     }
-  }
+  };
   function handleSignup() {
     validation();
     firebase
@@ -128,8 +128,8 @@ function SignUp() {
             .then(
               async () => {
                 await localStorage.setItem("user", user.email);
-                await localStorage.setItem("user", user.name);
-                await localStorage.setItem("user", user.id);
+                await localStorage.setItem("name", user.name);
+                await localStorage.setItem("id", user.id);
                 await localStorage.setItem("role", "guest");
                 history.push("/");
                 sessionStorage.clear();
@@ -147,19 +147,19 @@ function SignUp() {
           console.log(authErr);
           let errCode = authErr.code.split("/")[1];
           if (errCode === "email-already-in-use") {
-            setUser({
-              ...user,
-              errEmail: "Email đã tồn tại.",
+            setErrEmail({
+              state: true,
+              message: "Email đã tồn tại.",
             });
           } else if (errCode === "invalid-email") {
-            setUser({
-              ...user,
-              errEmail: "* Ví dụ: example@gmail.com",
+            setErrEmail({
+              state: true,
+              message: "Ví dụ: example@gmail.com",
             });
           } else if (errCode === "weak-password") {
-            setUser({
-              ...user,
-              errPassword: "Mật khẩu yếu.",
+            setErrPwd({
+              state: true,
+              message: "Mật khẩu yếu.",
             });
           }
         }
