@@ -92,11 +92,11 @@ function Checkout() {
 
   async function onClickSubmit() {
     validation();
-    // let x = document.forms["myForm"]["phone"].value;
-    // if (isNaN(x)) {
-    //   alert("Phone phải là số");
-    //   return false;
-    // }
+    let x = document.forms["myForm"]["phone"].value;
+    if (isNaN(x)) {
+      alert("Phone phải là số");
+      return false;
+    }
 
     if (info_checkout.fullName === "") {
       alert("Vui lòng nhập đầy đủ thông tin");
@@ -146,8 +146,6 @@ function Checkout() {
       dispatch({
         type: RESET_BASKET,
       });
-
-      // sessionStorage.clear();
     }
   }
 
@@ -166,7 +164,7 @@ function Checkout() {
           </i>
         </div>
         <h5>Thông tin đơn hàng</h5>
-        <Form>
+        <Form name="myForm">
           <Row>
             <Col>
               {errFullName.state && (

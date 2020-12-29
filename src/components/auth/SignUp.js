@@ -104,6 +104,23 @@ function SignUp() {
   };
   function handleSignup() {
     validation();
+
+    let x = document.forms["myForm"]["phone"].value;
+    if (isNaN(x)) {
+      alert("Phone phải là số");
+      return false;
+    }
+
+    if (user.name === "") {
+      alert("Vui lòng nhập đầy đủ thông tin");
+      return;
+    }
+
+    if (user.phone === "") {
+      alert("Vui lòng nhập đầy đủ thông tin");
+      return;
+    }
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(user.email, user.password)
