@@ -1,4 +1,5 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
+import db from "../../firebase";
 import React, { useState } from "react";
 import {
   Button,
@@ -81,9 +82,7 @@ function AddProduct() {
       function () {
         uploadTask.snapshot.ref.getDownloadURL().then(function (downloadUrl) {
           url = downloadUrl;
-          firebase
-            .firestore()
-            .collection("products")
+          db.collection("products")
             .doc("veTsDR2nMSiv3ldp7J0F")
             .update({
               [`products.${id}`]: { ...data, image: url },

@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import MenuLeft from "./MenuLeft";
 import RandomId from "../features/RandomId";
 import firebase from "firebase";
+import db from "../../firebase";
 import Swal from "sweetalert2";
 
 function AddUser() {
@@ -31,9 +32,7 @@ function AddUser() {
       .auth()
       .createUserWithEmailAndPassword(user.email, user.password)
       .then((authUser) => {
-        firebase
-          .firestore()
-          .collection("users")
+        db.collection("users")
           .doc("7inkEUK5Q6FdvMEw2K5j")
           .update({
             [user.id]: {
